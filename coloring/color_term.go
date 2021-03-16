@@ -10,25 +10,52 @@ const (
 	BEGIN_SEQ = "["
 	END_SEQ   = "m"
 
-	RESET        = "0;"
-	BOLD         = "1;"
-	FAINT        = "2;"
-	ITALIC       = "3;"
-	UNDERLINE    = "4;"
-	BLINK        = "5;"
-	FASTBLINK    = "6;"
-	INVERT       = "7;"
-	CONCEAL      = "8;"
-	STRIKETROUGH = "9;"
+	RESET         = "0;"
+	BOLD          = "1;"
+	FAINT         = "2;"
+	ITALIC        = "3;"
+	UNDERLINE     = "4;"
+	BLINK         = "5;"
+	INVERT        = "7;"
+	CONCEAL       = "8;"
+	STRIKETHROUGH = "9;"
 
-	FG_4B_COLOR_BLACK              = "30;"
-	FG_4B_COLOR_RED                = "31;"
-	FG_4B_COLOR_GREEN              = "32;"
-	FG_4B_COLOR_YELLOW             = "33;"
-	FG_4B_COLOR_BLUE               = "34;"
-	FG_4B_COLOR_MAGENTA            = "35;"
-	FG_4B_COLOR_CYAN               = "36;"
-	FG_4B_COLOR_WHITE              = "37;"
+	NOT_BOLD_NOR_FAINT = "22;"
+	NOT_ITALIC         = "23;"
+	NOT_UNDERLINE      = "24;"
+	NOT_BLINK          = "25;"
+	NOT_INVERT         = "27;"
+	NOT_CONCEAL        = "28;"
+	NOT_STRIKETHROUGH  = "29;"
+
+	FG_4B_COLOR_BLACK   = "30;"
+	FG_4B_COLOR_RED     = "31;"
+	FG_4B_COLOR_GREEN   = "32;"
+	FG_4B_COLOR_YELLOW  = "33;"
+	FG_4B_COLOR_BLUE    = "34;"
+	FG_4B_COLOR_MAGENTA = "35;"
+	FG_4B_COLOR_CYAN    = "36;"
+	FG_4B_COLOR_WHITE   = "37;"
+
+	FG_COLOR_DEFAULT = "39;"
+
+	BG_4B_COLOR_BLACK   = "40;"
+	BG_4B_COLOR_RED     = "41;"
+	BG_4B_COLOR_GREEN   = "42;"
+	BG_4B_COLOR_YELLOW  = "43;"
+	BG_4B_COLOR_BLUE    = "44;"
+	BG_4B_COLOR_MAGENTA = "45;"
+	BG_4B_COLOR_CYAN    = "46;"
+	BG_4B_COLOR_WHITE   = "47;"
+
+	BG_COLOR_DEFAULT = "49;"
+
+	UNDERLINE_COLOR     = "58;"
+	UNDERLINE_COLOR_4B  = UNDERLINE_COLOR + "5;"
+	UNDERLINE_COLOR_RBG = UNDERLINE_COLOR + "2;"
+
+	UNDERLINE_COLOR_DEFAULT = "59;"
+
 	FG_4B_COLOR_BRIGHT_BLACK       = "90;"
 	FG_4B_COLOR_BRIGHT_RED         = "91;"
 	FG_4B_COLOR_BRIGHT_GREEN       = "92;"
@@ -37,15 +64,6 @@ const (
 	FG_4B_COLOR_BRIGHT_MAGENTA     = "95;"
 	FG_4B_COLOR_BRIGHT_BRIGHT_CYAN = "96;"
 	FG_4B_COLOR_BRIGHT_WHITE       = "97;"
-
-	BG_4B_COLOR_BLACK              = "40;"
-	BG_4B_COLOR_RED                = "41;"
-	BG_4B_COLOR_GREEN              = "42;"
-	BG_4B_COLOR_YELLOW             = "43;"
-	BG_4B_COLOR_BLUE               = "44;"
-	BG_4B_COLOR_MAGENTA            = "45;"
-	BG_4B_COLOR_CYAN               = "46;"
-	BG_4B_COLOR_WHITE              = "47;"
 	BG_4B_COLOR_BRIGHT_BLACK       = "100;"
 	BG_4B_COLOR_BRIGHT_RED         = "101;"
 	BG_4B_COLOR_BRIGHT_GREEN       = "102;"
@@ -72,12 +90,9 @@ const (
 	COLOR_BRIGHT_BRIGHT_CYAN = "14;"
 	COLOR_BRIGHT_WHITE       = "15;"
 
-	FG              = "38;"
-	FG_COLOR        = FG + "5;"
-	FG_COLOR_RGB    = FG + "2;"
-	FG_COLOR_RED    = FG_COLOR + COLOR_RED
-	FG_COLOR_GREEN  = FG_COLOR + COLOR_GREEN
-	FG_COLOR_YELLOW = FG_COLOR + COLOR_YELLOW
+	FG           = "38;"
+	FG_COLOR     = FG + "5;"
+	FG_COLOR_RGB = FG + "2;"
 
 	BG           = "48;"
 	BG_COLOR     = BG + "5;"
@@ -87,7 +102,7 @@ const (
 )
 
 const (
-	BLACK = iota + 30
+	BLACK = iota
 	RED
 	GREEN
 	YELLOW
@@ -95,10 +110,7 @@ const (
 	MAGENTA
 	CYAN
 	WHITE
-)
-
-const (
-	BRIGHTBLACK = iota + 100
+	BRIGHTBLACK
 	BRIGHTRED
 	BRIGHTGREEN
 	BRIGHTYELLOW
