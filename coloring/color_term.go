@@ -5,100 +5,102 @@ import (
 )
 
 const (
-	ESCAPE_SEQ = "\033"
+	escape_seq = "\033"
 
-	BEGIN_SEQ = "["
-	END_SEQ   = "m"
+	begin_seq = "["
+	end_seq   = "m"
 
-	RESET         = "0;"
-	BOLD          = "1;"
-	FAINT         = "2;"
-	ITALIC        = "3;"
-	UNDERLINE     = "4;"
-	BLINK         = "5;"
-	INVERT        = "7;"
-	CONCEAL       = "8;"
-	STRIKETHROUGH = "9;"
+	reset         = "0;"
+	bold          = "1;"
+	faint         = "2;"
+	italic        = "3;"
+	underline     = "4;"
+	blink         = "5;"
+	invert        = "7;"
+	conceal       = "8;"
+	strikethrough = "9;"
 
-	NOT_BOLD_NOR_FAINT = "22;"
-	NOT_ITALIC         = "23;"
-	NOT_UNDERLINE      = "24;"
-	NOT_BLINK          = "25;"
-	NOT_INVERT         = "27;"
-	NOT_CONCEAL        = "28;"
-	NOT_STRIKETHROUGH  = "29;"
+	not_bold_nor_faint = "22;"
+	not_italic         = "23;"
+	not_underline      = "24;"
+	not_blink          = "25;"
+	not_invert         = "27;"
+	not_conceal        = "28;"
+	not_strikethrough  = "29;"
 
-	FG_4B_COLOR_BLACK   = "30;"
-	FG_4B_COLOR_RED     = "31;"
-	FG_4B_COLOR_GREEN   = "32;"
-	FG_4B_COLOR_YELLOW  = "33;"
-	FG_4B_COLOR_BLUE    = "34;"
-	FG_4B_COLOR_MAGENTA = "35;"
-	FG_4B_COLOR_CYAN    = "36;"
-	FG_4B_COLOR_WHITE   = "37;"
+	fg_4b_color_black   = "30;"
+	fg_4b_color_red     = "31;"
+	fg_4b_color_green   = "32;"
+	fg_4b_color_yellow  = "33;"
+	fg_4b_color_blue    = "34;"
+	fg_4b_color_magenta = "35;"
+	fg_4b_color_cyan    = "36;"
+	fg_4b_color_white   = "37;"
 
-	FG_COLOR_DEFAULT = "39;"
+	fg_color_default = "39;"
 
-	BG_4B_COLOR_BLACK   = "40;"
-	BG_4B_COLOR_RED     = "41;"
-	BG_4B_COLOR_GREEN   = "42;"
-	BG_4B_COLOR_YELLOW  = "43;"
-	BG_4B_COLOR_BLUE    = "44;"
-	BG_4B_COLOR_MAGENTA = "45;"
-	BG_4B_COLOR_CYAN    = "46;"
-	BG_4B_COLOR_WHITE   = "47;"
+	bg_4b_color_black   = "40;"
+	bg_4b_color_red     = "41;"
+	bg_4b_color_green   = "42;"
+	bg_4b_color_yellow  = "43;"
+	bg_4b_color_blue    = "44;"
+	bg_4b_color_magenta = "45;"
+	bg_4b_color_cyan    = "46;"
+	bg_4b_color_white   = "47;"
 
-	BG_COLOR_DEFAULT = "49;"
+	bg_color_default = "49;"
 
-	UNDERLINE_COLOR     = "58;"
-	UNDERLINE_COLOR_4B  = UNDERLINE_COLOR + "5;"
-	UNDERLINE_COLOR_RBG = UNDERLINE_COLOR + "2;"
+	underline_color = "58;"
 
-	UNDERLINE_COLOR_DEFAULT = "59;"
+	underline_color_4b  = underline_color + "5;"
+	underline_color_rbg = underline_color + "2;"
 
-	FG_4B_COLOR_BRIGHT_BLACK       = "90;"
-	FG_4B_COLOR_BRIGHT_RED         = "91;"
-	FG_4B_COLOR_BRIGHT_GREEN       = "92;"
-	FG_4B_COLOR_BRIGHT_YELLOW      = "93;"
-	FG_4B_COLOR_BRIGHT_BLUE        = "94;"
-	FG_4B_COLOR_BRIGHT_MAGENTA     = "95;"
-	FG_4B_COLOR_BRIGHT_BRIGHT_CYAN = "96;"
-	FG_4B_COLOR_BRIGHT_WHITE       = "97;"
-	BG_4B_COLOR_BRIGHT_BLACK       = "100;"
-	BG_4B_COLOR_BRIGHT_RED         = "101;"
-	BG_4B_COLOR_BRIGHT_GREEN       = "102;"
-	BG_4B_COLOR_BRIGHT_YELLOW      = "103;"
-	BG_4B_COLOR_BRIGHT_BLUE        = "104;"
-	BG_4B_COLOR_BRIGHT_MAGENTA     = "105;"
-	BG_4B_COLOR_BRIGHT_BRIGHT_CYAN = "106;"
-	BG_4B_COLOR_BRIGHT_WHITE       = "107;"
+	underline_color_default = "59;"
 
-	COLOR_BLACK              = "0;"
-	COLOR_RED                = "1;"
-	COLOR_GREEN              = "2;"
-	COLOR_YELLOW             = "3;"
-	COLOR_BLUE               = "4;"
-	COLOR_MAGENTA            = "5;"
-	COLOR_CYAN               = "6;"
-	COLOR_WHITE              = "7;"
-	COLOR_BRIGHT_BLACK       = "8;"
-	COLOR_BRIGHT_RED         = "9;"
-	COLOR_BRIGHT_GREEN       = "10;"
-	COLOR_BRIGHT_YELLOW      = "11;"
-	COLOR_BRIGHT_BLUE        = "12;"
-	COLOR_BRIGHT_MAGENTA     = "13;"
-	COLOR_BRIGHT_BRIGHT_CYAN = "14;"
-	COLOR_BRIGHT_WHITE       = "15;"
+	fg_4b_color_bright_black       = "90;"
+	fg_4b_color_bright_red         = "91;"
+	fg_4b_color_bright_green       = "92;"
+	fg_4b_color_bright_yellow      = "93;"
+	fg_4b_color_bright_blue        = "94;"
+	fg_4b_color_bright_magenta     = "95;"
+	fg_4b_color_bright_bright_cyan = "96;"
+	fg_4b_color_bright_white       = "97;"
 
-	FG           = "38;"
-	FG_COLOR     = FG + "5;"
-	FG_COLOR_RGB = FG + "2;"
+	bg_4b_color_bright_black       = "100;"
+	bg_4b_color_bright_red         = "101;"
+	bg_4b_color_bright_green       = "102;"
+	bg_4b_color_bright_yellow      = "103;"
+	bg_4b_color_bright_blue        = "104;"
+	bg_4b_color_bright_magenta     = "105;"
+	bg_4b_color_bright_bright_cyan = "106;"
+	bg_4b_color_bright_white       = "107;"
 
-	BG           = "48;"
-	BG_COLOR     = BG + "5;"
-	BG_COLOR_RGB = BG + "2;"
+	color_black              = "0;"
+	color_red                = "1;"
+	color_green              = "2;"
+	color_yellow             = "3;"
+	color_blue               = "4;"
+	color_magenta            = "5;"
+	color_cyan               = "6;"
+	color_white              = "7;"
+	color_bright_black       = "8;"
+	color_bright_red         = "9;"
+	color_bright_green       = "10;"
+	color_bright_yellow      = "11;"
+	color_bright_blue        = "12;"
+	color_bright_magenta     = "13;"
+	color_bright_bright_cyan = "14;"
+	color_bright_white       = "15;"
 
-	RESET_SEQ = ESCAPE_SEQ + BEGIN_SEQ + RESET + END_SEQ
+	fg           = "38;"
+	fg_color     = fg + "5;"
+	fg_color_rgb = fg + "2;"
+
+	bg           = "48;"
+	bg_color     = bg + "5;"
+	bg_color_rgb = bg + "2;"
+
+	reset_seq = escape_seq + begin_seq + reset + end_seq
 )
 
 const (
@@ -122,8 +124,8 @@ const (
 
 func newColourBuilder(s string) *ColourBuilder {
 	var stringBuilder strings.Builder
-	stringBuilder.WriteString(ESCAPE_SEQ)
-	stringBuilder.WriteString(BEGIN_SEQ)
+	stringBuilder.WriteString(escape_seq)
+	stringBuilder.WriteString(begin_seq)
 
 	return &ColourBuilder{
 		s:              s,
@@ -133,12 +135,12 @@ func newColourBuilder(s string) *ColourBuilder {
 
 func applyTo(seq, s string) string {
 	var sb strings.Builder
-	sb.Grow(len(seq) + len(END_SEQ) + len(s) + len(RESET_SEQ))
+	sb.Grow(len(seq) + len(end_seq) + len(s) + len(reset_seq))
 
 	sb.WriteString(seq)
-	sb.WriteString(END_SEQ)
+	sb.WriteString(end_seq)
 	sb.WriteString(s)
-	sb.WriteString(RESET_SEQ)
+	sb.WriteString(reset_seq)
 
 	return sb.String()
 }

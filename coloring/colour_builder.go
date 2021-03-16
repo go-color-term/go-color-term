@@ -56,35 +56,35 @@ func (builder *ColourBuilder) Print() ColorizerPrint {
 }
 
 func (builder *ColourBuilder) Black() *ColourBuilder {
-	return builder.addComponent(FG_4B_COLOR_BLACK)
+	return builder.addComponent(fg_4b_color_black)
 }
 
 func (builder *ColourBuilder) Red() *ColourBuilder {
-	return builder.addComponent(FG_4B_COLOR_RED)
+	return builder.addComponent(fg_4b_color_red)
 }
 
 func (builder *ColourBuilder) Green() *ColourBuilder {
-	return builder.addComponent(FG_4B_COLOR_GREEN)
+	return builder.addComponent(fg_4b_color_green)
 }
 
 func (builder *ColourBuilder) Yellow() *ColourBuilder {
-	return builder.addComponent(FG_4B_COLOR_YELLOW)
+	return builder.addComponent(fg_4b_color_yellow)
 }
 
 func (builder *ColourBuilder) Blue() *ColourBuilder {
-	return builder.addComponent(FG_4B_COLOR_BLUE)
+	return builder.addComponent(fg_4b_color_blue)
 }
 
 func (builder *ColourBuilder) Magenta() *ColourBuilder {
-	return builder.addComponent(FG_4B_COLOR_MAGENTA)
+	return builder.addComponent(fg_4b_color_magenta)
 }
 
 func (builder *ColourBuilder) Cyan() *ColourBuilder {
-	return builder.addComponent(FG_4B_COLOR_CYAN)
+	return builder.addComponent(fg_4b_color_cyan)
 }
 
 func (builder *ColourBuilder) White() *ColourBuilder {
-	return builder.addComponent(FG_4B_COLOR_WHITE)
+	return builder.addComponent(fg_4b_color_white)
 }
 
 func (builder *ColourBuilder) Color(code int) *ColourBuilder {
@@ -92,31 +92,31 @@ func (builder *ColourBuilder) Color(code int) *ColourBuilder {
 		code = 7
 	}
 
-	return builder.addComponent(FG_COLOR + strconv.Itoa(code) + ";")
+	return builder.addComponent(fg_color + strconv.Itoa(code) + ";")
 }
 
 func (builder *ColourBuilder) Rgb(r, g, b int) *ColourBuilder {
-	return builder.addComponent(FG_COLOR_RGB + fmt.Sprintf("%d;%d;%d;", r, g, b))
+	return builder.addComponent(fg_color_rgb + fmt.Sprintf("%d;%d;%d;", r, g, b))
 }
 
 func (builder *ColourBuilder) Bold() *ColourBuilder {
-	return builder.addComponent(BOLD)
+	return builder.addComponent(bold)
 }
 
 func (builder *ColourBuilder) Faint() *ColourBuilder {
-	return builder.addComponent(FAINT)
+	return builder.addComponent(faint)
 }
 
 func (builder *ColourBuilder) Italic() *ColourBuilder {
-	return builder.addComponent(ITALIC)
+	return builder.addComponent(italic)
 }
 
 func (builder *ColourBuilder) Underline() *ColourBuilder {
-	return builder.addComponent(UNDERLINE)
+	return builder.addComponent(underline)
 }
 
 func (builder *ColourBuilder) InvertColors() *ColourBuilder {
-	return builder.addComponent(INVERT)
+	return builder.addComponent(invert)
 }
 
 func (builder *ColourBuilder) Background() *BackgroundColorBuilder {
@@ -128,35 +128,35 @@ type BackgroundColorBuilder struct {
 }
 
 func (bg *BackgroundColorBuilder) Black() *ColourBuilder {
-	return bg.c.addComponent(BG_4B_COLOR_BLACK)
+	return bg.c.addComponent(bg_4b_color_black)
 }
 
 func (bg *BackgroundColorBuilder) Red() *ColourBuilder {
-	return bg.c.addComponent(BG_4B_COLOR_RED)
+	return bg.c.addComponent(bg_4b_color_red)
 }
 
 func (bg *BackgroundColorBuilder) Green() *ColourBuilder {
-	return bg.c.addComponent(BG_4B_COLOR_GREEN)
+	return bg.c.addComponent(bg_4b_color_green)
 }
 
 func (bg *BackgroundColorBuilder) Yellow() *ColourBuilder {
-	return bg.c.addComponent(BG_4B_COLOR_YELLOW)
+	return bg.c.addComponent(bg_4b_color_yellow)
 }
 
 func (bg *BackgroundColorBuilder) Blue() *ColourBuilder {
-	return bg.c.addComponent(BG_4B_COLOR_BLUE)
+	return bg.c.addComponent(bg_4b_color_blue)
 }
 
 func (bg *BackgroundColorBuilder) Magenta() *ColourBuilder {
-	return bg.c.addComponent(BG_4B_COLOR_MAGENTA)
+	return bg.c.addComponent(bg_4b_color_magenta)
 }
 
 func (bg *BackgroundColorBuilder) Cyan() *ColourBuilder {
-	return bg.c.addComponent(BG_4B_COLOR_CYAN)
+	return bg.c.addComponent(bg_4b_color_cyan)
 }
 
 func (bg *BackgroundColorBuilder) White() *ColourBuilder {
-	return bg.c.addComponent(BG_4B_COLOR_WHITE)
+	return bg.c.addComponent(bg_4b_color_white)
 }
 
 func (bg *BackgroundColorBuilder) Color(code int) *ColourBuilder {
@@ -164,9 +164,9 @@ func (bg *BackgroundColorBuilder) Color(code int) *ColourBuilder {
 		code = 7
 	}
 
-	return bg.c.addComponent(BG_COLOR + strconv.Itoa(code) + ";")
+	return bg.c.addComponent(bg_color + strconv.Itoa(code) + ";")
 }
 
 func (bg *BackgroundColorBuilder) Rgb(r, g, b int) *ColourBuilder {
-	return bg.c.addComponent(BG_COLOR_RGB + fmt.Sprintf("%d;%d;%d;", r, g, b))
+	return bg.c.addComponent(bg_color_rgb + fmt.Sprintf("%d;%d;%d;", r, g, b))
 }

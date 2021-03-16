@@ -38,7 +38,7 @@ func (builder *SentenceBuilder) Println() {
 }
 
 func (builder *SentenceBuilder) Reset() *SentenceBuilder {
-	return builder.write(RESET_SEQ)
+	return builder.write(reset_seq)
 }
 
 func (builder *SentenceBuilder) Color(text string, color int) *SentenceBuilder {
@@ -46,7 +46,7 @@ func (builder *SentenceBuilder) Color(text string, color int) *SentenceBuilder {
 }
 
 func (builder *SentenceBuilder) ColorSet(color int) *SentenceBuilder {
-	return builder.write(fg_color_set_seq_open).write(strconv.Itoa(color)).write(END_SEQ)
+	return builder.write(fg_color_set_seq_open).write(strconv.Itoa(color)).write(end_seq)
 }
 
 func (builder *SentenceBuilder) ColorReset() *SentenceBuilder {
@@ -58,7 +58,7 @@ func (builder *SentenceBuilder) Background(text string, color int) *SentenceBuil
 }
 
 func (builder *SentenceBuilder) BackgroundSet(color int) *SentenceBuilder {
-	return builder.write(bg_color_set_seq_open).write(strconv.Itoa(color)).write(END_SEQ)
+	return builder.write(bg_color_set_seq_open).write(strconv.Itoa(color)).write(end_seq)
 }
 
 func (builder *SentenceBuilder) BackgroundReset() *SentenceBuilder {
@@ -166,7 +166,7 @@ func (builder *SentenceBuilder) UnderlineColor(text string, color int) *Sentence
 }
 
 func (builder *SentenceBuilder) UnderlineColorStart(color int) *SentenceBuilder {
-	return builder.write(underline_color_seq).write(strconv.Itoa(color)).write(END_SEQ)
+	return builder.write(underline_color_seq).write(strconv.Itoa(color)).write(end_seq)
 }
 
 func (builder *SentenceBuilder) UnderlineColorEnd() *SentenceBuilder {

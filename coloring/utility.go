@@ -1,50 +1,50 @@
 package coloring
 
 const (
-	bold_seq          = ESCAPE_SEQ + BEGIN_SEQ + BOLD + END_SEQ
-	faint_seq         = ESCAPE_SEQ + BEGIN_SEQ + FAINT + END_SEQ
-	italic_seq        = ESCAPE_SEQ + BEGIN_SEQ + ITALIC + END_SEQ
-	underline_seq     = ESCAPE_SEQ + BEGIN_SEQ + UNDERLINE + END_SEQ
-	blink_seq         = ESCAPE_SEQ + BEGIN_SEQ + BLINK + END_SEQ
-	invert_seq        = ESCAPE_SEQ + BEGIN_SEQ + INVERT + END_SEQ
-	conceal_seq       = ESCAPE_SEQ + BEGIN_SEQ + CONCEAL + END_SEQ
-	strikethrough_seq = ESCAPE_SEQ + BEGIN_SEQ + STRIKETHROUGH + END_SEQ
+	bold_seq          = escape_seq + begin_seq + bold + end_seq
+	faint_seq         = escape_seq + begin_seq + faint + end_seq
+	italic_seq        = escape_seq + begin_seq + italic + end_seq
+	underline_seq     = escape_seq + begin_seq + underline + end_seq
+	blink_seq         = escape_seq + begin_seq + blink + end_seq
+	invert_seq        = escape_seq + begin_seq + invert + end_seq
+	conceal_seq       = escape_seq + begin_seq + conceal + end_seq
+	strikethrough_seq = escape_seq + begin_seq + strikethrough + end_seq
 
-	bold_reset_seq          = ESCAPE_SEQ + BEGIN_SEQ + NOT_BOLD_NOR_FAINT + END_SEQ
+	bold_reset_seq          = escape_seq + begin_seq + not_bold_nor_faint + end_seq
 	faint_reset_seq         = bold_reset_seq
-	italic_reset_seq        = ESCAPE_SEQ + BEGIN_SEQ + NOT_ITALIC + END_SEQ
-	underline_reset_seq     = ESCAPE_SEQ + BEGIN_SEQ + NOT_UNDERLINE + END_SEQ
-	blink_reset_seq         = ESCAPE_SEQ + BEGIN_SEQ + NOT_BLINK + END_SEQ
-	invert_reset_seq        = ESCAPE_SEQ + BEGIN_SEQ + NOT_INVERT + END_SEQ
-	conceal_reset_seq       = ESCAPE_SEQ + BEGIN_SEQ + NOT_CONCEAL + END_SEQ
-	strikethrough_reset_seq = ESCAPE_SEQ + BEGIN_SEQ + NOT_STRIKETHROUGH + END_SEQ
+	italic_reset_seq        = escape_seq + begin_seq + not_italic + end_seq
+	underline_reset_seq     = escape_seq + begin_seq + not_underline + end_seq
+	blink_reset_seq         = escape_seq + begin_seq + not_blink + end_seq
+	invert_reset_seq        = escape_seq + begin_seq + not_invert + end_seq
+	conceal_reset_seq       = escape_seq + begin_seq + not_conceal + end_seq
+	strikethrough_reset_seq = escape_seq + begin_seq + not_strikethrough + end_seq
 
-	underline_color_seq       = ESCAPE_SEQ + BEGIN_SEQ + UNDERLINE_COLOR_4B
-	underline_color_reset_seq = ESCAPE_SEQ + BEGIN_SEQ + UNDERLINE_COLOR_DEFAULT + END_SEQ
+	underline_color_seq       = escape_seq + begin_seq + underline_color_4b
+	underline_color_reset_seq = escape_seq + begin_seq + underline_color_default + end_seq
 
-	fg_color_set_seq_open = ESCAPE_SEQ + BEGIN_SEQ + FG_COLOR
-	fg_color_reset_seq    = ESCAPE_SEQ + BEGIN_SEQ + FG_COLOR_DEFAULT + END_SEQ
+	fg_color_set_seq_open = escape_seq + begin_seq + fg_color
+	fg_color_reset_seq    = escape_seq + begin_seq + fg_color_default + end_seq
 
-	bg_color_set_seq_open = ESCAPE_SEQ + BEGIN_SEQ + BG_COLOR
-	bg_color_reset_seq    = ESCAPE_SEQ + BEGIN_SEQ + BG_COLOR_DEFAULT + END_SEQ
+	bg_color_set_seq_open = escape_seq + begin_seq + bg_color
+	bg_color_reset_seq    = escape_seq + begin_seq + bg_color_default + end_seq
 
-	fg_black   = ESCAPE_SEQ + BEGIN_SEQ + FG_4B_COLOR_BLACK + END_SEQ
-	fg_red     = ESCAPE_SEQ + BEGIN_SEQ + FG_4B_COLOR_RED + END_SEQ
-	fg_green   = ESCAPE_SEQ + BEGIN_SEQ + FG_4B_COLOR_GREEN + END_SEQ
-	fg_yellow  = ESCAPE_SEQ + BEGIN_SEQ + FG_4B_COLOR_YELLOW + END_SEQ
-	fg_blue    = ESCAPE_SEQ + BEGIN_SEQ + FG_4B_COLOR_BLUE + END_SEQ
-	fg_magenta = ESCAPE_SEQ + BEGIN_SEQ + FG_4B_COLOR_MAGENTA + END_SEQ
-	fg_cyan    = ESCAPE_SEQ + BEGIN_SEQ + FG_4B_COLOR_CYAN + END_SEQ
-	fg_white   = ESCAPE_SEQ + BEGIN_SEQ + FG_4B_COLOR_WHITE + END_SEQ
+	fg_black   = escape_seq + begin_seq + fg_4b_color_black + end_seq
+	fg_red     = escape_seq + begin_seq + fg_4b_color_red + end_seq
+	fg_green   = escape_seq + begin_seq + fg_4b_color_green + end_seq
+	fg_yellow  = escape_seq + begin_seq + fg_4b_color_yellow + end_seq
+	fg_blue    = escape_seq + begin_seq + fg_4b_color_blue + end_seq
+	fg_magenta = escape_seq + begin_seq + fg_4b_color_magenta + end_seq
+	fg_cyan    = escape_seq + begin_seq + fg_4b_color_cyan + end_seq
+	fg_white   = escape_seq + begin_seq + fg_4b_color_white + end_seq
 
-	bg_black   = ESCAPE_SEQ + BEGIN_SEQ + BG_4B_COLOR_BLACK + END_SEQ
-	bg_red     = ESCAPE_SEQ + BEGIN_SEQ + BG_4B_COLOR_RED + END_SEQ
-	bg_green   = ESCAPE_SEQ + BEGIN_SEQ + BG_4B_COLOR_GREEN + END_SEQ
-	bg_yellow  = ESCAPE_SEQ + BEGIN_SEQ + BG_4B_COLOR_YELLOW + END_SEQ
-	bg_blue    = ESCAPE_SEQ + BEGIN_SEQ + BG_4B_COLOR_BLUE + END_SEQ
-	bg_magenta = ESCAPE_SEQ + BEGIN_SEQ + BG_4B_COLOR_MAGENTA + END_SEQ
-	bg_cyan    = ESCAPE_SEQ + BEGIN_SEQ + BG_4B_COLOR_CYAN + END_SEQ
-	bg_white   = ESCAPE_SEQ + BEGIN_SEQ + BG_4B_COLOR_WHITE + END_SEQ
+	bg_black   = escape_seq + begin_seq + bg_4b_color_black + end_seq
+	bg_red     = escape_seq + begin_seq + bg_4b_color_red + end_seq
+	bg_green   = escape_seq + begin_seq + bg_4b_color_green + end_seq
+	bg_yellow  = escape_seq + begin_seq + bg_4b_color_yellow + end_seq
+	bg_blue    = escape_seq + begin_seq + bg_4b_color_blue + end_seq
+	bg_magenta = escape_seq + begin_seq + bg_4b_color_magenta + end_seq
+	bg_cyan    = escape_seq + begin_seq + bg_4b_color_cyan + end_seq
+	bg_white   = escape_seq + begin_seq + bg_4b_color_white + end_seq
 )
 
 func Black(s string) string {
