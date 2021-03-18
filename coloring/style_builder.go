@@ -171,10 +171,20 @@ func (builder *StyleBuilder) Underline() *StyleBuilder {
 	return builder.addAttribute(underline)
 }
 
+// Blink adds an attribute to the current sequence to render blinking text.
+func (builder *StyleBuilder) Blink() *StyleBuilder {
+	return builder.addAttribute(blink)
+}
+
 // InvertColors adds an attribute to the current sequence to invert the current
 // color and background color.
 func (builder *StyleBuilder) InvertColors() *StyleBuilder {
 	return builder.addAttribute(invert)
+}
+
+// Strikethrough adds an attribute to the current sequence to render crossed text.
+func (builder *StyleBuilder) Strikethrough() *StyleBuilder {
+	return builder.addAttribute(strikethrough)
 }
 
 // Background returns a `BackgroundColorBuilder` which exposes funtions to
