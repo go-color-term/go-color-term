@@ -22,7 +22,7 @@ The idea is to provide with the simplest way to render styled text for each situ
 | Method                         | Use Case |
 |--------------------------------|----------|
 | `coloring.*` utility functions |          |
-| `ColourBuilder`                |          |
+| `StyleBuilder`                 |          |
 | `DecoratedText`                |          |
 | `SentenceBuilder`              |          |
 
@@ -73,7 +73,7 @@ Also, this approach, while it works, doesn't generate the most efficient escape 
 
 A more compact sequence for the same style would be `\ESC[1;31;mWolf\ESC[0;m`, which is the topic of the next section.
 
-### `ColourBuilder`
+### `StyleBuilder`
 
 TBD
 

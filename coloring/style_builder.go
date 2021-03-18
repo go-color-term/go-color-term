@@ -8,13 +8,13 @@ import (
 
 const maxColorNumber = 255
 
-// ColourBuilder allows to compose multiple color/formatting
+// StyleBuilder allows to compose multiple color/formatting
 // attributes in a single escape sequence.
 // It can start with a predefined text to decorate (see `For(string)`)
 // or empty (see `New()`).
-type ColourBuilder struct {
-	s              string
-	colourSequence *strings.Builder
+type StyleBuilder struct {
+	s               string
+	styleAttributes *strings.Builder
 }
 
 // A func that returns the supplied string with coloring attributes applied.
@@ -23,34 +23,43 @@ type ColorizerFunc = func(string) string
 // A func that can print colored strings.
 type ColorizerPrint = func(string)
 
-// For creates a new ColourBuilder with a predefined text.
-func For(s string) *ColourBuilder {
-	return newColourBuilder(s)
+func newStyleBuilder(s string) *StyleBuilder {
+	var stringBuilder strings.Builder
+
+	return &StyleBuilder{
+		s:               s,
+		styleAttributes: &stringBuilder,
+	}
 }
 
-// New creates an empty ColourBuilder.
+// For creates a new StyleBuilder with a predefined text.
+func For(s string) *StyleBuilder {
+	return newStyleBuilder(s)
+}
+
+// New creates an empty StyleBuilder.
 // You mostly use this when you plan to call the `Func()` function
 // to get a `ColorizerFunc` that lets you specify the text to colorize
 // on a call-by-call basis.
-func New() *ColourBuilder {
+func New() *StyleBuilder {
 	return For("")
 }
 
-func (builder *ColourBuilder) addComponent(comp string) *ColourBuilder {
-	builder.colourSequence.WriteString(comp)
+func (builder *StyleBuilder) addAttribute(attribute string) *StyleBuilder {
+	builder.styleAttributes.WriteString(attribute)
 
 	return builder
 }
 
-func (builder *ColourBuilder) applyTo(s string) string {
-	return applyTo(builder.colourSequence.String(), s)
+func (builder *StyleBuilder) applyTo(s string) string {
+	return applyTo(builder.styleAttributes.String(), s)
 }
 
 // Decoration returns a `DecoratedText` instance that you can use
 // in any place that expects a `Stringer` type.
 // Further changes to this builder doesn't affect the returned `DecoratedText`.
-func (builder *ColourBuilder) Decoration() *DecoratedText {
-	return &DecoratedText{builder.s, builder.colourSequence.String()}
+func (builder *StyleBuilder) Decoration() *DecoratedText {
+	return &DecoratedText{builder.s, builder.styleAttributes.String()}
 }
 
 // String returns the passed string to `For(string)` decorated
@@ -58,15 +67,15 @@ func (builder *ColourBuilder) Decoration() *DecoratedText {
 // The decorated sequence resets all attributes at the end, so
 // it's not suitable to cobine with an already decorated string, as
 // it will reset the previous styles, if any.
-func (builder *ColourBuilder) String() string {
+func (builder *StyleBuilder) String() string {
 	return builder.applyTo(builder.s)
 }
 
 // Func returns a `ColorizerFunc` function that can be invoked with different
 // texts to apply the styles currently defined on this builder.
 // Further changes to this builder doesn't affect the output of the returned `ColorizerFunc`.
-func (builder *ColourBuilder) Func() ColorizerFunc {
-	seq := builder.colourSequence.String()
+func (builder *StyleBuilder) Func() ColorizerFunc {
+	seq := builder.styleAttributes.String()
 
 	return func(s string) string {
 		return applyTo(seq, s)
@@ -76,7 +85,7 @@ func (builder *ColourBuilder) Func() ColorizerFunc {
 // Print returns a `ColorizerPrint` function that can be invoked with different
 // texts to print them on screen with the styles currently defined on this builder.
 // Further changes to this builder doesn't affect the output of the returned `ColorizerPrint`.
-func (builder *ColourBuilder) Print() ColorizerPrint {
+func (builder *StyleBuilder) Print() ColorizerPrint {
 	fn := builder.Func()
 
 	return func(s string) {
@@ -85,175 +94,175 @@ func (builder *ColourBuilder) Print() ColorizerPrint {
 }
 
 // Black adds an attribute to the current sequence to render black text.
-func (builder *ColourBuilder) Black() *ColourBuilder {
-	return builder.addComponent(fg4bColorBlack)
+func (builder *StyleBuilder) Black() *StyleBuilder {
+	return builder.addAttribute(fg4bColorBlack)
 }
 
 // Red adds an attribute to the current sequence to render red text.
-func (builder *ColourBuilder) Red() *ColourBuilder {
-	return builder.addComponent(fg4bColorRed)
+func (builder *StyleBuilder) Red() *StyleBuilder {
+	return builder.addAttribute(fg4bColorRed)
 }
 
 // Green adds an attribute to the current sequence to render green text.
-func (builder *ColourBuilder) Green() *ColourBuilder {
-	return builder.addComponent(fg4bColorGreen)
+func (builder *StyleBuilder) Green() *StyleBuilder {
+	return builder.addAttribute(fg4bColorGreen)
 }
 
 // Yellow adds an attribute to the current sequence to render yellow text.
-func (builder *ColourBuilder) Yellow() *ColourBuilder {
-	return builder.addComponent(fg4bColorYellow)
+func (builder *StyleBuilder) Yellow() *StyleBuilder {
+	return builder.addAttribute(fg4bColorYellow)
 }
 
 // Blue adds an attribute to the current sequence to render blue text.
-func (builder *ColourBuilder) Blue() *ColourBuilder {
-	return builder.addComponent(fg4bColorBlue)
+func (builder *StyleBuilder) Blue() *StyleBuilder {
+	return builder.addAttribute(fg4bColorBlue)
 }
 
 // Magenta adds an attribute to the current sequence to render magenta text.
-func (builder *ColourBuilder) Magenta() *ColourBuilder {
-	return builder.addComponent(fg4bColorMagenta)
+func (builder *StyleBuilder) Magenta() *StyleBuilder {
+	return builder.addAttribute(fg4bColorMagenta)
 }
 
 // Cyan adds an attribute to the current sequence to render cyan text.
-func (builder *ColourBuilder) Cyan() *ColourBuilder {
-	return builder.addComponent(fg4bColorCyan)
+func (builder *StyleBuilder) Cyan() *StyleBuilder {
+	return builder.addAttribute(fg4bColorCyan)
 }
 
 // White adds an attribute to the current sequence to render white text.
-func (builder *ColourBuilder) White() *ColourBuilder {
-	return builder.addComponent(fg4bColorWhite)
+func (builder *StyleBuilder) White() *StyleBuilder {
+	return builder.addAttribute(fg4bColorWhite)
 }
 
 // Color adds an attribute to the current sequence to render text with a color
 // in the 0-255 8-bit range.
 // See constants declared in the `coloring` package to access the most
 // common ones (0-15).
-func (builder *ColourBuilder) Color(code int) *ColourBuilder {
+func (builder *StyleBuilder) Color(code int) *StyleBuilder {
 	if code > maxColorNumber {
 		code = 7
 	}
 
-	return builder.addComponent(fgColor + strconv.Itoa(code) + ";")
+	return builder.addAttribute(fgColor + strconv.Itoa(code) + ";")
 }
 
 // Rgb adds an attribute to the current sequence to render text with an RGB color.
 // The terminal should support 24-bit colors.
-func (builder *ColourBuilder) Rgb(r, g, b int) *ColourBuilder {
-	return builder.addComponent(fgColorRgb + fmt.Sprintf("%d;%d;%d;", r, g, b))
+func (builder *StyleBuilder) Rgb(r, g, b int) *StyleBuilder {
+	return builder.addAttribute(fgColorRgb + fmt.Sprintf("%d;%d;%d;", r, g, b))
 }
 
 // Bold adds an attribute to the current sequence to render bold text.
-func (builder *ColourBuilder) Bold() *ColourBuilder {
-	return builder.addComponent(bold)
+func (builder *StyleBuilder) Bold() *StyleBuilder {
+	return builder.addAttribute(bold)
 }
 
 // Faint adds an attribute to the current sequence to render faint text.
-func (builder *ColourBuilder) Faint() *ColourBuilder {
-	return builder.addComponent(faint)
+func (builder *StyleBuilder) Faint() *StyleBuilder {
+	return builder.addAttribute(faint)
 }
 
 // Italic adds an attribute to the current sequence to render italic text.
-func (builder *ColourBuilder) Italic() *ColourBuilder {
-	return builder.addComponent(italic)
+func (builder *StyleBuilder) Italic() *StyleBuilder {
+	return builder.addAttribute(italic)
 }
 
 // Underline adds an attribute to the current sequence to render underline text.
-func (builder *ColourBuilder) Underline() *ColourBuilder {
-	return builder.addComponent(underline)
+func (builder *StyleBuilder) Underline() *StyleBuilder {
+	return builder.addAttribute(underline)
 }
 
 // InvertColors adds an attribute to the current sequence to invert the current
 // color and background color.
-func (builder *ColourBuilder) InvertColors() *ColourBuilder {
-	return builder.addComponent(invert)
+func (builder *StyleBuilder) InvertColors() *StyleBuilder {
+	return builder.addAttribute(invert)
 }
 
 // Background returns a `BackgroundColorBuilder` which exposes funtions to
 // set the background color.
 // After calling this function, it's required to invoke some of the
 // `BackgroundColorBuilder` functions to return to the original builder.
-func (builder *ColourBuilder) Background() *BackgroundColorBuilder {
+func (builder *StyleBuilder) Background() *BackgroundColorBuilder {
 	return &BackgroundColorBuilder{c: builder}
 }
 
 // A type to set the background color.
 type BackgroundColorBuilder struct {
-	c *ColourBuilder
+	c *StyleBuilder
 }
 
 // Black adds an attribute to the current sequence to display black background.
-// The original `ColourBuilder` is returned as there's no more attributes
+// The original `StyleBuilder` is returned as there's no more attributes
 // that can be specified to alter the background style.
-func (bg *BackgroundColorBuilder) Black() *ColourBuilder {
-	return bg.c.addComponent(bg4bColorBlack)
+func (bg *BackgroundColorBuilder) Black() *StyleBuilder {
+	return bg.c.addAttribute(bg4bColorBlack)
 }
 
 // Red adds an attribute to the current sequence to display red background.
-// The original `ColourBuilder` is returned as there's no more attributes
+// The original `StyleBuilder` is returned as there's no more attributes
 // that can be specified to alter the background style.
-func (bg *BackgroundColorBuilder) Red() *ColourBuilder {
-	return bg.c.addComponent(bg4bColorRed)
+func (bg *BackgroundColorBuilder) Red() *StyleBuilder {
+	return bg.c.addAttribute(bg4bColorRed)
 }
 
 // Green adds an attribute to the current sequence to display green background.
-// The original `ColourBuilder` is returned as there's no more attributes
+// The original `StyleBuilder` is returned as there's no more attributes
 // that can be specified to alter the background style.
-func (bg *BackgroundColorBuilder) Green() *ColourBuilder {
-	return bg.c.addComponent(bg4bColorGreen)
+func (bg *BackgroundColorBuilder) Green() *StyleBuilder {
+	return bg.c.addAttribute(bg4bColorGreen)
 }
 
 // Yellow adds an attribute to the current sequence to display yellow background.
-// The original `ColourBuilder` is returned as there's no more attributes
+// The original `StyleBuilder` is returned as there's no more attributes
 // that can be specified to alter the background style.
-func (bg *BackgroundColorBuilder) Yellow() *ColourBuilder {
-	return bg.c.addComponent(bg4bColorYellow)
+func (bg *BackgroundColorBuilder) Yellow() *StyleBuilder {
+	return bg.c.addAttribute(bg4bColorYellow)
 }
 
 // Blue adds an attribute to the current sequence to display blue background.
-// The original `ColourBuilder` is returned as there's no more attributes
+// The original `StyleBuilder` is returned as there's no more attributes
 // that can be specified to alter the background style.
-func (bg *BackgroundColorBuilder) Blue() *ColourBuilder {
-	return bg.c.addComponent(bg4bColorBlue)
+func (bg *BackgroundColorBuilder) Blue() *StyleBuilder {
+	return bg.c.addAttribute(bg4bColorBlue)
 }
 
 // Magenta adds an attribute to the current sequence to display magenta background.
-// The original `ColourBuilder` is returned as there's no more attributes
+// The original `StyleBuilder` is returned as there's no more attributes
 // that can be specified to alter the background style.
-func (bg *BackgroundColorBuilder) Magenta() *ColourBuilder {
-	return bg.c.addComponent(bg4bColorMagenta)
+func (bg *BackgroundColorBuilder) Magenta() *StyleBuilder {
+	return bg.c.addAttribute(bg4bColorMagenta)
 }
 
 // Cyan adds an attribute to the current sequence to display cyan background.
-// The original `ColourBuilder` is returned as there's no more attributes
+// The original `StyleBuilder` is returned as there's no more attributes
 // that can be specified to alter the background style.
-func (bg *BackgroundColorBuilder) Cyan() *ColourBuilder {
-	return bg.c.addComponent(bg4bColorCyan)
+func (bg *BackgroundColorBuilder) Cyan() *StyleBuilder {
+	return bg.c.addAttribute(bg4bColorCyan)
 }
 
 // White adds an attribute to the current sequence to display white background.
-// The original `ColourBuilder` is returned as there's no more attributes
+// The original `StyleBuilder` is returned as there's no more attributes
 // that can be specified to alter the background style.
-func (bg *BackgroundColorBuilder) White() *ColourBuilder {
-	return bg.c.addComponent(bg4bColorWhite)
+func (bg *BackgroundColorBuilder) White() *StyleBuilder {
+	return bg.c.addAttribute(bg4bColorWhite)
 }
 
 // Color adds an attribute to set the background color in the 0-255 8-bit range.
 // See constants declared in the `coloring` package to access the most
 // common ones (0-15).
-// The original `ColourBuilder` is returned as there's no more attributes
+// The original `StyleBuilder` is returned as there's no more attributes
 // that can be specified to alter the background style.
-func (bg *BackgroundColorBuilder) Color(code int) *ColourBuilder {
+func (bg *BackgroundColorBuilder) Color(code int) *StyleBuilder {
 	if code > maxColorNumber {
 		code = 7
 	}
 
-	return bg.c.addComponent(bgColor + strconv.Itoa(code) + ";")
+	return bg.c.addAttribute(bgColor + strconv.Itoa(code) + ";")
 }
 
 // Rgb adds an attribute to set the background color to an RGB color.
 // The terminal should support 24-bit colors.
-// The original `ColourBuilder` is returned as there's no more attributes
+// The original `StyleBuilder` is returned as there's no more attributes
 // that can be specified to alter the background style.
-func (bg *BackgroundColorBuilder) Rgb(r, g, b int) *ColourBuilder {
-	return bg.c.addComponent(bgColorRgb + fmt.Sprintf("%d;%d;%d;", r, g, b))
+func (bg *BackgroundColorBuilder) Rgb(r, g, b int) *StyleBuilder {
+	return bg.c.addAttribute(bgColorRgb + fmt.Sprintf("%d;%d;%d;", r, g, b))
 }

@@ -98,23 +98,13 @@ const (
 	BRIGHTWHITE
 )
 
-func newColourBuilder(s string) *ColourBuilder {
-	var stringBuilder strings.Builder
-
-	stringBuilder.WriteString(escapeSeq)
-	stringBuilder.WriteString(beginSeq)
-
-	return &ColourBuilder{
-		s:              s,
-		colourSequence: &stringBuilder,
-	}
-}
-
 func applyTo(seq, s string) string {
 	var sb strings.Builder
 
-	sb.Grow(len(seq) + len(endSeq) + len(s) + len(resetSeq))
+	sb.Grow(len(escapeSeq) + len(beginSeq) + len(seq) + len(endSeq) + len(s) + len(resetSeq))
 
+	sb.WriteString(escapeSeq)
+	sb.WriteString(beginSeq)
 	sb.WriteString(seq)
 	sb.WriteString(endSeq)
 	sb.WriteString(s)
