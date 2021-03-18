@@ -161,15 +161,3 @@ func (builder *SentenceBuilder) StrikethroughStart() *SentenceBuilder {
 func (builder *SentenceBuilder) StrikethroughEnd() *SentenceBuilder {
 	return builder.write(strikethroughResetSeq)
 }
-
-func (builder *SentenceBuilder) UnderlineColor(text string, color int) *SentenceBuilder {
-	return builder.UnderlineColorStart(color).write(text).UnderlineColorEnd()
-}
-
-func (builder *SentenceBuilder) UnderlineColorStart(color int) *SentenceBuilder {
-	return builder.write(underlineColorSeq).write(strconv.Itoa(color)).write(endSeq)
-}
-
-func (builder *SentenceBuilder) UnderlineColorEnd() *SentenceBuilder {
-	return builder.write(underlineColorResetSeq)
-}

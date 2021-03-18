@@ -19,9 +19,6 @@ const (
 	concealResetSeq       = escapeSeq + beginSeq + notConceal + endSeq
 	strikethroughResetSeq = escapeSeq + beginSeq + notStrikethrough + endSeq
 
-	underlineColorSeq      = escapeSeq + beginSeq + underlineColor4b
-	underlineColorResetSeq = escapeSeq + beginSeq + underlineColorDefault + endSeq
-
 	fgColorSetSeqOpen = escapeSeq + beginSeq + fgColor
 	fgColorResetSeq   = escapeSeq + beginSeq + fgColorDefault + endSeq
 

@@ -50,13 +50,6 @@ const (
 
 	bgColorDefault = "49;"
 
-	underlineColor = "58;"
-
-	underlineColor4b  = underlineColor + "5;"
-	underlineColorRbg = underlineColor + "2;"
-
-	underlineColorDefault = "59;"
-
 	fg4bColorBrightBlack   = "90;"
 	fg4bColorBrightRed     = "91;"
 	fg4bColorBrightGreen   = "92;"
