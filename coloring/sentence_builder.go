@@ -6,12 +6,20 @@ import (
 	"strings"
 )
 
-func Sentence() *SentenceBuilder {
-	return &SentenceBuilder{strings.Builder{}}
-}
-
+// A SentenceBuilder allows to create a long string of text
+// applying different style attributes to different parts of
+// the sentence.
+//
+// It gives fine grained control of where the style attributes
+// starts and ends independently of each other, allowing for styles
+// spanning sections with different colors and attributes.
 type SentenceBuilder struct {
 	sb strings.Builder
+}
+
+// Sentence creates a new `SentenceBuilder`.
+func Sentence() *SentenceBuilder {
+	return &SentenceBuilder{strings.Builder{}}
 }
 
 func (builder *SentenceBuilder) write(component string) *SentenceBuilder {
@@ -20,144 +28,186 @@ func (builder *SentenceBuilder) write(component string) *SentenceBuilder {
 	return builder
 }
 
+// String returns a string with the currently built sentence. It also allows to use
+// this instance of `SenteceBuilder` in any place that expects a `Stringer` type.
 func (builder *SentenceBuilder) String() string {
 	return builder.sb.String()
 }
 
-func (builder *SentenceBuilder) Text(text string) *SentenceBuilder {
-	return builder.write(text)
-}
-
+// Print reset all the styles and outputs the currently built sentence on `os.Stdout`.
 func (builder *SentenceBuilder) Print() {
 	builder.Reset()
 	fmt.Print(builder)
 }
 
+// Println reset all the styles and outputs the currently built sentence on `os.Stdout`
+// adding a new line at the end.
 func (builder *SentenceBuilder) Println() {
 	builder.Reset()
 	fmt.Println(builder)
 }
 
+// Text adds a string of unformatted text to the sentence.
+func (builder *SentenceBuilder) Text(text string) *SentenceBuilder {
+	return builder.write(text)
+}
+
+// Reset clears al formatting attributes currently applied to the sentence.
 func (builder *SentenceBuilder) Reset() *SentenceBuilder {
 	return builder.write(resetSeq)
 }
 
+// Color adds a string of text with a specific color. The color
+// must be in the range 0-255. See constants declared in the `coloring`
+// package to access the most common ones (0-15).
 func (builder *SentenceBuilder) Color(text string, color int) *SentenceBuilder {
 	return builder.ColorSet(color).write(text).ColorReset()
 }
 
+// ColorSet sets the current text color of the sentence. Further text added will
+// have this color until another color is set or the color is reseted with `ColorReset`.
 func (builder *SentenceBuilder) ColorSet(color int) *SentenceBuilder {
 	return builder.write(fgColorSetSeqOpen).write(strconv.Itoa(color)).write(endSeq)
 }
 
+// ColorReset resets the color to the default one.
 func (builder *SentenceBuilder) ColorReset() *SentenceBuilder {
 	return builder.write(fgColorResetSeq)
 }
 
+// Background adds a string of text with a specific background color. The color
+// must be in the range 0-255. See constants declared in the `coloring`
+// package to access the most common ones (0-15)..
 func (builder *SentenceBuilder) Background(text string, color int) *SentenceBuilder {
 	return builder.BackgroundSet(color).write(text).BackgroundReset()
 }
 
+// BackgroundSet .
 func (builder *SentenceBuilder) BackgroundSet(color int) *SentenceBuilder {
 	return builder.write(bgColorSetSeqOpen).write(strconv.Itoa(color)).write(endSeq)
 }
 
+// BackgroundReset .
 func (builder *SentenceBuilder) BackgroundReset() *SentenceBuilder {
 	return builder.write(bgColorResetSeq)
 }
 
+// Bold adds a string of bold text to the sentence.
 func (builder *SentenceBuilder) Bold(text string) *SentenceBuilder {
 	return builder.BoldStart().write(text).BoldEnd()
 }
 
+// BoldStart marks the start of bold text. Use `BoldEnd` to end the bold section.
 func (builder *SentenceBuilder) BoldStart() *SentenceBuilder {
 	return builder.write(boldSeq)
 }
 
+// BoldEnd clears the bold attribute previously set with `BoldStart`.
 func (builder *SentenceBuilder) BoldEnd() *SentenceBuilder {
 	return builder.write(boldResetSeq)
 }
 
+// Faint adds a string of dimmed text to the sentence.
 func (builder *SentenceBuilder) Faint(text string) *SentenceBuilder {
 	return builder.FaintStart().write(text).FaintEnd()
 }
 
+// FaintStart marks the start of dimmed text. Use `FaintEnd` to end the dimmed section.
 func (builder *SentenceBuilder) FaintStart() *SentenceBuilder {
 	return builder.write(faintSeq)
 }
 
+// FaintEnd clears the faint attribute previously set with `FaintStart`.
 func (builder *SentenceBuilder) FaintEnd() *SentenceBuilder {
 	return builder.write(faintResetSeq)
 }
 
+// Italic adds a string of italic text to the sentence.
 func (builder *SentenceBuilder) Italic(text string) *SentenceBuilder {
 	return builder.ItalicStart().write(text).ItalicEnd()
 }
 
+// ItalicStart marks the start of italics text. Use `ItalicEnd` to end the italics section.
 func (builder *SentenceBuilder) ItalicStart() *SentenceBuilder {
 	return builder.write(italicSeq)
 }
 
+// ItalicEnd clears the italics attribute previously set with `ItalicStart`.
 func (builder *SentenceBuilder) ItalicEnd() *SentenceBuilder {
 	return builder.write(italicResetSeq)
 }
 
+// Underline adds a string of underlined text to the sentence.
 func (builder *SentenceBuilder) Underline(text string) *SentenceBuilder {
 	return builder.UnderlineStart().write(text).UnderlineEnd()
 }
 
+// UnderlineStart marks the start of underlined text. Use `UnderlineEnd` to end the underlined section.
 func (builder *SentenceBuilder) UnderlineStart() *SentenceBuilder {
 	return builder.write(underlineSeq)
 }
 
+// UnderlineEnd clears the underline attribute previously set with `UnderlineStart`.
 func (builder *SentenceBuilder) UnderlineEnd() *SentenceBuilder {
 	return builder.write(underlineResetSeq)
 }
 
+// Blink adds a string of blinking text to the sentence.
 func (builder *SentenceBuilder) Blink(text string) *SentenceBuilder {
 	return builder.BlinkStart().write(text).BlinkEnd()
 }
 
+// BlinkStart marks the start of blinking text. Use `BlinkEnd` to end the blinking section.
 func (builder *SentenceBuilder) BlinkStart() *SentenceBuilder {
 	return builder.write(blinkSeq)
 }
 
+// BlinkEnd clears the blink attribute previously set with `BlinkStart`.
 func (builder *SentenceBuilder) BlinkEnd() *SentenceBuilder {
 	return builder.write(blinkResetSeq)
 }
 
+// Invert adds a string of text with inverted colors to the sentence.
 func (builder *SentenceBuilder) Invert(text string) *SentenceBuilder {
 	return builder.InvertStart().write(text).InvertEnd()
 }
 
+// InvertStart marks the start of text with inverted colors. Use `InvertEnd` to end the inverted colors section.
 func (builder *SentenceBuilder) InvertStart() *SentenceBuilder {
 	return builder.write(invertSeq)
 }
 
+// InvertEnd clears the invert attribute previously set with `InvertStart`.
 func (builder *SentenceBuilder) InvertEnd() *SentenceBuilder {
 	return builder.write(invertResetSeq)
 }
 
+// Conceal adds a string of concealed text to the sentence.
 func (builder *SentenceBuilder) Conceal(text string) *SentenceBuilder {
 	return builder.ConcealStart().write(text).ConcealEnd()
 }
 
+// ConcealStart marks the start of concealed text. Use `ConcealEnd` to end the concealed section.
 func (builder *SentenceBuilder) ConcealStart() *SentenceBuilder {
 	return builder.write(concealSeq)
 }
 
+// ConcealEnd clears the conceal attribute previously set with `ConcealStart`.
 func (builder *SentenceBuilder) ConcealEnd() *SentenceBuilder {
 	return builder.write(concealResetSeq)
 }
 
+// Strikethrough adds a string of crossed text to the sentence.
 func (builder *SentenceBuilder) Strikethrough(text string) *SentenceBuilder {
 	return builder.StrikethroughStart().write(text).StrikethroughEnd()
 }
 
+// StrikethroughStart marks the start of crossed text. Use `StrikethroughEnd` to end the crossed section.
 func (builder *SentenceBuilder) StrikethroughStart() *SentenceBuilder {
 	return builder.write(strikethroughSeq)
 }
 
+// StrikethroughEnd clears the strikethrough attribute previously set with `StrikethroughStart`.
 func (builder *SentenceBuilder) StrikethroughEnd() *SentenceBuilder {
 	return builder.write(strikethroughResetSeq)
 }
