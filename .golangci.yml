@@ -1,5 +1,8 @@
 linters:
-  disable-all: true
+  disable:
+    - interfacer
+    - maligned
+
   enable:
     # Enabled by default linters
     - deadcode
@@ -49,10 +52,8 @@ linters:
     - gosec
     - ifshort
     - importas
-    - interfacer
     - lll
     - makezero
-    - maligned
     - misspell
     - nakedret
     - nestif
