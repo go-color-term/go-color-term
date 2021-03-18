@@ -82,42 +82,42 @@ func (builder *ColourBuilder) Print() ColorizerPrint {
 
 // Black adds an attribute to the current sequence to render black text.
 func (builder *ColourBuilder) Black() *ColourBuilder {
-	return builder.addComponent(fg_4b_color_black)
+	return builder.addComponent(fg4bColorBlack)
 }
 
 // Red adds an attribute to the current sequence to render red text.
 func (builder *ColourBuilder) Red() *ColourBuilder {
-	return builder.addComponent(fg_4b_color_red)
+	return builder.addComponent(fg4bColorRed)
 }
 
 // Green adds an attribute to the current sequence to render green text.
 func (builder *ColourBuilder) Green() *ColourBuilder {
-	return builder.addComponent(fg_4b_color_green)
+	return builder.addComponent(fg4bColorGreen)
 }
 
 // Yellow adds an attribute to the current sequence to render yellow text.
 func (builder *ColourBuilder) Yellow() *ColourBuilder {
-	return builder.addComponent(fg_4b_color_yellow)
+	return builder.addComponent(fg4bColorYellow)
 }
 
 // Blue adds an attribute to the current sequence to render blue text.
 func (builder *ColourBuilder) Blue() *ColourBuilder {
-	return builder.addComponent(fg_4b_color_blue)
+	return builder.addComponent(fg4bColorBlue)
 }
 
 // Magenta adds an attribute to the current sequence to render magenta text.
 func (builder *ColourBuilder) Magenta() *ColourBuilder {
-	return builder.addComponent(fg_4b_color_magenta)
+	return builder.addComponent(fg4bColorMagenta)
 }
 
 // Cyan adds an attribute to the current sequence to render cyan text.
 func (builder *ColourBuilder) Cyan() *ColourBuilder {
-	return builder.addComponent(fg_4b_color_cyan)
+	return builder.addComponent(fg4bColorCyan)
 }
 
 // White adds an attribute to the current sequence to render white text.
 func (builder *ColourBuilder) White() *ColourBuilder {
-	return builder.addComponent(fg_4b_color_white)
+	return builder.addComponent(fg4bColorWhite)
 }
 
 // Color adds an attribute to the current sequence to render text with a color
@@ -129,13 +129,13 @@ func (builder *ColourBuilder) Color(code int) *ColourBuilder {
 		code = 7
 	}
 
-	return builder.addComponent(fg_color + strconv.Itoa(code) + ";")
+	return builder.addComponent(fgColor + strconv.Itoa(code) + ";")
 }
 
 // Rgb adds an attribute to the current sequence to render text with an RGB color.
 // The terminal should support 24-bit colors.
 func (builder *ColourBuilder) Rgb(r, g, b int) *ColourBuilder {
-	return builder.addComponent(fg_color_rgb + fmt.Sprintf("%d;%d;%d;", r, g, b))
+	return builder.addComponent(fgColorRgb + fmt.Sprintf("%d;%d;%d;", r, g, b))
 }
 
 // Bold adds an attribute to the current sequence to render bold text.
@@ -181,56 +181,56 @@ type BackgroundColorBuilder struct {
 // The original `ColourBuilder` is returned as there's no more attributes
 // that can be specified to alter the background style.
 func (bg *BackgroundColorBuilder) Black() *ColourBuilder {
-	return bg.c.addComponent(bg_4b_color_black)
+	return bg.c.addComponent(bg4bColorBlack)
 }
 
 // Red adds an attribute to the current sequence to display red background.
 // The original `ColourBuilder` is returned as there's no more attributes
 // that can be specified to alter the background style.
 func (bg *BackgroundColorBuilder) Red() *ColourBuilder {
-	return bg.c.addComponent(bg_4b_color_red)
+	return bg.c.addComponent(bg4bColorRed)
 }
 
 // Green adds an attribute to the current sequence to display green background.
 // The original `ColourBuilder` is returned as there's no more attributes
 // that can be specified to alter the background style.
 func (bg *BackgroundColorBuilder) Green() *ColourBuilder {
-	return bg.c.addComponent(bg_4b_color_green)
+	return bg.c.addComponent(bg4bColorGreen)
 }
 
 // Yellow adds an attribute to the current sequence to display yellow background.
 // The original `ColourBuilder` is returned as there's no more attributes
 // that can be specified to alter the background style.
 func (bg *BackgroundColorBuilder) Yellow() *ColourBuilder {
-	return bg.c.addComponent(bg_4b_color_yellow)
+	return bg.c.addComponent(bg4bColorYellow)
 }
 
 // Blue adds an attribute to the current sequence to display blue background.
 // The original `ColourBuilder` is returned as there's no more attributes
 // that can be specified to alter the background style.
 func (bg *BackgroundColorBuilder) Blue() *ColourBuilder {
-	return bg.c.addComponent(bg_4b_color_blue)
+	return bg.c.addComponent(bg4bColorBlue)
 }
 
 // Magenta adds an attribute to the current sequence to display magenta background.
 // The original `ColourBuilder` is returned as there's no more attributes
 // that can be specified to alter the background style.
 func (bg *BackgroundColorBuilder) Magenta() *ColourBuilder {
-	return bg.c.addComponent(bg_4b_color_magenta)
+	return bg.c.addComponent(bg4bColorMagenta)
 }
 
 // Cyan adds an attribute to the current sequence to display cyan background.
 // The original `ColourBuilder` is returned as there's no more attributes
 // that can be specified to alter the background style.
 func (bg *BackgroundColorBuilder) Cyan() *ColourBuilder {
-	return bg.c.addComponent(bg_4b_color_cyan)
+	return bg.c.addComponent(bg4bColorCyan)
 }
 
 // White adds an attribute to the current sequence to display white background.
 // The original `ColourBuilder` is returned as there's no more attributes
 // that can be specified to alter the background style.
 func (bg *BackgroundColorBuilder) White() *ColourBuilder {
-	return bg.c.addComponent(bg_4b_color_white)
+	return bg.c.addComponent(bg4bColorWhite)
 }
 
 // Color adds an attribute to set the background color in the 0-255 8-bit range.
@@ -243,7 +243,7 @@ func (bg *BackgroundColorBuilder) Color(code int) *ColourBuilder {
 		code = 7
 	}
 
-	return bg.c.addComponent(bg_color + strconv.Itoa(code) + ";")
+	return bg.c.addComponent(bgColor + strconv.Itoa(code) + ";")
 }
 
 // Rgb adds an attribute to set the background color to an RGB color.
@@ -251,5 +251,5 @@ func (bg *BackgroundColorBuilder) Color(code int) *ColourBuilder {
 // The original `ColourBuilder` is returned as there's no more attributes
 // that can be specified to alter the background style.
 func (bg *BackgroundColorBuilder) Rgb(r, g, b int) *ColourBuilder {
-	return bg.c.addComponent(bg_color_rgb + fmt.Sprintf("%d;%d;%d;", r, g, b))
+	return bg.c.addComponent(bgColorRgb + fmt.Sprintf("%d;%d;%d;", r, g, b))
 }

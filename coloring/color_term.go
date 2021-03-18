@@ -5,10 +5,10 @@ import (
 )
 
 const (
-	escape_seq = "\033"
+	escapeSeq = "\033"
 
-	begin_seq = "["
-	end_seq   = "m"
+	beginSeq = "["
+	endSeq   = "m"
 
 	reset         = "0;"
 	bold          = "1;"
@@ -20,70 +20,70 @@ const (
 	conceal       = "8;"
 	strikethrough = "9;"
 
-	not_bold_nor_faint = "22;"
-	not_italic         = "23;"
-	not_underline      = "24;"
-	not_blink          = "25;"
-	not_invert         = "27;"
-	not_conceal        = "28;"
-	not_strikethrough  = "29;"
+	notBoldNorFaint  = "22;"
+	notItalic        = "23;"
+	notUnderline     = "24;"
+	notBlink         = "25;"
+	notInvert        = "27;"
+	notConceal       = "28;"
+	notStrikethrough = "29;"
 
-	fg_4b_color_black   = "30;"
-	fg_4b_color_red     = "31;"
-	fg_4b_color_green   = "32;"
-	fg_4b_color_yellow  = "33;"
-	fg_4b_color_blue    = "34;"
-	fg_4b_color_magenta = "35;"
-	fg_4b_color_cyan    = "36;"
-	fg_4b_color_white   = "37;"
+	fg4bColorBlack   = "30;"
+	fg4bColorRed     = "31;"
+	fg4bColorGreen   = "32;"
+	fg4bColorYellow  = "33;"
+	fg4bColorBlue    = "34;"
+	fg4bColorMagenta = "35;"
+	fg4bColorCyan    = "36;"
+	fg4bColorWhite   = "37;"
 
-	fg_color_default = "39;"
+	fgColorDefault = "39;"
 
-	bg_4b_color_black   = "40;"
-	bg_4b_color_red     = "41;"
-	bg_4b_color_green   = "42;"
-	bg_4b_color_yellow  = "43;"
-	bg_4b_color_blue    = "44;"
-	bg_4b_color_magenta = "45;"
-	bg_4b_color_cyan    = "46;"
-	bg_4b_color_white   = "47;"
+	bg4bColorBlack   = "40;"
+	bg4bColorRed     = "41;"
+	bg4bColorGreen   = "42;"
+	bg4bColorYellow  = "43;"
+	bg4bColorBlue    = "44;"
+	bg4bColorMagenta = "45;"
+	bg4bColorCyan    = "46;"
+	bg4bColorWhite   = "47;"
 
-	bg_color_default = "49;"
+	bgColorDefault = "49;"
 
-	underline_color = "58;"
+	underlineColor = "58;"
 
-	underline_color_4b  = underline_color + "5;"
-	underline_color_rbg = underline_color + "2;"
+	underlineColor4b  = underlineColor + "5;"
+	underlineColorRbg = underlineColor + "2;"
 
-	underline_color_default = "59;"
+	underlineColorDefault = "59;"
 
-	fg_4b_color_bright_black       = "90;"
-	fg_4b_color_bright_red         = "91;"
-	fg_4b_color_bright_green       = "92;"
-	fg_4b_color_bright_yellow      = "93;"
-	fg_4b_color_bright_blue        = "94;"
-	fg_4b_color_bright_magenta     = "95;"
-	fg_4b_color_bright_bright_cyan = "96;"
-	fg_4b_color_bright_white       = "97;"
+	fg4bColorBrightBlack   = "90;"
+	fg4bColorBrightRed     = "91;"
+	fg4bColorBrightGreen   = "92;"
+	fg4bColorBrightYellow  = "93;"
+	fg4bColorBrightBlue    = "94;"
+	fg4bColorBrightMagenta = "95;"
+	fg4bColorBrightCyan    = "96;"
+	fg4bColorBrightWhite   = "97;"
 
-	bg_4b_color_bright_black       = "100;"
-	bg_4b_color_bright_red         = "101;"
-	bg_4b_color_bright_green       = "102;"
-	bg_4b_color_bright_yellow      = "103;"
-	bg_4b_color_bright_blue        = "104;"
-	bg_4b_color_bright_magenta     = "105;"
-	bg_4b_color_bright_bright_cyan = "106;"
-	bg_4b_color_bright_white       = "107;"
+	bg4bColorBrightBlack   = "100;"
+	bg4bColorBrightRed     = "101;"
+	bg4bColorBrightGreen   = "102;"
+	bg4bColorBrightYellow  = "103;"
+	bg4bColorBrightBlue    = "104;"
+	bg4bColorBrightMagenta = "105;"
+	bg4bColorBrightCyan    = "106;"
+	bg4bColorBrightWhite   = "107;"
 
-	fg           = "38;"
-	fg_color     = fg + "5;"
-	fg_color_rgb = fg + "2;"
+	fg         = "38;"
+	fgColor    = fg + "5;"
+	fgColorRgb = fg + "2;"
 
-	bg           = "48;"
-	bg_color     = bg + "5;"
-	bg_color_rgb = bg + "2;"
+	bg         = "48;"
+	bgColor    = bg + "5;"
+	bgColorRgb = bg + "2;"
 
-	reset_seq = escape_seq + begin_seq + reset + end_seq
+	resetSeq = escapeSeq + beginSeq + reset + endSeq
 )
 
 const (
@@ -107,8 +107,8 @@ const (
 
 func newColourBuilder(s string) *ColourBuilder {
 	var stringBuilder strings.Builder
-	stringBuilder.WriteString(escape_seq)
-	stringBuilder.WriteString(begin_seq)
+	stringBuilder.WriteString(escapeSeq)
+	stringBuilder.WriteString(beginSeq)
 
 	return &ColourBuilder{
 		s:              s,
@@ -118,12 +118,12 @@ func newColourBuilder(s string) *ColourBuilder {
 
 func applyTo(seq, s string) string {
 	var sb strings.Builder
-	sb.Grow(len(seq) + len(end_seq) + len(s) + len(reset_seq))
+	sb.Grow(len(seq) + len(endSeq) + len(s) + len(resetSeq))
 
 	sb.WriteString(seq)
-	sb.WriteString(end_seq)
+	sb.WriteString(endSeq)
 	sb.WriteString(s)
-	sb.WriteString(reset_seq)
+	sb.WriteString(resetSeq)
 
 	return sb.String()
 }

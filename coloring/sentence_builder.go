@@ -38,7 +38,7 @@ func (builder *SentenceBuilder) Println() {
 }
 
 func (builder *SentenceBuilder) Reset() *SentenceBuilder {
-	return builder.write(reset_seq)
+	return builder.write(resetSeq)
 }
 
 func (builder *SentenceBuilder) Color(text string, color int) *SentenceBuilder {
@@ -46,11 +46,11 @@ func (builder *SentenceBuilder) Color(text string, color int) *SentenceBuilder {
 }
 
 func (builder *SentenceBuilder) ColorSet(color int) *SentenceBuilder {
-	return builder.write(fg_color_set_seq_open).write(strconv.Itoa(color)).write(end_seq)
+	return builder.write(fgColorSetSeqOpen).write(strconv.Itoa(color)).write(endSeq)
 }
 
 func (builder *SentenceBuilder) ColorReset() *SentenceBuilder {
-	return builder.write(fg_color_reset_seq)
+	return builder.write(fgColorResetSeq)
 }
 
 func (builder *SentenceBuilder) Background(text string, color int) *SentenceBuilder {
@@ -58,11 +58,11 @@ func (builder *SentenceBuilder) Background(text string, color int) *SentenceBuil
 }
 
 func (builder *SentenceBuilder) BackgroundSet(color int) *SentenceBuilder {
-	return builder.write(bg_color_set_seq_open).write(strconv.Itoa(color)).write(end_seq)
+	return builder.write(bgColorSetSeqOpen).write(strconv.Itoa(color)).write(endSeq)
 }
 
 func (builder *SentenceBuilder) BackgroundReset() *SentenceBuilder {
-	return builder.write(bg_color_reset_seq)
+	return builder.write(bgColorResetSeq)
 }
 
 func (builder *SentenceBuilder) Bold(text string) *SentenceBuilder {
@@ -70,11 +70,11 @@ func (builder *SentenceBuilder) Bold(text string) *SentenceBuilder {
 }
 
 func (builder *SentenceBuilder) BoldStart() *SentenceBuilder {
-	return builder.write(bold_seq)
+	return builder.write(boldSeq)
 }
 
 func (builder *SentenceBuilder) BoldEnd() *SentenceBuilder {
-	return builder.write(bold_reset_seq)
+	return builder.write(boldResetSeq)
 }
 
 func (builder *SentenceBuilder) Faint(text string) *SentenceBuilder {
@@ -82,11 +82,11 @@ func (builder *SentenceBuilder) Faint(text string) *SentenceBuilder {
 }
 
 func (builder *SentenceBuilder) FaintStart() *SentenceBuilder {
-	return builder.write(faint_seq)
+	return builder.write(faintSeq)
 }
 
 func (builder *SentenceBuilder) FaintEnd() *SentenceBuilder {
-	return builder.write(faint_reset_seq)
+	return builder.write(faintResetSeq)
 }
 
 func (builder *SentenceBuilder) Italic(text string) *SentenceBuilder {
@@ -94,11 +94,11 @@ func (builder *SentenceBuilder) Italic(text string) *SentenceBuilder {
 }
 
 func (builder *SentenceBuilder) ItalicStart() *SentenceBuilder {
-	return builder.write(italic_seq)
+	return builder.write(italicSeq)
 }
 
 func (builder *SentenceBuilder) ItalicEnd() *SentenceBuilder {
-	return builder.write(italic_reset_seq)
+	return builder.write(italicResetSeq)
 }
 
 func (builder *SentenceBuilder) Underline(text string) *SentenceBuilder {
@@ -106,11 +106,11 @@ func (builder *SentenceBuilder) Underline(text string) *SentenceBuilder {
 }
 
 func (builder *SentenceBuilder) UnderlineStart() *SentenceBuilder {
-	return builder.write(underline_seq)
+	return builder.write(underlineSeq)
 }
 
 func (builder *SentenceBuilder) UnderlineEnd() *SentenceBuilder {
-	return builder.write(underline_reset_seq)
+	return builder.write(underlineResetSeq)
 }
 
 func (builder *SentenceBuilder) Blink(text string) *SentenceBuilder {
@@ -118,11 +118,11 @@ func (builder *SentenceBuilder) Blink(text string) *SentenceBuilder {
 }
 
 func (builder *SentenceBuilder) BlinkStart() *SentenceBuilder {
-	return builder.write(blink_seq)
+	return builder.write(blinkSeq)
 }
 
 func (builder *SentenceBuilder) BlinkEnd() *SentenceBuilder {
-	return builder.write(blink_reset_seq)
+	return builder.write(blinkResetSeq)
 }
 
 func (builder *SentenceBuilder) Invert(text string) *SentenceBuilder {
@@ -130,11 +130,11 @@ func (builder *SentenceBuilder) Invert(text string) *SentenceBuilder {
 }
 
 func (builder *SentenceBuilder) InvertStart() *SentenceBuilder {
-	return builder.write(invert_seq)
+	return builder.write(invertSeq)
 }
 
 func (builder *SentenceBuilder) InvertEnd() *SentenceBuilder {
-	return builder.write(invert_reset_seq)
+	return builder.write(invertResetSeq)
 }
 
 func (builder *SentenceBuilder) Conceal(text string) *SentenceBuilder {
@@ -142,11 +142,11 @@ func (builder *SentenceBuilder) Conceal(text string) *SentenceBuilder {
 }
 
 func (builder *SentenceBuilder) ConcealStart() *SentenceBuilder {
-	return builder.write(conceal_seq)
+	return builder.write(concealSeq)
 }
 
 func (builder *SentenceBuilder) ConcealEnd() *SentenceBuilder {
-	return builder.write(conceal_reset_seq)
+	return builder.write(concealResetSeq)
 }
 
 func (builder *SentenceBuilder) Strikethrough(text string) *SentenceBuilder {
@@ -154,11 +154,11 @@ func (builder *SentenceBuilder) Strikethrough(text string) *SentenceBuilder {
 }
 
 func (builder *SentenceBuilder) StrikethroughStart() *SentenceBuilder {
-	return builder.write(strikethrough_seq)
+	return builder.write(strikethroughSeq)
 }
 
 func (builder *SentenceBuilder) StrikethroughEnd() *SentenceBuilder {
-	return builder.write(strikethrough_reset_seq)
+	return builder.write(strikethroughResetSeq)
 }
 
 func (builder *SentenceBuilder) UnderlineColor(text string, color int) *SentenceBuilder {
@@ -166,9 +166,9 @@ func (builder *SentenceBuilder) UnderlineColor(text string, color int) *Sentence
 }
 
 func (builder *SentenceBuilder) UnderlineColorStart(color int) *SentenceBuilder {
-	return builder.write(underline_color_seq).write(strconv.Itoa(color)).write(end_seq)
+	return builder.write(underlineColorSeq).write(strconv.Itoa(color)).write(endSeq)
 }
 
 func (builder *SentenceBuilder) UnderlineColorEnd() *SentenceBuilder {
-	return builder.write(underline_color_reset_seq)
+	return builder.write(underlineColorResetSeq)
 }
