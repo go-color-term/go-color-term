@@ -7,7 +7,7 @@ import (
 )
 
 func Sentence() *SentenceBuilder {
-	return &SentenceBuilder{}
+	return &SentenceBuilder{strings.Builder{}}
 }
 
 type SentenceBuilder struct {
@@ -16,6 +16,7 @@ type SentenceBuilder struct {
 
 func (builder *SentenceBuilder) write(component string) *SentenceBuilder {
 	builder.sb.WriteString(component)
+
 	return builder
 }
 

@@ -6,6 +6,8 @@ import (
 	"strings"
 )
 
+const maxColorNumber = 255
+
 // ColourBuilder allows to compose multiple color/formatting
 // attributes in a single escape sequence.
 // It can start with a predefined text to decorate (see `For(string)`)
@@ -36,6 +38,7 @@ func New() *ColourBuilder {
 
 func (builder *ColourBuilder) addComponent(comp string) *ColourBuilder {
 	builder.colourSequence.WriteString(comp)
+
 	return builder
 }
 
@@ -64,6 +67,7 @@ func (builder *ColourBuilder) String() string {
 // Further changes to this builder doesn't affect the output of the returned `ColorizerFunc`.
 func (builder *ColourBuilder) Func() ColorizerFunc {
 	seq := builder.colourSequence.String()
+
 	return func(s string) string {
 		return applyTo(seq, s)
 	}
@@ -125,7 +129,7 @@ func (builder *ColourBuilder) White() *ColourBuilder {
 // See constants declared in the `coloring` package to access the most
 // common ones (0-15).
 func (builder *ColourBuilder) Color(code int) *ColourBuilder {
-	if code > 255 {
+	if code > maxColorNumber {
 		code = 7
 	}
 
@@ -164,7 +168,7 @@ func (builder *ColourBuilder) InvertColors() *ColourBuilder {
 	return builder.addComponent(invert)
 }
 
-// Background returns a `BackgroundColorBuilder` wich exposes funtions to
+// Background returns a `BackgroundColorBuilder` which exposes funtions to
 // set the background color.
 // After calling this function, it's required to invoke some of the
 // `BackgroundColorBuilder` functions to return to the original builder.
@@ -239,7 +243,7 @@ func (bg *BackgroundColorBuilder) White() *ColourBuilder {
 // The original `ColourBuilder` is returned as there's no more attributes
 // that can be specified to alter the background style.
 func (bg *BackgroundColorBuilder) Color(code int) *ColourBuilder {
-	if code > 255 {
+	if code > maxColorNumber {
 		code = 7
 	}
 

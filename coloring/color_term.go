@@ -107,6 +107,7 @@ const (
 
 func newColourBuilder(s string) *ColourBuilder {
 	var stringBuilder strings.Builder
+
 	stringBuilder.WriteString(escapeSeq)
 	stringBuilder.WriteString(beginSeq)
 
@@ -118,6 +119,7 @@ func newColourBuilder(s string) *ColourBuilder {
 
 func applyTo(seq, s string) string {
 	var sb strings.Builder
+
 	sb.Grow(len(seq) + len(endSeq) + len(s) + len(resetSeq))
 
 	sb.WriteString(seq)
