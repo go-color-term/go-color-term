@@ -40,11 +40,29 @@ func (builder *SentenceBuilder) Print() {
 	fmt.Print(builder)
 }
 
+// PrintAndClear performs a `SentenceBuilder.Print` and then clears the current sentence
+// buffer and returns this `SentenceBuilder`, allowing to start building a new sentence right away.
+func (builder *SentenceBuilder) PrintAndClear() *SentenceBuilder {
+	builder.Print()
+	builder.sb.Reset()
+
+	return builder
+}
+
 // Println reset all the styles and outputs the currently built sentence on `os.Stdout`
 // adding a new line at the end.
 func (builder *SentenceBuilder) Println() {
 	builder.Reset()
 	fmt.Println(builder)
+}
+
+// PrintlnAndClear performs a `SentenceBuilder.Println` and then clears the current sentence
+// buffer and returns this `SentenceBuilder`, allowing to start building a new sentence right away.
+func (builder *SentenceBuilder) PrintlnAndClear() *SentenceBuilder {
+	builder.Println()
+	builder.sb.Reset()
+
+	return builder
 }
 
 // Text adds a string of unformatted text to the sentence.
