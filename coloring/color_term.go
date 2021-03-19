@@ -1,6 +1,7 @@
 package coloring
 
 import (
+	"fmt"
 	"strings"
 )
 
@@ -111,4 +112,8 @@ func applyTo(seq, s string) string {
 	sb.WriteString(resetSeq)
 
 	return sb.String()
+}
+
+func composeRgbColor(r, g, b int) string {
+	return fmt.Sprintf("%d;%d;%d;", r, g, b)
 }

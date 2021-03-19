@@ -148,7 +148,7 @@ func (builder *StyleBuilder) Color(code int) *StyleBuilder {
 // Rgb adds an attribute to the current sequence to render text with an RGB color.
 // The terminal should support 24-bit colors.
 func (builder *StyleBuilder) Rgb(r, g, b int) *StyleBuilder {
-	return builder.addAttribute(fgColorRgb + fmt.Sprintf("%d;%d;%d;", r, g, b))
+	return builder.addAttribute(fgColorRgb + composeRgbColor(r, g, b))
 }
 
 // Bold adds an attribute to the current sequence to render bold text.
@@ -274,5 +274,5 @@ func (bg *BackgroundColorBuilder) Color(code int) *StyleBuilder {
 // The original `StyleBuilder` is returned as there's no more attributes
 // that can be specified to alter the background style.
 func (bg *BackgroundColorBuilder) Rgb(r, g, b int) *StyleBuilder {
-	return bg.c.addAttribute(bgColorRgb + fmt.Sprintf("%d;%d;%d;", r, g, b))
+	return bg.c.addAttribute(bgColorRgb + composeRgbColor(r, g, b))
 }
