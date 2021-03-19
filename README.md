@@ -39,7 +39,7 @@ coloring.Red("Fire truck")
 This will produce the following escaped string:
 
 ```
-\ESC[31;mFire truck\ESC[39;m
+ESC[31;mFire truckESC[39;m
 ```
 
 Which be can decompose for analysis into:
@@ -47,14 +47,14 @@ Which be can decompose for analysis into:
 ```
  Sets red      Resets text color
 text color        to default
-    |                  |
-    v                  v
----------          ---------
-\ESC[31;mFire truck\ESC[39;m
-         ----------
-             ^
-             |
-      Provided string
+    |                 |
+    v                 v
+--------          --------
+ESC[31;mFire truckESC[39;m
+        ----------
+            ^
+            |
+     Provided string
 ```
 
 Of course you can combine multiple styles by passing the output of one function to another:
@@ -68,10 +68,10 @@ This is probably fine for a few function calls, but can become difficult to read
 Also, this approach, while it works, doesn't generate the most efficient escape sequences:
 
 ```
-\ESC[1;m\ESC[31;mWolf\ESC[39;m\ESC[22;m
+ESC[1;mESC[31;mWolfESC[39;mESC[22;m
 ```
 
-A more compact sequence for the same style would be `\ESC[1;31;mWolf\ESC[0;m`, which is the topic of the next section.
+A more compact sequence for the same style would be `ESC[1;31;mWolfESC[0;m`, which is the topic of the next section.
 
 The full list of utility functions is:
 * `Black(s string)`
