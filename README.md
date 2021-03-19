@@ -149,6 +149,20 @@ fmt.Printf("Here comes the %s to extinguish the %s\n", boldRed("fire truck"), bo
 
 Whether to use `For(string)` or `New()` + `Func()` will be a matter of reusability needs.
 
+Finally, if you only need to print the styled text and nothing else, `StyleBuilder` offers a convenience function: `Print()`.
+
+It returns a `ColorizerPrint` which can be invoked with the text to print, much like the `ColorizerFunc`, but instead of returning the styled `string`, it only outputs on the terminal:
+
+```go
+printAlert := coloring.New().White().Bold().Background().Red().Print()
+
+printAlert("ALERT: The house is on fire!!!\n")
+```
+
+<img src="docs/style_builder_print.png" width="250" />
+
+And now you also know why the firemen were coming in the first place!
+
 ### `DecoratedText`
 
 TBD
