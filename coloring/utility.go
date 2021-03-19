@@ -36,6 +36,15 @@ const (
 	fgCyan    = escapeSeq + beginSeq + fg4bColorCyan + endSeq
 	fgWhite   = escapeSeq + beginSeq + fg4bColorWhite + endSeq
 
+	fgBrightBlack   = escapeSeq + beginSeq + fg4bColorBrightBlack + endSeq
+	fgBrightRed     = escapeSeq + beginSeq + fg4bColorBrightRed + endSeq
+	fgBrightGreen   = escapeSeq + beginSeq + fg4bColorBrightGreen + endSeq
+	fgBrightYellow  = escapeSeq + beginSeq + fg4bColorBrightYellow + endSeq
+	fgBrightBlue    = escapeSeq + beginSeq + fg4bColorBrightBlue + endSeq
+	fgBrightMagenta = escapeSeq + beginSeq + fg4bColorBrightMagenta + endSeq
+	fgBrightCyan    = escapeSeq + beginSeq + fg4bColorBrightCyan + endSeq
+	fgBrightWhite   = escapeSeq + beginSeq + fg4bColorBrightWhite + endSeq
+
 	bgBlack   = escapeSeq + beginSeq + bg4bColorBlack + endSeq
 	bgRed     = escapeSeq + beginSeq + bg4bColorRed + endSeq
 	bgGreen   = escapeSeq + beginSeq + bg4bColorGreen + endSeq
@@ -44,6 +53,15 @@ const (
 	bgMagenta = escapeSeq + beginSeq + bg4bColorMagenta + endSeq
 	bgCyan    = escapeSeq + beginSeq + bg4bColorCyan + endSeq
 	bgWhite   = escapeSeq + beginSeq + bg4bColorWhite + endSeq
+
+	bgBrightBlack   = escapeSeq + beginSeq + bg4bColorBrightBlack + endSeq
+	bgBrightRed     = escapeSeq + beginSeq + bg4bColorBrightRed + endSeq
+	bgBrightGreen   = escapeSeq + beginSeq + bg4bColorBrightGreen + endSeq
+	bgBrightYellow  = escapeSeq + beginSeq + bg4bColorBrightYellow + endSeq
+	bgBrightBlue    = escapeSeq + beginSeq + bg4bColorBrightBlue + endSeq
+	bgBrightMagenta = escapeSeq + beginSeq + bg4bColorBrightMagenta + endSeq
+	bgBrightCyan    = escapeSeq + beginSeq + bg4bColorBrightCyan + endSeq
+	bgBrightWhite   = escapeSeq + beginSeq + bg4bColorBrightWhite + endSeq
 )
 
 // Wraps `s` with the attribute to render it with black text.
@@ -216,4 +234,123 @@ func Strikethrough(s string) string {
 
 func wrap(s, attribute, resetAttribute string) string {
 	return attribute + s + resetAttribute
+}
+
+type extras struct{}
+
+// Extras allow to access to additional utility functions.
+//
+// The function exposed by the field might not work on all terminals.
+var Extras extras
+
+// BrightBlack wraps `s` with the attribute to render it as bright black text.
+//
+// Equivalent to the sequence ESC[90;m followed by `s` and ended with ESC[39;m.
+func (ex *extras) BrightBlack(s string) string {
+	return wrap(s, fgBrightBlack, fgColorResetSeq)
+}
+
+// BrightRed wraps `s` with the attribute to render it as bright red text.
+//
+// Equivalent to the sequence ESC[91;m followed by `s` and ended with ESC[39;m.
+func (ex *extras) BrightRed(s string) string {
+	return wrap(s, fgBrightRed, fgColorResetSeq)
+}
+
+// BrightGreen wraps `s` with the attribute to render it as bright green text.
+//
+// Equivalent to the sequence ESC[92;m followed by `s` and ended with ESC[39;m.
+func (ex *extras) BrightGreen(s string) string {
+	return wrap(s, fgBrightGreen, fgColorResetSeq)
+}
+
+// BrightYellow wraps `s` with the attribute to render it as bright yellow text.
+//
+// Equivalent to the sequence ESC[93;m followed by `s` and ended with ESC[39;m.
+func (ex *extras) BrightYellow(s string) string {
+	return wrap(s, fgBrightYellow, fgColorResetSeq)
+}
+
+// BrightBlue wraps `s` with the attribute to render it as bright blue text.
+//
+// Equivalent to the sequence ESC[94;m followed by `s` and ended with ESC[39;m.
+func (ex *extras) BrightBlue(s string) string {
+	return wrap(s, fgBrightBlue, fgColorResetSeq)
+}
+
+// BrightMagenta wraps `s` with the attribute to render it as bright magenta text.
+//
+// Equivalent to the sequence ESC[95;m followed by `s` and ended with ESC[39;m.
+func (ex *extras) BrightMagenta(s string) string {
+	return wrap(s, fgBrightMagenta, fgColorResetSeq)
+}
+
+// BrightCyan wraps `s` with the attribute to render it as bright cyan text.
+//
+// Equivalent to the sequence ESC[96;m followed by `s` and ended with ESC[39;m.
+func (ex *extras) BrightCyan(s string) string {
+	return wrap(s, fgBrightCyan, fgColorResetSeq)
+}
+
+// BrightWhite wraps `s` with the attribute to render it as bright white text.
+//
+// Equivalent to the sequence ESC[97;m followed by `s` and ended with ESC[39;m.
+func (ex *extras) BrightWhite(s string) string {
+	return wrap(s, fgBrightWhite, fgColorResetSeq)
+}
+
+// BgBrightBlack wraps `s` with the attribute to render it with bright black background.
+//
+// Equivalent to the sequence ESC[100;m followed by `s` and ended with ESC[39;m.
+func (ex *extras) BgBrightBlack(s string) string {
+	return wrap(s, bgBrightBlack, bgColorResetSeq)
+}
+
+// BgBrightRed wraps `s` with the attribute to render it with bright red background.
+//
+// Equivalent to the sequence ESC[101;m followed by `s` and ended with ESC[39;m.
+func (ex *extras) BgBrightRed(s string) string {
+	return wrap(s, bgBrightRed, bgColorResetSeq)
+}
+
+// BgBrightGreen wraps `s` with the attribute to render it with bright green background.
+//
+// Equivalent to the sequence ESC[102;m followed by `s` and ended with ESC[39;m.
+func (ex *extras) BgBrightGreen(s string) string {
+	return wrap(s, bgBrightGreen, bgColorResetSeq)
+}
+
+// BgBrightYellow wraps `s` with the attribute to render it with bright yellow background.
+//
+// Equivalent to the sequence ESC[103;m followed by `s` and ended with ESC[39;m.
+func (ex *extras) BgBrightYellow(s string) string {
+	return wrap(s, bgBrightYellow, bgColorResetSeq)
+}
+
+// BgBrightBlue wraps `s` with the attribute to render it with bright blue background.
+//
+// Equivalent to the sequence ESC[104;m followed by `s` and ended with ESC[39;m.
+func (ex *extras) BgBrightBlue(s string) string {
+	return wrap(s, bgBrightBlue, bgColorResetSeq)
+}
+
+// BgBrightMagenta wraps `s` with the attribute to render it with bright magenta background.
+//
+// Equivalent to the sequence ESC[105;m followed by `s` and ended with ESC[39;m.
+func (ex *extras) BgBrightMagenta(s string) string {
+	return wrap(s, bgBrightMagenta, bgColorResetSeq)
+}
+
+// BgBrightCyan wraps `s` with the attribute to render it with bright cyan background.
+//
+// Equivalent to the sequence ESC[106;m followed by `s` and ended with ESC[39;m.
+func (ex *extras) BgBrightCyan(s string) string {
+	return wrap(s, bgBrightCyan, bgColorResetSeq)
+}
+
+// BgBrightWhite wraps `s` with the attribute to render it with bright white background.
+//
+// Equivalent to the sequence ESC[107;m followed by `s` and ended with ESC[39;m.
+func (ex *extras) BgBrightWhite(s string) string {
+	return wrap(s, bgBrightWhite, bgColorResetSeq)
 }
