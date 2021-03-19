@@ -19,11 +19,13 @@ const (
 	concealResetSeq       = escapeSeq + beginSeq + notConceal + endSeq
 	strikethroughResetSeq = escapeSeq + beginSeq + notStrikethrough + endSeq
 
-	fgColorSetSeqOpen = escapeSeq + beginSeq + fgColor
-	fgColorResetSeq   = escapeSeq + beginSeq + fgColorDefault + endSeq
+	fgColorSetSeqOpen    = escapeSeq + beginSeq + fgColor
+	fgColorRgbSetSeqOpen = escapeSeq + beginSeq + fgColorRgb
+	fgColorResetSeq      = escapeSeq + beginSeq + fgColorDefault + endSeq
 
-	bgColorSetSeqOpen = escapeSeq + beginSeq + bgColor
-	bgColorResetSeq   = escapeSeq + beginSeq + bgColorDefault + endSeq
+	bgColorSetSeqOpen    = escapeSeq + beginSeq + bgColor
+	bgColorRgbSetSeqOpen = escapeSeq + beginSeq + bgColorRgb
+	bgColorResetSeq      = escapeSeq + beginSeq + bgColorDefault + endSeq
 
 	fgBlack   = escapeSeq + beginSeq + fg4bColorBlack + endSeq
 	fgRed     = escapeSeq + beginSeq + fg4bColorRed + endSeq
