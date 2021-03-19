@@ -73,6 +73,34 @@ Also, this approach, while it works, doesn't generate the most efficient escape 
 
 A more compact sequence for the same style would be `\ESC[1;31;mWolf\ESC[0;m`, which is the topic of the next section.
 
+The full list of utility functions is:
+* `Black(s string)`
+* `Red(s string)`
+* `Green(s string)`
+* `Yellow(s string)`
+* `Blue(s string)`
+* `Magenta(s string)`
+* `Cyan(s string)`
+* `White(s string)`
+* `BgBlack(s string)`
+* `BgRed(s string)`
+* `BgGreen(s string)`
+* `BgYellow(s string)`
+* `BgBlue(s string)`
+* `BgMagenta(s string)`
+* `BgCyan(s string)`
+* `BgWhite(s string)`
+* `Bold(s string)`
+* `Faint(s string)`
+* `Italic(s string)`
+* `Underline(s string)`
+* `Blink(s string)`
+* `Invert(s string)`
+* `Conceal(s string)`
+* `Strikethrough(s string)`
+
+See [coloring/utility.go](https://github.com/nelsonghezzi/go-color-term/blob/main/coloring/utility.go) for implementation details.
+
 ### `StyleBuilder`
 
 TBD
