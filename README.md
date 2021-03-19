@@ -203,7 +203,7 @@ This is perhaps the more daunting form of adding style attributes, but in return
 
 ## Licence
 
-TBD
+This project is licensed under the terms of the [MIT License](https://github.com/nelsonghezzi/go-color-term/blob/main/LICENSE).
 
 ## Contributing
 
