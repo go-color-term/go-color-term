@@ -19,12 +19,12 @@ This library provides several ways to add color to your output, tailored for dif
 
 The idea is to provide with the simplest way to render styled text for each situation.
 
-| Method                         | Use Case |
-|--------------------------------|----------|
-| `coloring.*` utility functions |          |
-| `StyleBuilder`                 |          |
-| `DecoratedText`                |          |
-| `SentenceBuilder`              |          |
+| Method                         | Use Case                                                                      |
+|--------------------------------|-------------------------------------------------------------------------------|
+| `coloring.*` utility functions | Simple, ad-hoc styling                                                        |
+| `StyleBuilder`                 | Combining multiple styles; reusing the same style for various strings         |
+| `DecoratedText`                |                                                                               |
+| `SentenceBuilder`              |                                                                               |
 
 The next sections describes each of these approaches in more detail.
 
@@ -47,16 +47,16 @@ ESC[31;mFire truckESC[39;m
 Which be can decompose for analysis into:
 
 ```
- Sets red      Resets text color
-text color        to default
-    |                 |
-    v                 v
---------          --------
-ESC[31;mFire truckESC[39;m
-        ----------
-            ^
-            |
-     Provided string
+ Sets red       Resets text color
+text color         to default
+    |                  |
+    v                  v
+ --------          --------
+ ESC[31;mFire truckESC[39;m
+         ----------
+             ^
+             |
+      Provided string
 ```
 
 Of course you can combine multiple styles by passing the output of one function to another:
@@ -100,6 +100,28 @@ The full list of utility functions is:
 * `Invert(s string)`
 * `Conceal(s string)`
 * `Strikethrough(s string)`
+
+Also, and to not pollute the `coloring` package API surface with too many functions, and `Extras` field exposes additional non-standard or not widely supported features.
+
+Most notably, this includes bright versions for text and backgroud colors, like `coloring.Extras.BrightRed`.
+
+The full list of extra functions is:
+* `BrightBlack(s string)`
+* `BrightRed(s string)`
+* `BrightGreen(s string)`
+* `BrightYellow(s string)`
+* `BrightBlue(s string)`
+* `BrightMagenta(s string)`
+* `BrightCyan(s string)`
+* `BrightWhite(s string)`
+* `BgBrightBlack(s string)`
+* `BgBrightRed(s string)`
+* `BgBrightGreen(s string)`
+* `BgBrightYellow(s string)`
+* `BgBrightBlue(s string)`
+* `BgBrightMagenta(s string)`
+* `BgBrightCyan(s string)`
+* `BgBrightWhite(s string)`
 
 See [coloring/utility.go](https://github.com/nelsonghezzi/go-color-term/blob/main/coloring/utility.go) for implementation details.
 
@@ -163,6 +185,14 @@ printAlert("ALERT: The house is on fire!!!\n")
 
 And now you also know why the firemen were coming in the first place!
 
+`StyleBuilder` provides functions for the following:
+* Set basic colors: `Black()`, `Red()`, `Green()`, `Yellow()`, `Blue()`, `Magenta()`, `Cyan()`, `White()`.
+* Set custom colors:
+  * 8-bit colors: `Color(int)` passing a number in the range 0-255 (use constants on `coloring` package for the first 0-15 values).
+  * 24-bit colors: `ColorRgb(int, int, int)` passing numbers in the 0-255 for each RGB component.
+* Set background color: `Background()` + equivalent methods.
+* Set other style attributes: `Bold()`, `Faint()`, `Italic()`, `Underline()`, `Blink()`, `InvertColors()`, `Strikethrough()`.
+
 ### `DecoratedText`
 
 TBD
@@ -177,4 +207,4 @@ TBD
 
 ## Contributing
 
-Feel free to add contributions in the form of issues/feature requests, pull requests discussions
+Feel free to add contributions in the form of [issues](https://github.com/nelsonghezzi/go-color-term/issues), [pull requests](https://github.com/nelsonghezzi/go-color-term/pulls) or [discussions](https://github.com/nelsonghezzi/go-color-term/discussions).
