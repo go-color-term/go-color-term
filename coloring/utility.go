@@ -64,56 +64,56 @@ const (
 	bgBrightWhite   = escapeSeq + beginSeq + bg4bColorBrightWhite + endSeq
 )
 
-// Wraps `s` with the attribute to render it with black text.
+// Wraps `s` with the attribute to render it as black text.
 //
 // Equivalent to the sequence ESC[30;m follwed by `s` and ended with ESC[39;m.
 func Black(s string) string {
 	return wrap(s, fgBlack, fgColorResetSeq)
 }
 
-// Wraps `s` with the attribute to render it with red text.
+// Wraps `s` with the attribute to render it as red text.
 //
 // Equivalent to the sequence ESC[31;m follwed by `s` and ended with ESC[39;m.
 func Red(s string) string {
 	return wrap(s, fgRed, fgColorResetSeq)
 }
 
-// Wraps `s` with the attribute to render it with green text.
+// Wraps `s` with the attribute to render it as green text.
 //
 // Equivalent to the sequence ESC[32;m follwed by `s` and ended with ESC[39;m.
 func Green(s string) string {
 	return wrap(s, fgGreen, fgColorResetSeq)
 }
 
-// Wraps `s` with the attribute to render it with yellow text.
+// Wraps `s` with the attribute to render it as yellow text.
 //
 // Equivalent to the sequence ESC[33;m follwed by `s` and ended with ESC[39;m.
 func Yellow(s string) string {
 	return wrap(s, fgYellow, fgColorResetSeq)
 }
 
-// Wraps `s` with the attribute to render it with blue text.
+// Wraps `s` with the attribute to render it as blue text.
 //
 // Equivalent to the sequence ESC[34;m follwed by `s` and ended with ESC[39;m.
 func Blue(s string) string {
 	return wrap(s, fgBlue, fgColorResetSeq)
 }
 
-// Wraps `s` with the attribute to render it with magenta text.
+// Wraps `s` with the attribute to render it as magenta text.
 //
 // Equivalent to the sequence ESC[35;m follwed by `s` and ended with ESC[39;m.
 func Magenta(s string) string {
 	return wrap(s, fgMagenta, fgColorResetSeq)
 }
 
-// Wraps `s` with the attribute to render it with cyan text.
+// Wraps `s` with the attribute to render it as cyan text.
 //
 // Equivalent to the sequence ESC[36;m follwed by `s` and ended with ESC[39;m.
 func Cyan(s string) string {
 	return wrap(s, fgCyan, fgColorResetSeq)
 }
 
-// Wraps `s` with the attribute to render it with white text.
+// Wraps `s` with the attribute to render it as white text.
 //
 // Equivalent to the sequence ESC[37;m follwed by `s` and ended with ESC[39;m.
 func White(s string) string {
