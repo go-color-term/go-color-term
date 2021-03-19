@@ -82,21 +82,22 @@ func (builder *SentenceBuilder) Color(text string, color int) *SentenceBuilder {
 	return builder.ColorSet(color).write(text).ColorReset()
 }
 
-// ColorSet sets the current text color of the sentence. Further text added will
+// ColorSet sets the current text color of the sentence. Further added text will
 // have this color until another color is set or the color is reseted with `ColorReset`.
 func (builder *SentenceBuilder) ColorSet(color int) *SentenceBuilder {
 	return builder.write(fgColorSetSeqOpen).write(strconv.Itoa(color)).write(endSeq)
 }
 
 // ColorRgb adds a string of text with a specific color using RGB values. Each color
-// component must be in the range 0-255. You can also use hexadecimal numeric literals
+// component must be in the range 0-255. You can use hexadecimal numeric literals
 // like `ColorRgb("sample", 0xFF, 0xC0, 0x33)`.
 func (builder *SentenceBuilder) ColorRgb(text string, r, g, b int) *SentenceBuilder {
 	return builder.ColorRgbSet(r, g, b).write(text).ColorReset()
 }
 
-// ColorRgbSet sets the current text color of the sentence using RGB values. Further text added
+// ColorRgbSet sets the current text color of the sentence using RGB values. Further added text
 // will have this color until another color is set or the color is reseted with `ColorReset`.
+// You can use hexadecimal numeric literals like `ColorRgb("sample", 0xFF, 0xC0, 0x33)`.
 func (builder *SentenceBuilder) ColorRgbSet(r, g, b int) *SentenceBuilder {
 	return builder.write(fgColorRgbSetSeqOpen).write(composeRgbColor(r, g, b)).write(endSeq)
 }
@@ -108,27 +109,34 @@ func (builder *SentenceBuilder) ColorReset() *SentenceBuilder {
 
 // Background adds a string of text with a specific background color. The color
 // must be in the range 0-255. See constants declared in the `coloring`
-// package to access the most common ones (0-15)..
+// package to access the most common ones (0-15).
 func (builder *SentenceBuilder) Background(text string, color int) *SentenceBuilder {
 	return builder.BackgroundSet(color).write(text).BackgroundReset()
 }
 
-// BackgroundSet .
+// BackgroundSet sets the current background color of the sentence. Further added text
+// will have this background color until another background color is set or the background
+// color is reseted with `BackgroundReset`.
 func (builder *SentenceBuilder) BackgroundSet(color int) *SentenceBuilder {
 	return builder.write(bgColorSetSeqOpen).write(strconv.Itoa(color)).write(endSeq)
 }
 
-// BackgroundRgb .
+// BackgroundRgb adds a string of text with a specific background color using RGB values.
+// Each color component must be in the range 0-255. You can use hexadecimal numeric
+// literals like `BackgroundRgb("sample", 0xFF, 0xC0, 0x33)`.
 func (builder *SentenceBuilder) BackgroundRgb(text string, r, g, b int) *SentenceBuilder {
 	return builder.BackgroundRgbSet(r, g, b).write(text).ColorReset()
 }
 
-// BackgroundRgbSet .
+// BackgroundRgbSet sets the current background color of the sentence using RGB values.
+// Further added text will have this background color until another background color is
+// set or the background color is reseted with `BackgroundReset`. You can use hexadecimal
+// numeric literals like `ColorRgb("sample", 0xFF, 0xC0, 0x33)`.
 func (builder *SentenceBuilder) BackgroundRgbSet(r, g, b int) *SentenceBuilder {
 	return builder.write(bgColorRgbSetSeqOpen).write(composeRgbColor(r, g, b)).write(endSeq)
 }
 
-// BackgroundReset .
+// BackgroundReset resets the background color to the default one.
 func (builder *SentenceBuilder) BackgroundReset() *SentenceBuilder {
 	return builder.write(bgColorResetSeq)
 }
