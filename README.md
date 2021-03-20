@@ -7,9 +7,114 @@ This library allows to apply _ANSI Escape Sequences_ to alter the style of the r
 <img src="docs/color_matrix.png" />
 
 ## Supported Operating Systems and Terminals
-* macOS: tested and working on iTerm2.
-* Linux: not tested yet, but should work.
-* Windows: not supported yet, erratic behaviour.
+
+Linux, macOS and Windows are supported. See the sections belows for specific details of each platform.
+
+### Linux
+
+It should work out of the box with most terminal/shell combinations.
+
+### macOS
+
+Support in macOS should be pretty decent, but perhaps some settings must be manually enabled in the terminal for some features.
+
+<table>
+  <thead>
+    <tr>
+      <td>Terminal</td>
+      <td>Shell</td>
+      <td>Notes</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center;" rowspan="2">Terminal<p><small>2.11 (440)</p></small></td>
+      <td>Zsh</td>
+      <td>✅ Working</td>
+    </tr>
+    <tr>
+      <td>Bash</td>
+      <td>✅ Working</td>
+    </tr>
+    <tr>
+      <td style="text-align: center;" rowspan="2">iTerm2<sup><a href="#macos-ref-1">[1]</a></sup><sup><a href="#macos-ref-2">[2]</a></sup><sup><a href="#macos-ref-3">[3]</a></sup><p><small>3.4.4</p></small></p></td>
+      <td>Zsh</td>
+      <td>✅ Working</td>
+    </tr>
+    <tr>
+      <td>Bash</td>
+      <td>✅ Working</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul style="list-style: none; padding-left: 0px">
+  <li><sup id="macos-ref-1">[1]</sup> "Draw bold text in bold font" must be enabled in terminal profile.</li>
+  <li><sup id="macos-ref-2">[2]</sup> "Italic text" must be enabled in terminal profile.</li>
+  <li><sup id="macos-ref-3">[3]</sup> "Blinking text" must be enabled in terminal profile.</li>
+</ul>
+
+### Windows
+
+Support in Windows is pretty decent too, but some limitations are present in some terminals or with some terminal/shell combinations.
+
+<table>
+  <thead>
+    <tr>
+      <td>Terminal</td>
+      <td>Shell</td>
+      <td>Notes</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="3">conhost.exe<sup><a href="#windows-ref-1">[1]</a></sup></td>
+      <td>CMD</td>
+      <td>✅ Working<sup><a href="#windows-ref-2">[2]</a></sup><sup><a href="#windows-ref-3">[3]</a></sup></td>
+    </tr>
+    <tr>
+      <td>Powershell</td>
+      <td>TBD</td>
+    </tr>
+    <tr>
+      <td>Powershell Core</td>
+      <td>TBD</td>
+    </tr>
+    <tr>
+      <td rowspan="4">Windows Terminal</td>
+      <td>CMD</td>
+      <td>✅ Working</td>
+    </tr>
+    <tr>
+      <td>Powershell</td>
+      <td>✅ Working</td>
+    </tr>
+    <tr>
+      <td>Powershell Core</td>
+      <td>✅ Working</td>
+    </tr>
+    <tr>
+      <td>MinGW</td>
+      <td>❌ Not working</td>
+    </tr>
+    <tr>
+      <td>Powershell</td>
+      <td>Powershell</td>
+      <td>TBD</td>
+    </tr>
+    <tr>
+      <td>MinGW</td>
+      <td>MinGW</td>
+      <td>TBD</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul style="list-style: none; padding-left: 0px">
+  <li><sup id="windows-ref-1">[1]</sup> You might need to <a href="https://superuser.com/a/1300251">enable support</a> for it.</li>
+  <li><sup id="windows-ref-2">[2]</sup> Blink not supported.</li>
+  <li><sup id="windows-ref-3">[3]</sup> Bold must be enabled in terminal settings.</li>
+</ul>
 
 ## Examples
 
