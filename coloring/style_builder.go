@@ -47,6 +47,7 @@ func New() *StyleBuilder {
 
 func (builder *StyleBuilder) addAttribute(attribute string) *StyleBuilder {
 	builder.styleAttributes.WriteString(attribute)
+	builder.styleAttributes.WriteString(attrDelimiter)
 
 	return builder
 }
@@ -142,13 +143,13 @@ func (builder *StyleBuilder) Color(code int) *StyleBuilder {
 		code = 7
 	}
 
-	return builder.addAttribute(fgColor + strconv.Itoa(code) + ";")
+	return builder.addAttribute(fgColor + attrDelimiter + strconv.Itoa(code))
 }
 
 // Rgb adds an attribute to the current sequence to render text with an RGB color.
 // The terminal should support 24-bit colors.
 func (builder *StyleBuilder) Rgb(r, g, b int) *StyleBuilder {
-	return builder.addAttribute(fgColorRgb + composeRgbColor(r, g, b))
+	return builder.addAttribute(fgColorRgb + attrDelimiter + composeRgbColor(r, g, b))
 }
 
 // Bold adds an attribute to the current sequence to render bold text.
@@ -266,7 +267,7 @@ func (bg *BackgroundColorBuilder) Color(code int) *StyleBuilder {
 		code = 7
 	}
 
-	return bg.c.addAttribute(bgColor + strconv.Itoa(code) + ";")
+	return bg.c.addAttribute(bgColor + attrDelimiter + strconv.Itoa(code))
 }
 
 // Rgb adds an attribute to set the background color to an RGB color.
@@ -274,5 +275,5 @@ func (bg *BackgroundColorBuilder) Color(code int) *StyleBuilder {
 // The original `StyleBuilder` is returned as there's no more attributes
 // that can be specified to alter the background style.
 func (bg *BackgroundColorBuilder) Rgb(r, g, b int) *StyleBuilder {
-	return bg.c.addAttribute(bgColorRgb + composeRgbColor(r, g, b))
+	return bg.c.addAttribute(bgColorRgb + attrDelimiter + composeRgbColor(r, g, b))
 }

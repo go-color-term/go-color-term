@@ -85,7 +85,7 @@ func (builder *SentenceBuilder) Color(text string, color int) *SentenceBuilder {
 // ColorSet sets the current text color of the sentence. Further added text will
 // have this color until another color is set or the color is reseted with `ColorReset`.
 func (builder *SentenceBuilder) ColorSet(color int) *SentenceBuilder {
-	return builder.write(fgColorSetSeqOpen).write(strconv.Itoa(color)).write(endSeq)
+	return builder.write(fgColorSetSeqOpen).write(attrDelimiter).write(strconv.Itoa(color)).write(endSeq)
 }
 
 // ColorRgb adds a string of text with a specific color using RGB values. Each color
@@ -99,7 +99,7 @@ func (builder *SentenceBuilder) ColorRgb(text string, r, g, b int) *SentenceBuil
 // will have this color until another color is set or the color is reseted with `ColorReset`.
 // You can use hexadecimal numeric literals like `ColorRgb("sample", 0xFF, 0xC0, 0x33)`.
 func (builder *SentenceBuilder) ColorRgbSet(r, g, b int) *SentenceBuilder {
-	return builder.write(fgColorRgbSetSeqOpen).write(composeRgbColor(r, g, b)).write(endSeq)
+	return builder.write(fgColorRgbSetSeqOpen).write(attrDelimiter).write(composeRgbColor(r, g, b)).write(endSeq)
 }
 
 // ColorReset resets the color to the default one.
@@ -118,7 +118,7 @@ func (builder *SentenceBuilder) Background(text string, color int) *SentenceBuil
 // will have this background color until another background color is set or the background
 // color is reseted with `BackgroundReset`.
 func (builder *SentenceBuilder) BackgroundSet(color int) *SentenceBuilder {
-	return builder.write(bgColorSetSeqOpen).write(strconv.Itoa(color)).write(endSeq)
+	return builder.write(bgColorSetSeqOpen).write(attrDelimiter).write(strconv.Itoa(color)).write(endSeq)
 }
 
 // BackgroundRgb adds a string of text with a specific background color using RGB values.
@@ -133,7 +133,7 @@ func (builder *SentenceBuilder) BackgroundRgb(text string, r, g, b int) *Sentenc
 // set or the background color is reseted with `BackgroundReset`. You can use hexadecimal
 // numeric literals like `ColorRgb("sample", 0xFF, 0xC0, 0x33)`.
 func (builder *SentenceBuilder) BackgroundRgbSet(r, g, b int) *SentenceBuilder {
-	return builder.write(bgColorRgbSetSeqOpen).write(composeRgbColor(r, g, b)).write(endSeq)
+	return builder.write(bgColorRgbSetSeqOpen).write(attrDelimiter).write(composeRgbColor(r, g, b)).write(endSeq)
 }
 
 // BackgroundReset resets the background color to the default one.
