@@ -29,30 +29,32 @@ Support in macOS should be pretty decent, but perhaps some settings must be manu
   <tbody>
     <tr>
       <td rowspan="2">Terminal<p><small>2.11 (440)</small></p></td>
-      <td>Zsh</td>
+      <td>Zsh<p><small>5.8</small></p></td>
       <td>✅ Working</td>
     </tr>
     <tr>
-      <td>Bash</td>
+      <td>Bash<p><small>3.2.57</small></p></td>
       <td>✅ Working</td>
     </tr>
     <tr>
       <td rowspan="2">iTerm2<sup><a href="#macos-ref-1">[1]</a></sup><sup><a href="#macos-ref-2">[2]</a></sup><sup><a href="#macos-ref-3">[3]</a></sup><p><small>3.4.4</small></p></td>
-      <td>Zsh</td>
-      <td>✅ Working</td>
+      <td>Zsh<p><small>5.8</small></p></td>
+      <td>✅ Working<sup><a href="#macos-ref-4">[4]</a></sup></td>
     </tr>
     <tr>
-      <td>Bash</td>
-      <td>✅ Working</td>
+      <td>Bash<p><small>3.2.57</small></p></td>
+      <td>✅ Working<sup><a href="#macos-ref-4">[4]</a></sup></td>
     </tr>
   </tbody>
 </table>
 
-<sup id="macos-ref-1">[1]</sup> "Draw bold text in bold font" must be enabled in terminal profile.
+<sup id="macos-ref-1">[1]</sup> Bold support requires "Draw bold text in bold font" to be enabled in terminal profile.
 <br>
-<sup id="macos-ref-2">[2]</sup> "Italic text" must be enabled in terminal profile.
+<sup id="macos-ref-2">[2]</sup> Italics support requires "Italic text" to be enabled in terminal profile.
 <br>
-<sup id="macos-ref-3">[3]</sup> "Blinking text" must be enabled in terminal profile.
+<sup id="macos-ref-3">[3]</sup> Blink support requires "Blinking text" to be enabled in terminal profile.
+<br>
+<sup id="macos-ref-4">[4]</sup> Conceal not supported.
 
 ### Windows
 
