@@ -4,6 +4,8 @@ Welcome to Go Color Term! the place where your monochromatic terminal meets a co
 
 This library allows to apply _ANSI Escape Sequences_ to alter the style of the rendered text on a Terminal.
 
+<img src="docs/color_matrix.png" />
+
 ## Supported Operating Systems and Terminals
 * macOS: tested and working on iTerm2.
 * Linux: not tested yet, but should work.
