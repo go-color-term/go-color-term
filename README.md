@@ -28,7 +28,7 @@ Support in macOS should be pretty decent, but perhaps some settings must be manu
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: center;" rowspan="2">Terminal<p><small>2.11 (440)</p></small></td>
+      <td rowspan="2">Terminal<p><small>2.11 (440)</small></p></td>
       <td>Zsh</td>
       <td>✅ Working</td>
     </tr>
@@ -37,7 +37,7 @@ Support in macOS should be pretty decent, but perhaps some settings must be manu
       <td>✅ Working</td>
     </tr>
     <tr>
-      <td style="text-align: center;" rowspan="2">iTerm2<sup><a href="#macos-ref-1">[1]</a></sup><sup><a href="#macos-ref-2">[2]</a></sup><sup><a href="#macos-ref-3">[3]</a></sup><p><small>3.4.4</p></small></p></td>
+      <td rowspan="2">iTerm2<sup><a href="#macos-ref-1">[1]</a></sup><sup><a href="#macos-ref-2">[2]</a></sup><sup><a href="#macos-ref-3">[3]</a></sup><p><small>3.4.4</small></p></td>
       <td>Zsh</td>
       <td>✅ Working</td>
     </tr>
@@ -48,11 +48,11 @@ Support in macOS should be pretty decent, but perhaps some settings must be manu
   </tbody>
 </table>
 
-<ul style="list-style: none; padding-left: 0px">
-  <li><sup id="macos-ref-1">[1]</sup> "Draw bold text in bold font" must be enabled in terminal profile.</li>
-  <li><sup id="macos-ref-2">[2]</sup> "Italic text" must be enabled in terminal profile.</li>
-  <li><sup id="macos-ref-3">[3]</sup> "Blinking text" must be enabled in terminal profile.</li>
-</ul>
+<sup id="macos-ref-1">[1]</sup> "Draw bold text in bold font" must be enabled in terminal profile.
+<br>
+<sup id="macos-ref-2">[2]</sup> "Italic text" must be enabled in terminal profile.
+<br>
+<sup id="macos-ref-3">[3]</sup> "Blinking text" must be enabled in terminal profile.
 
 ### Windows
 
@@ -73,11 +73,11 @@ Support in Windows is pretty decent too, but limitations are present in some ter
       <td>✅ Working<sup><a href="#windows-ref-2">[2]</a></sup><sup><a href="#windows-ref-3">[3]</a></sup><sup><a href="#windows-ref-4">[4]</a></sup><sup><a href="#windows-ref-5">[5]</a></sup></td>
     </tr>
     <tr>
-      <td>Windows Powershell<p><small>5.1 (19041.868)</small></p></td>
+      <td>Windows PowerShell<p><small>5.1 (19041.868)</small></p></td>
       <td>✅ Working<sup><a href="#windows-ref-2">[2]</a></sup><sup><a href="#windows-ref-3">[3]</a></sup><sup><a href="#windows-ref-4">[4]</a></sup><sup><a href="#windows-ref-5">[5]</a></sup></td>
     </tr>
     <tr>
-      <td>Powershell Core<p><small>7.1.3</small></p></td>
+      <td>PowerShell Core<p><small>7.1.3</small></p></td>
       <td>✅ Working<sup><a href="#windows-ref-2">[2]</a></sup><sup><a href="#windows-ref-3">[3]</a></sup><sup><a href="#windows-ref-4">[4]</a></sup><sup><a href="#windows-ref-5">[5]</a></sup></td>
     </tr>
     <tr>
@@ -86,11 +86,11 @@ Support in Windows is pretty decent too, but limitations are present in some ter
       <td>✅ Working</td>
     </tr>
     <tr>
-      <td>Windows Powershell<p><small>5.1 (19041.868)</small></p></td>
+      <td>Windows PowerShell<p><small>5.1 (19041.868)</small></p></td>
       <td>✅ Working</td>
     </tr>
     <tr>
-      <td>Powershell Core<p><small>7.1.3</small></p></td>
+      <td>PowerShell Core<p><small>7.1.3</small></p></td>
       <td>✅ Working</td>
     </tr>
     <tr>
@@ -110,14 +110,17 @@ Support in Windows is pretty decent too, but limitations are present in some ter
   </tbody>
 </table>
 
-<ul style="list-style: none; padding-left: 0px">
-  <li><sup id="windows-ref-1">[1]</sup> You might need to <a href="https://superuser.com/a/1300251">enable support</a> for it.</li>
-  <li><sup id="windows-ref-2">[2]</sup> Faint not supported.</li>
-  <li><sup id="windows-ref-3">[3]</sup> Blink not supported.</li>
-  <li><sup id="windows-ref-4">[4]</sup> Conceal not supported.</li>
-  <li><sup id="windows-ref-5">[5]</sup> Strikethrough not supported.</li>
-  <li><sup id="windows-ref-6">[6]</sup> Bold seems to increase font brightness not font weight.</li>
-</ul>
+<sup id="windows-ref-1">[1]</sup> You might need to <a href="https://superuser.com/a/1300251">enable support</a> for it.
+<br>
+<sup id="windows-ref-2">[2]</sup> Faint not supported.
+<br>
+<sup id="windows-ref-3">[3]</sup> Blink not supported.
+<br>
+<sup id="windows-ref-4">[4]</sup> Conceal not supported.
+<br>
+<sup id="windows-ref-5">[5]</sup> Strikethrough not supported.
+<br>
+<sup id="windows-ref-6">[6]</sup> Bold seems to increase font brightness not font weight.
 
 ## Examples
 
