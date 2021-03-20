@@ -56,7 +56,7 @@ Support in macOS should be pretty decent, but perhaps some settings must be manu
 
 ### Windows
 
-Support in Windows is pretty decent too, but some limitations are present in some terminals or with some terminal/shell combinations.
+Support in Windows is pretty decent too, but limitations are present in some terminals or with some terminal/shell combinations.
 
 <table>
   <thead>
@@ -68,52 +68,55 @@ Support in Windows is pretty decent too, but some limitations are present in som
   </thead>
   <tbody>
     <tr>
-      <td rowspan="3">conhost.exe<sup><a href="#windows-ref-1">[1]</a></sup></td>
-      <td>CMD</td>
-      <td>✅ Working<sup><a href="#windows-ref-2">[2]</a></sup><sup><a href="#windows-ref-3">[3]</a></sup></td>
+      <td rowspan="3">conhost.exe<sup><a href="#windows-ref-1">[1]</a></sup><sup><a href="#windows-ref-6">[6]</a></sup><p><small>10.0.19041.746</small></p></td>
+      <td>CMD<p><small>10.0.19041.746</small></p></td>
+      <td>✅ Working<sup><a href="#windows-ref-2">[2]</a></sup><sup><a href="#windows-ref-3">[3]</a></sup><sup><a href="#windows-ref-4">[4]</a></sup><sup><a href="#windows-ref-5">[5]</a></sup></td>
     </tr>
     <tr>
-      <td>Powershell</td>
-      <td>TBD</td>
+      <td>Windows Powershell<p><small>5.1 (19041.868)</small></p></td>
+      <td>✅ Working<sup><a href="#windows-ref-2">[2]</a></sup><sup><a href="#windows-ref-3">[3]</a></sup><sup><a href="#windows-ref-4">[4]</a></sup><sup><a href="#windows-ref-5">[5]</a></sup></td>
     </tr>
     <tr>
-      <td>Powershell Core</td>
-      <td>TBD</td>
+      <td>Powershell Core<p><small>7.1.3</small></p></td>
+      <td>✅ Working<sup><a href="#windows-ref-2">[2]</a></sup><sup><a href="#windows-ref-3">[3]</a></sup><sup><a href="#windows-ref-4">[4]</a></sup><sup><a href="#windows-ref-5">[5]</a></sup></td>
     </tr>
     <tr>
-      <td rowspan="4">Windows Terminal</td>
-      <td>CMD</td>
+      <td rowspan="4">Windows Terminal<p><small>1.6.10571.0</small></p></td>
+      <td>CMD<p><small>10.0.19041.746</small></p></td>
       <td>✅ Working</td>
     </tr>
     <tr>
-      <td>Powershell</td>
+      <td>Windows Powershell<p><small>5.1 (19041.868)</small></p></td>
       <td>✅ Working</td>
     </tr>
     <tr>
-      <td>Powershell Core</td>
+      <td>Powershell Core<p><small>7.1.3</small></p></td>
       <td>✅ Working</td>
     </tr>
     <tr>
-      <td>MinGW</td>
+      <td>Bash<p><small>4.4.23</small></p></td>
       <td>❌ Not working</td>
     </tr>
     <tr>
-      <td>Powershell</td>
-      <td>Powershell</td>
-      <td>TBD</td>
+      <td>mintty<p><small>3.4.6</small></p></td>
+      <td>Bash<p><small>4.4.23</small></p></td>
+      <td>✅ Working<sup><a href="#windows-ref-3">[3]</a></td>
     </tr>
     <tr>
-      <td>MinGW</td>
-      <td>MinGW</td>
-      <td>TBD</td>
+      <td>VS Code integrated terminal<p><small>1.54.3</small></p></td>
+      <td>CMD<p><small>10.0.19041.746</small></p></td>
+      <td>✅ Working<sup><a href="#windows-ref-2">[2]</a></sup><sup><a href="#windows-ref-3">[3]</a></sup><sup><a href="#windows-ref-5">[5]</a></sup></td>
     </tr>
   </tbody>
 </table>
 
 <ul style="list-style: none; padding-left: 0px">
   <li><sup id="windows-ref-1">[1]</sup> You might need to <a href="https://superuser.com/a/1300251">enable support</a> for it.</li>
-  <li><sup id="windows-ref-2">[2]</sup> Blink not supported.</li>
-  <li><sup id="windows-ref-3">[3]</sup> Bold must be enabled in terminal settings.</li>
+  <li><sup id="windows-ref-2">[2]</sup> Faint not supported.</li>
+  <li><sup id="windows-ref-3">[3]</sup> Blink not supported.</li>
+  <li><sup id="windows-ref-4">[4]</sup> Conceal not supported.</li>
+  <li><sup id="windows-ref-5">[5]</sup> Strikethrough not supported.</li>
+  <li><sup id="windows-ref-6">[6]</sup> Bold seems to increase font brightness not font weight.</li>
 </ul>
 
 ## Examples
