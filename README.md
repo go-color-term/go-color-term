@@ -314,7 +314,70 @@ TBD
 
 ### `SentenceBuilder`
 
-This is perhaps the more daunting form of adding style attributes, but in return it gives the more fine grained control of when to start and end each style attribute.
+This is perhaps the most cumbersome way to add style attributes, but in return it provides more granular control to mark the start and end of each style attribute.
+
+The biggest advantage is that you can apply styles that spans different sections of the text in a non-uniform way, like crossed text covering bold red text and regular text.
+
+Of course this is also doable with the other APIs, but it will be more repetitive to accomplish.
+
+```go
+coloring.Sentence().
+  StrikethroughStart().
+  ColorSet(coloring.RED).
+  Bold("All this text").
+  ColorReset().
+  Text(" is crossed").
+  Println()
+```
+
+<img src="docs/sentence_builder_println.png" width="250" />
+
+Multiple things are going on there:
+* `StrikethroughStart()` marks the start of crossed text.
+* `ColorSet(coloring.RED)` marks the start of red text.
+* `Bold("All this text")` outputs the given text with bold style.
+* `ColorReset()` sets text color back to the default one.
+* `Text(" is crossed")` adds normal (non-styled) text.
+* `Println()` resets all styles and then prints the whole sentence to `stdout`.
+
+All the functions of the `SentenceBuilder` API comes in two flavours:
+* One that outputs a single chunk of text with a single stlye (like `Bold("All this text")` in the example above).
+* A pair of functions in the form `XXXStart`/`XXXEnd` that lets you start some style and leave it "open" until you call the corresponding "end" function, much like closing an HTML tag. `ColorSet`/`ColorReset` are the exception to this naming convention, but serves the same purpose.
+
+You might notice that we didn't call `StrikethroughEnd` on the previous example. But that's fine, since we are ending the sentence with `Println()`, which adds the attribute to reset al styles before writing the output. The rationale behind this is to not "leak" any styles in subsequent output.
+
+Dissecting the generated string will complete the picture:
+
+```
+Strikethrough starts  Bold starts         Bold ends         All attributes cleared
+          |                |                  |                        |
+          v                v                  v                        v
+       ------           ------             -------                  ------
+       ESC[9mESC[38;5;1mESC[1mAll this textESC[22mESC[39m is crossedESC[0m
+             -----------                          -------
+                  ^                                  ^
+                  |                                  |
+            Red color set                       Color reset
+```
+
+Given that the `SentenceBuilder` API is quite large, there are no color-named functions for setting colored text/background, as it will expand the API surface further. There's only one method to write colored text/background which expects to receive the color number as a parameter (and equivalent ones for RGB colors).
+
+The full list of `SentenceBuilder` functions is:
+* `Text`
+* `Color`, `ColorSet`, `ColorRgb`, `ColorRgbSet`, `ColorReset`
+* `Background`, `BackgroundSet`, `BackgroundRgb`, `BackgroundRgbSet`, `BackgroundReset`
+* `Bold`, `BoldStart`, `BoldEnd`
+* `Faint`, `FaintStart`, `FaintEnd`
+* `Italic`, `ItalicStart`, `ItalicEnd`
+* `Underline`, `UnderlineStart`, `UnderlineEnd`
+* `Blink`, `BlinkStart`, `BlinkEnd`
+* `Invert`, `InvertStart`, `InvertEnd`
+* `Conceal`, `ConcealStart`, `ConcealEnd`
+* `Strikethrough`, `StrikethroughStart`, `StrikethroughEnd`
+* `Reset`
+* `String`, `Print`, `PrintAndClear`, `Println`, `PrintlnAndClear`
+
+See [coloring/sentence_builder.go](https://github.com/nelsonghezzi/go-color-term/blob/main/coloring/sentence_builder.go) for full documentation on each function.
 
 ## Licence
 
