@@ -2,7 +2,7 @@
 
 Welcome to Go Color Term! the place where your monochromatic terminal meets a colorful world!
 
-This library allows to apply _ANSI Escape Sequences_ to alter the style of the rendered text on a Terminal.
+This library allows to apply [_ANSI Escape Sequences_](https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_(Select_Graphic_Rendition)_parameters) to alter the style of the rendered text on a Terminal.
 
 <img src="docs/color_matrix.png" />
 
