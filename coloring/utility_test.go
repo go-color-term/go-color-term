@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/nelsonghezzi/go-color-term/coloring"
+	"github.com/go-color-term/go-color-term/coloring"
 )
 
 func TestUtility(t *testing.T) {

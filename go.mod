@@ -1,3 +1,3 @@
-module github.com/nelsonghezzi/go-color-term
+module github.com/go-color-term/go-color-term
 
 go 1.16
