@@ -17,10 +17,10 @@ type StyleBuilder struct {
 	styleAttributes *strings.Builder
 }
 
-// A func that returns the supplied string with coloring attributes applied.
+// ColorizerFunc returns the supplied string with coloring attributes applied.
 type ColorizerFunc = func(string) string
 
-// A func that can print colored strings.
+// ColorizerPrint can print colored strings.
 type ColorizerPrint = func(string)
 
 func newStyleBuilder(s string) *StyleBuilder {
@@ -210,7 +210,7 @@ func (builder *StyleBuilder) Background() *BackgroundColorBuilder {
 	return &BackgroundColorBuilder{c: builder}
 }
 
-// A type to set the background color.
+// BackgroundColorBuilder allows to add attributes that sets the background color.
 type BackgroundColorBuilder struct {
 	c *StyleBuilder
 }
