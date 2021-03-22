@@ -126,7 +126,7 @@ Support in Windows is pretty decent too, but limitations are present in some ter
 
 ## Examples
 
-Check the [accompanying repository](https://github.com/nelsonghezzi/go-color-term-examples) with a ready-to-run app which recopiles various examples to showcase the library API. 
+Check the [accompanying repository](https://github.com/go-color-term/go-color-term-examples) with a ready-to-run app which recopiles various examples to showcase the library API.
 
 ## How to use
 
