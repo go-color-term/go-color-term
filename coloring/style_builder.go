@@ -56,11 +56,24 @@ func (builder *StyleBuilder) applyTo(s string) string {
 	return applyTo(builder.styleAttributes.String(), s)
 }
 
-// StyledText returns a `StyledText` instance that you can use in any place
+// Styled returns a `StyledText` instance that you can use in any place
 // that expects a `Stringer` type. Further changes to this builder doesn't
 // affect the returned `StyledText`.
-func (builder *StyleBuilder) StyledText() *StyledText {
-	return &StyledText{applyTo(builder.styleAttributes.String(), builder.s), builder.s}
+//
+// It uses the string that was passed to this `StyleBuilder` instance if
+// it was created with `For(string)` function.
+//
+// If you created the `StyleBuilder` instance with the `New` function,
+// just call `StyleText(string)` to style a particular string.
+func (builder *StyleBuilder) Styled() *StyledText {
+	return builder.StyleText(builder.s)
+}
+
+// StyleText returns a `StyledText` instance that you can use in any place
+// that expects a `Stringer` type. Further changes to this builder doesn't
+// affect the returned `StyledText`.
+func (builder *StyleBuilder) StyleText(s string) *StyledText {
+	return &StyledText{applyTo(builder.styleAttributes.String(), s), s}
 }
 
 // String returns the passed string to `For(string)` decorated
