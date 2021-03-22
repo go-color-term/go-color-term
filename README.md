@@ -1,4 +1,4 @@
-# Go Color Term [![Go](https://github.com/go-color-term/go-color-term/actions/workflows/go.yml/badge.svg)](https://github.com/go-color-term/go-color-term/actions/workflows/go.yml)
+# Go Color Term [![Go](https://github.com/go-color-term/go-color-term/actions/workflows/go.yml/badge.svg)](https://github.com/go-color-term/go-color-term/actions/workflows/go.yml) [![License](https://img.shields.io/github/license/go-color-term/go-color-term)](https://github.com/nelsonghezzi/go-color-term/blob/main/LICENSE)
 
 Welcome to Go Color Term! the place where your monochromatic terminal meets a colorful world!
 
