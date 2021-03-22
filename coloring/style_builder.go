@@ -56,11 +56,11 @@ func (builder *StyleBuilder) applyTo(s string) string {
 	return applyTo(builder.styleAttributes.String(), s)
 }
 
-// Decoration returns a `DecoratedText` instance that you can use
-// in any place that expects a `Stringer` type.
-// Further changes to this builder doesn't affect the returned `DecoratedText`.
-func (builder *StyleBuilder) Decoration() *DecoratedText {
-	return &DecoratedText{builder.s, builder.styleAttributes.String()}
+// StyledText returns a `StyledText` instance that you can use in any place
+// that expects a `Stringer` type. Further changes to this builder doesn't
+// affect the returned `StyledText`.
+func (builder *StyleBuilder) StyledText() *StyledText {
+	return &StyledText{applyTo(builder.styleAttributes.String(), builder.s), builder.s}
 }
 
 // String returns the passed string to `For(string)` decorated

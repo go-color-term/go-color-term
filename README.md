@@ -138,7 +138,7 @@ The idea is to provide with the simplest way to render styled text for each situ
 |--------------------------------|-------------------------------------------------------------------------------|
 | `coloring.*` utility functions | Simple, ad-hoc styling                                                        |
 | `StyleBuilder`                 | Combining multiple styles; reusing the same style for various strings         |
-| `DecoratedText`                |                                                                               |
+| `StyledText`                   |                                                                               |
 | `SentenceBuilder`              |                                                                               |
 
 The next sections describes each of these approaches in more detail.
@@ -308,7 +308,7 @@ And now you also know why the firemen were coming in the first place!
 * Set background color: `Background()` + equivalent methods.
 * Set other style attributes: `Bold()`, `Faint()`, `Italic()`, `Underline()`, `Blink()`, `InvertColors()`, `Strikethrough()`.
 
-### `DecoratedText`
+### `StyledText`
 
 TBD
 
