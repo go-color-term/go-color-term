@@ -82,6 +82,8 @@ const (
 	resetSeq = escapeSeq + beginSeq + reset + endSeq
 )
 
+// Predefined color values that can be used to specify a color
+// in functions expecting a single int.
 const (
 	BLACK = iota
 	RED
