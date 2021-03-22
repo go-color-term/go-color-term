@@ -34,6 +34,17 @@ func (builder *SentenceBuilder) String() string {
 	return builder.sb.String()
 }
 
+// Decoration returns a `StyledText` instance that you can use in any place
+// that expects a `Stringer` type. Further changes to this builder doesn't
+// affect the returned `StyledText`.
+//
+// Note that the returned `StyledText` will contain a reset attribute at the end.
+// This is to safely concatenate it with other strings without leaving open
+// any style attribute.
+func (builder *SentenceBuilder) StyledText() *StyledText {
+	return &StyledText{builder.sb.String() + resetSeq, unstyle(builder.sb.String())}
+}
+
 // Print reset all the styles and outputs the currently built sentence on `os.Stdout`.
 func (builder *SentenceBuilder) Print() {
 	builder.Reset()
@@ -261,4 +272,21 @@ func (builder *SentenceBuilder) StrikethroughStart() *SentenceBuilder {
 // StrikethroughEnd clears the strikethrough attribute previously set with `StrikethroughStart`.
 func (builder *SentenceBuilder) StrikethroughEnd() *SentenceBuilder {
 	return builder.write(strikethroughResetSeq)
+}
+
+func unstyle(s string) string {
+	unstyled := strings.Builder{}
+
+	for i := 0; i < len(s); i++ {
+		if s[i] == escapeSeq[0] {
+			for ; s[i] != endSeq[0]; i++ {
+			}
+
+			continue
+		}
+
+		unstyled.WriteByte(s[i])
+	}
+
+	return unstyled.String()
 }
