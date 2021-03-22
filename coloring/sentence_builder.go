@@ -34,7 +34,7 @@ func (builder *SentenceBuilder) String() string {
 	return builder.sb.String()
 }
 
-// Decoration returns a `StyledText` instance that you can use in any place
+// StyledText returns a `StyledText` instance that you can use in any place
 // that expects a `Stringer` type. Further changes to this builder doesn't
 // affect the returned `StyledText`.
 //
