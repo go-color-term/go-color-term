@@ -37,6 +37,7 @@ func (builder *SentenceBuilder) String() string {
 // Print reset all the styles and outputs the currently built sentence on `os.Stdout`.
 func (builder *SentenceBuilder) Print() {
 	builder.Reset()
+	//nolint:forbidigo
 	fmt.Print(builder)
 }
 
@@ -53,6 +54,7 @@ func (builder *SentenceBuilder) PrintAndClear() *SentenceBuilder {
 // adding a new line at the end.
 func (builder *SentenceBuilder) Println() {
 	builder.Reset()
+	//nolint:forbidigo
 	fmt.Println(builder)
 }
 

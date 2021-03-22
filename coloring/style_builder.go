@@ -90,6 +90,7 @@ func (builder *StyleBuilder) Print() ColorizerPrint {
 	fn := builder.Func()
 
 	return func(s string) {
+		//nolint:forbidigo
 		fmt.Print(fn(s))
 	}
 }

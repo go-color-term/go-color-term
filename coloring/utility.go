@@ -241,6 +241,7 @@ type extras struct{}
 // Extras allow to access to additional utility functions.
 //
 // The function exposed by the field might not work on all terminals.
+//nolint:gochecknoglobals
 var Extras extras
 
 // BrightBlack wraps `s` with the attribute to render it as bright black text.
