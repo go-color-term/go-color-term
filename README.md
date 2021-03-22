@@ -138,8 +138,8 @@ The idea is to provide with the simplest way to render styled text for each situ
 |--------------------------------|-------------------------------------------------------------------------------|
 | `coloring.*` utility functions | Simple, ad-hoc styling                                                        |
 | `StyleBuilder`                 | Combining multiple styles; reusing the same style for various strings         |
-| `StyledText`                   |                                                                               |
-| `SentenceBuilder`              |                                                                               |
+| `StyledText`                   | Sealed, self-contained styled string useful for passing around                |
+| `SentenceBuilder`              | Complex styling; full control of placing (start and end) of style attributes  |
 
 The next sections describes each of these approaches in more detail.
 
@@ -310,7 +310,49 @@ And now you also know why the firemen were coming in the first place!
 
 ### `StyledText`
 
-TBD
+This can be considered a spin-off from `ColorBuilder` that lets you get a "sealed" styled string which can't be further modified.
+
+The `StyledText` struct also implements `Stringer` so it can be used as a parameter for any function expecting one.
+
+The motivation behind this type is to allow for the separation between styled text _definition_ and _usage_. You can create a `ColorBuilder` at program start, and then get multiple `StyledText`s that you can pass around to the rest of the program handling console output.
+
+The main (and only) difference to a plain `string` is that `StyledText` also contains an `Unformatted()` function which returns the original, unstyled `string`. This could come in handy if for some reason you need to alternate the display of the styled text and the plain text (i.e.: the one without styles).
+
+The following example tries to illustrate the idea.
+
+```go
+func main() {
+	boldGreenTextBuilder := coloring.New().Bold().Green()
+
+	successfulTitle := boldGreenTextBuilder.StyleText("successful")
+	successTitle := boldGreenTextBuilder.StyleText("succeeded")
+
+	pipeline(successfulTitle, successTitle)
+}
+
+func pipeline(successTitle, successfulTitle *coloring.StyledText) {
+	fmt.Println("BUILDING...")
+
+	// "building"
+	fmt.Println("...")
+	fmt.Println("...")
+	fmt.Println("...")
+	fmt.Println()
+	fmt.Printf("Build %s.\n", successfulTitle)
+	fmt.Println()
+
+	fmt.Println("RUNNING TESTS...")
+
+	// "testing"
+	fmt.Println("...")
+	fmt.Println("...")
+	fmt.Println()
+	fmt.Printf("Running tests: all tests %s.", successTitle)
+	fmt.Println()
+}
+```
+
+<img src="docs/styled_text.png" width="350" />
 
 ### `SentenceBuilder`
 
@@ -362,6 +404,8 @@ Strikethrough starts  Bold starts         Bold ends         All attributes clear
 
 Given that the `SentenceBuilder` API is quite large, there are no color-named functions for setting colored text/background, as it will expand the API surface further. There's only one method to write colored text/background which expects to receive the color number as a parameter (and equivalent ones for RGB colors).
 
+As with `ColorBuilder`, `SentenceBuilder` also lets you grab a `StyledText` containing the buffered styled text so far, as well the unformatted text.
+
 The full list of `SentenceBuilder` functions is:
 * `Text`
 * `Color`, `ColorSet`, `ColorRgb`, `ColorRgbSet`, `ColorReset`
@@ -375,7 +419,7 @@ The full list of `SentenceBuilder` functions is:
 * `Conceal`, `ConcealStart`, `ConcealEnd`
 * `Strikethrough`, `StrikethroughStart`, `StrikethroughEnd`
 * `Reset`
-* `String`, `Print`, `PrintAndClear`, `Println`, `PrintlnAndClear`
+* `String`, `Print`, `PrintAndClear`, `Println`, `PrintlnAndClear`, `StyledText`
 
 See [coloring/sentence_builder.go](https://github.com/nelsonghezzi/go-color-term/blob/main/coloring/sentence_builder.go) for full documentation on each function.
 
