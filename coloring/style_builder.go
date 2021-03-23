@@ -197,6 +197,12 @@ func (builder *StyleBuilder) InvertColors() *StyleBuilder {
 	return builder.addAttribute(invert)
 }
 
+// Conceal adds an attribute to the current sequence to render the text concealed
+// (hidden). Check compatibility for different OS/terminals as it's not widely supported.
+func (builder *StyleBuilder) Conceal() *StyleBuilder {
+	return builder.addAttribute(conceal)
+}
+
 // Strikethrough adds an attribute to the current sequence to render crossed text.
 func (builder *StyleBuilder) Strikethrough() *StyleBuilder {
 	return builder.addAttribute(strikethrough)
