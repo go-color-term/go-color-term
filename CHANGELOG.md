@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+* `coloring.Tagged`: new function to style output using HTML-like tags.
+
 ## [0.2.0] 2021-03-25
 
 ### Added
