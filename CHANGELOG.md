@@ -6,8 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] 2021-03-25
+
 ### Added
-* Missing `Conceal` function in `StyleBuilder`.
+* `StyleBuilder`: new `Conceal` function to set the hidden text attribute.
 
 ### Fixed
 * `SentenceBuilder`: `BackgroundRgb` was incorrectly resetting text color instead of background color.
