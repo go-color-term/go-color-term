@@ -1,4 +1,4 @@
-# Go Color Term [![Go](https://github.com/go-color-term/go-color-term/actions/workflows/go.yml/badge.svg)](https://github.com/go-color-term/go-color-term/actions/workflows/go.yml) [![Codecov](https://codecov.io/gh/go-color-term/go-color-term/branch/main/graph/badge.svg?token=Aus6wNZ9Kr)](https://codecov.io/gh/go-color-term/go-color-term) [![Go Report Card](https://goreportcard.com/badge/github.com/go-color-term/go-color-term)](https://goreportcard.com/report/github.com/go-color-term/go-color-term) [![Release](https://img.shields.io/github/v/release/go-color-term/go-color-term)](https://github.com/go-color-term/go-color-term/releases) [![Go Reference](https://pkg.go.dev/badge/github.com/go-color-term/go-color-term.svg)](https://pkg.go.dev/github.com/go-color-term/go-color-term) [![License](https://img.shields.io/github/license/go-color-term/go-color-term)](https://github.com/nelsonghezzi/go-color-term/blob/main/LICENSE)
+# Go Color Term [![Go](https://github.com/go-color-term/go-color-term/actions/workflows/go.yml/badge.svg)](https://github.com/go-color-term/go-color-term/actions/workflows/go.yml) [![Codecov](https://codecov.io/gh/go-color-term/go-color-term/branch/main/graph/badge.svg?token=Aus6wNZ9Kr)](https://codecov.io/gh/go-color-term/go-color-term) [![Go Report Card](https://goreportcard.com/badge/github.com/go-color-term/go-color-term)](https://goreportcard.com/report/github.com/go-color-term/go-color-term) [![Release](https://img.shields.io/github/v/release/go-color-term/go-color-term)](https://github.com/go-color-term/go-color-term/releases) [![Go Reference](https://pkg.go.dev/badge/github.com/go-color-term/go-color-term.svg)](https://pkg.go.dev/github.com/go-color-term/go-color-term) [![License](https://img.shields.io/github/license/go-color-term/go-color-term)](https://github.com/go-color-term/go-color-term/blob/main/LICENSE)
 
 Welcome to Go Color Term! the place where your monochromatic terminal meets a colorful world!
 
@@ -238,7 +238,7 @@ The full list of extra functions is:
 * `BgBrightCyan(s string)`
 * `BgBrightWhite(s string)`
 
-See [coloring/utility.go](https://github.com/nelsonghezzi/go-color-term/blob/main/coloring/utility.go) for implementation details.
+See [coloring/utility.go](https://github.com/go-color-term/go-color-term/blob/main/coloring/utility.go) for implementation details.
 
 ### `StyleBuilder`
 
@@ -421,12 +421,12 @@ The full list of `SentenceBuilder` functions is:
 * `Reset`
 * `String`, `Print`, `PrintAndClear`, `Println`, `PrintlnAndClear`, `StyledText`
 
-See [coloring/sentence_builder.go](https://github.com/nelsonghezzi/go-color-term/blob/main/coloring/sentence_builder.go) for full documentation on each function.
+See [coloring/sentence_builder.go](https://github.com/go-color-term/go-color-term/blob/main/coloring/sentence_builder.go) for full documentation on each function.
 
 ## Licence
 
-This project is licensed under the terms of the [MIT License](https://github.com/nelsonghezzi/go-color-term/blob/main/LICENSE).
+This project is licensed under the terms of the [MIT License](https://github.com/go-color-term/go-color-term/blob/main/LICENSE).
 
 ## Contributing
 
-Feel free to add contributions in the form of [issues](https://github.com/nelsonghezzi/go-color-term/issues), [pull requests](https://github.com/nelsonghezzi/go-color-term/pulls) or [discussions](https://github.com/nelsonghezzi/go-color-term/discussions).
+Feel free to add contributions in the form of [issues](https://github.com/go-color-term/go-color-term/issues), [pull requests](https://github.com/go-color-term/go-color-term/pulls) or [discussions](https://github.com/go-color-term/go-color-term/discussions).
