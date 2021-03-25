@@ -138,7 +138,7 @@ func (builder *SentenceBuilder) BackgroundSet(color int) *SentenceBuilder {
 // Each color component must be in the range 0-255. You can use hexadecimal numeric
 // literals like `BackgroundRgb("sample", 0xFF, 0xC0, 0x33)`.
 func (builder *SentenceBuilder) BackgroundRgb(text string, r, g, b int) *SentenceBuilder {
-	return builder.BackgroundRgbSet(r, g, b).write(text).ColorReset()
+	return builder.BackgroundRgbSet(r, g, b).write(text).BackgroundReset()
 }
 
 // BackgroundRgbSet sets the current background color of the sentence using RGB values.

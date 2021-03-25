@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 * Missing `Conceal` function in `StyleBuilder`.
 
+### Fixed
+* `SentenceBuilder`: `BackgroundRgb` was incorrectly resetting text color instead of background color.
+
 ## [0.1.0] 2021-03-22
 
 ### Added
