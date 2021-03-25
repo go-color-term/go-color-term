@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 * `coloring.Tagged`: new function to style output using HTML-like tags.
+* `SentenceBuilder`: new `ColorDefault`/`BackgroundDefault` functions to explicitly revert colors back to their defaults and clear previous color changes.
+
+### Changed
+* `SentenceBuilder`: color-setting functions (`ColorSet`, `ColorRgbSet`, `BackgroundSet`, `BackgroundRgbSet`) now tracks the previous active colors, and revert back to them when calling `ColorReset`/`BackgroundReset`.
 
 ## [0.2.0] 2021-03-25
 
