@@ -1,6 +1,7 @@
 package coloring
 
 import (
+	"container/list"
 	"fmt"
 	"strconv"
 	"strings"
@@ -14,12 +15,14 @@ import (
 // starts and ends independently of each other, allowing for styles
 // spanning sections with different colors and attributes.
 type SentenceBuilder struct {
-	sb strings.Builder
+	sb                   strings.Builder
+	colorStack           *list.List
+	backgroundColorStack *list.List
 }
 
 // Sentence creates a new `SentenceBuilder`.
 func Sentence() *SentenceBuilder {
-	return &SentenceBuilder{strings.Builder{}}
+	return &SentenceBuilder{strings.Builder{}, &list.List{}, &list.List{}}
 }
 
 func (builder *SentenceBuilder) write(component string) *SentenceBuilder {
@@ -98,7 +101,9 @@ func (builder *SentenceBuilder) Color(text string, color int) *SentenceBuilder {
 // ColorSet sets the current text color of the sentence. Further added text will
 // have this color until another color is set or the color is reseted with `ColorReset`.
 func (builder *SentenceBuilder) ColorSet(color int) *SentenceBuilder {
-	return builder.write(fgColorSetSeqOpen).write(attrDelimiter).write(strconv.Itoa(color)).write(endSeq)
+	builder.colorStack.PushFront(color)
+
+	return builder.writeColor(color)
 }
 
 // ColorRgb adds a string of text with a specific color using RGB values. Each color
@@ -112,11 +117,39 @@ func (builder *SentenceBuilder) ColorRgb(text string, r, g, b int) *SentenceBuil
 // will have this color until another color is set or the color is reseted with `ColorReset`.
 // You can use hexadecimal numeric literals like `ColorRgb("sample", 0xFF, 0xC0, 0x33)`.
 func (builder *SentenceBuilder) ColorRgbSet(r, g, b int) *SentenceBuilder {
-	return builder.write(fgColorRgbSetSeqOpen).write(attrDelimiter).write(composeRgbColor(r, g, b)).write(endSeq)
+	color := composeRgbColor(r, g, b)
+	builder.colorStack.PushFront(color)
+
+	return builder.writeColorRgb(color)
 }
 
-// ColorReset resets the color to the default one.
+// ColorReset reverts the color to the one that was in use before the last call to
+// `ColorSet` or `ColorRgbSet`.
 func (builder *SentenceBuilder) ColorReset() *SentenceBuilder {
+	if currentColor := builder.colorStack.Front(); currentColor != nil {
+		builder.colorStack.Remove(currentColor)
+	}
+
+	if color := builder.colorStack.Front(); color != nil {
+		if colorInt, ok := color.Value.(int); ok {
+			builder.writeColor(colorInt)
+		}
+
+		if colorRgb, ok := color.Value.(string); ok {
+			builder.writeColorRgb(colorRgb)
+		}
+	} else {
+		builder.write(fgColorResetSeq)
+	}
+
+	return builder
+}
+
+// ColorDefault sets the color to the default one, irrespective of
+// the current color stack, which is also cleared.
+func (builder *SentenceBuilder) ColorDefault() *SentenceBuilder {
+	builder.colorStack.Init()
+
 	return builder.write(fgColorResetSeq)
 }
 
@@ -131,7 +164,9 @@ func (builder *SentenceBuilder) Background(text string, color int) *SentenceBuil
 // will have this background color until another background color is set or the background
 // color is reseted with `BackgroundReset`.
 func (builder *SentenceBuilder) BackgroundSet(color int) *SentenceBuilder {
-	return builder.write(bgColorSetSeqOpen).write(attrDelimiter).write(strconv.Itoa(color)).write(endSeq)
+	builder.backgroundColorStack.PushFront(color)
+
+	return builder.writeBackgroundColor(color)
 }
 
 // BackgroundRgb adds a string of text with a specific background color using RGB values.
@@ -146,11 +181,39 @@ func (builder *SentenceBuilder) BackgroundRgb(text string, r, g, b int) *Sentenc
 // set or the background color is reseted with `BackgroundReset`. You can use hexadecimal
 // numeric literals like `ColorRgb("sample", 0xFF, 0xC0, 0x33)`.
 func (builder *SentenceBuilder) BackgroundRgbSet(r, g, b int) *SentenceBuilder {
-	return builder.write(bgColorRgbSetSeqOpen).write(attrDelimiter).write(composeRgbColor(r, g, b)).write(endSeq)
+	color := composeRgbColor(r, g, b)
+	builder.backgroundColorStack.PushFront(color)
+
+	return builder.writeBackgroundColorRgb(color)
 }
 
-// BackgroundReset resets the background color to the default one.
+// BackgroundReset reverts the background color to the one that was in use before the
+// last call to `BackgroundSet` or `BackgroundRgbSet`.
 func (builder *SentenceBuilder) BackgroundReset() *SentenceBuilder {
+	if currentColor := builder.backgroundColorStack.Front(); currentColor != nil {
+		builder.backgroundColorStack.Remove(currentColor)
+	}
+
+	if color := builder.backgroundColorStack.Front(); color != nil {
+		if colorInt, ok := color.Value.(int); ok {
+			builder.writeBackgroundColor(colorInt)
+		}
+
+		if colorRgb, ok := color.Value.(string); ok {
+			builder.writeBackgroundColorRgb(colorRgb)
+		}
+	} else {
+		builder.write(bgColorResetSeq)
+	}
+
+	return builder
+}
+
+// BackgroundDefault sets the background color to the default one, irrespective of
+// the current background color stack, which is also cleared.
+func (builder *SentenceBuilder) BackgroundDefault() *SentenceBuilder {
+	builder.backgroundColorStack.Init()
+
 	return builder.write(bgColorResetSeq)
 }
 
@@ -272,6 +335,26 @@ func (builder *SentenceBuilder) StrikethroughStart() *SentenceBuilder {
 // StrikethroughEnd clears the strikethrough attribute previously set with `StrikethroughStart`.
 func (builder *SentenceBuilder) StrikethroughEnd() *SentenceBuilder {
 	return builder.write(strikethroughResetSeq)
+}
+
+func (builder *SentenceBuilder) writeColor(color int) *SentenceBuilder {
+	return builder.writeColorAttribute(fgColorSetSeqOpen, strconv.Itoa(color))
+}
+
+func (builder *SentenceBuilder) writeColorRgb(color string) *SentenceBuilder {
+	return builder.writeColorAttribute(fgColorRgbSetSeqOpen, color)
+}
+
+func (builder *SentenceBuilder) writeBackgroundColor(color int) *SentenceBuilder {
+	return builder.writeColorAttribute(bgColorSetSeqOpen, strconv.Itoa(color))
+}
+
+func (builder *SentenceBuilder) writeBackgroundColorRgb(color string) *SentenceBuilder {
+	return builder.writeColorAttribute(bgColorRgbSetSeqOpen, color)
+}
+
+func (builder *SentenceBuilder) writeColorAttribute(openAttribute, color string) *SentenceBuilder {
+	return builder.write(openAttribute).write(attrDelimiter).write(color).write(endSeq)
 }
 
 func unstyle(s string) string {
