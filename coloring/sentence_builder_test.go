@@ -1,6 +1,7 @@
 package coloring_test
 
 import (
+	"os"
 	"testing"
 
 	"github.com/go-color-term/go-color-term/coloring"
@@ -146,4 +147,140 @@ func TestSentenceBuilderStrikethrough(t *testing.T) {
 	if strikethroughString != expected {
 		errorTest(t, strikethroughString, expected)
 	}
+}
+
+func TestSentenceBuilderReset(t *testing.T) {
+	t.Parallel()
+
+	resetString := coloring.Sentence().Reset().String()
+
+	if expected := "\033[0m"; resetString != expected {
+		errorTest(t, resetString, expected)
+	}
+}
+
+func TestSentenceBuilderStyledText(t *testing.T) {
+	t.Parallel()
+
+	const testWord = "wolf"
+	expectedStyled := "\033[1m\033[38;5;1m" + testWord + "\033[39m\033[0m"
+
+	styledBoldRedText := coloring.Sentence().BoldStart().Color("wolf", coloring.RED).StyledText()
+	redBoldText := styledBoldRedText.String()
+	unstyledText := styledBoldRedText.Unformatted()
+
+	if redBoldText != expectedStyled {
+		errorTest(t, redBoldText, expectedStyled)
+	}
+
+	if unstyledText != testWord {
+		errorTest(t, unstyledText, testWord)
+	}
+}
+
+//nolint:paralleltest
+func TestSentenceBuilderPrint(t *testing.T) {
+	expected := "\033[1mwolf\033[22m\033[0m"
+
+	builder := coloring.Sentence()
+	n, output := captureStdout(t, builder.Bold("wolf").Print)
+
+	if n != len(expected) {
+		t.Errorf("Not enough bytes read: %d", n)
+	}
+
+	if output != expected {
+		errorTest(t, output, expected)
+	}
+
+	if buffer := builder.String(); buffer != expected {
+		errorTest(t, buffer, expected)
+	}
+}
+
+//nolint:paralleltest
+func TestSentenceBuilderPrintAndClear(t *testing.T) {
+	expected := "\033[1mwolf\033[22m\033[0m"
+
+	builder := coloring.Sentence()
+	n, output := captureStdout(t, func() { builder.Bold("wolf").PrintAndClear() })
+
+	if n != len(expected) {
+		t.Errorf("Not enough bytes read: %d", n)
+	}
+
+	if output != expected {
+		errorTest(t, output, expected)
+	}
+
+	if buffer := builder.String(); buffer != "" {
+		errorTest(t, buffer, "")
+	}
+}
+
+//nolint:paralleltest
+func TestSentenceBuilderPrintln(t *testing.T) {
+	expected := "\033[1mwolf\033[22m\033[0m\n"
+
+	builder := coloring.Sentence()
+	n, output := captureStdout(t, builder.Bold("wolf").Println)
+
+	if n != len(expected) {
+		t.Errorf("Not enough bytes read: %d", n)
+	}
+
+	if output != expected {
+		errorTest(t, output, expected)
+	}
+
+	expectedBuffer := expected[:len(expected)-1]
+	if buffer := builder.String(); buffer != expectedBuffer {
+		errorTest(t, buffer, expectedBuffer)
+	}
+}
+
+//nolint:paralleltest
+func TestSentenceBuilderPrintlnAndClear(t *testing.T) {
+	expected := "\033[1mwolf\033[22m\033[0m\n"
+
+	builder := coloring.Sentence()
+	n, output := captureStdout(t, func() { builder.Bold("wolf").PrintlnAndClear() })
+
+	if n != len(expected) {
+		t.Errorf("Not enough bytes read: %d", n)
+	}
+
+	if output != expected {
+		errorTest(t, output, expected)
+	}
+
+	if buffer := builder.String(); buffer != "" {
+		errorTest(t, buffer, "")
+	}
+}
+
+func captureStdout(t *testing.T, fn func()) (int, string) {
+	t.Helper()
+
+	r, w, _ := os.Pipe()
+
+	originalStdout := os.Stdout
+	os.Stdout = w
+
+	defer func() {
+		os.Stdout = originalStdout
+
+		w.Close()
+	}()
+
+	fn()
+
+	output := make([]byte, 32)
+
+	n, err := r.Read(output)
+	if err != nil {
+		t.Fatalf("Error reading from stream: %v", err)
+	}
+
+	return n, string(output[:n])
 }
