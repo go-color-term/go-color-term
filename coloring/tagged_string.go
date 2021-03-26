@@ -49,6 +49,18 @@ const (
 	attributeBright = "bright"
 )
 
+// Tagged allows to apply style attributes to a string using an HTML-like
+// tag syntax to mark the start and end of each attribute (bold, italics,
+// text and background colors and more).
+//
+// For example, the following will be a valid string to pass to `Tagged`:
+//     "The <b>wolf</b> <i>howls</i> at the <b><yellow>moon</yellow></b>"
+// That will result in the word `wolf` styled as bold text, the word
+// `howls` in italics, and the word `moon` in bold and yellow color.
+//
+// Note that `Tagged` will not generate any console output by itself, but
+// the returned string is ready to be used with console output functions
+// like `fmt.Println` and others.
 func Tagged(s string) string {
 	builder := Sentence()
 	runes := []rune(s)
