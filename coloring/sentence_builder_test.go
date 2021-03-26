@@ -39,6 +39,56 @@ func TestSentenceBuilderColorRgb(t *testing.T) {
 	}
 }
 
+func TestSentenceBuilderColorDefault(t *testing.T) {
+	t.Parallel()
+
+	expected := "\033[38;5;1mLorem \033[38;5;2mipsum \033[39mdolor"
+	styledText := coloring.Sentence().
+		ColorSet(coloring.RED).
+		Text("Lorem ").
+		ColorSet(coloring.GREEN).
+		Text("ipsum ").
+		ColorDefault().
+		Text("dolor").
+		String()
+
+	if styledText != expected {
+		errorTest(t, styledText, expected)
+	}
+}
+
+func TestSentenceBuilderMultipleColors(t *testing.T) {
+	t.Parallel()
+
+	expected := "\033[38;5;2mLorem \033[38;5;1mipsum\033[38;5;2m dolor"
+	styledText := coloring.Sentence().
+		ColorSet(coloring.GREEN).
+		Text("Lorem ").
+		Color("ipsum", coloring.RED).
+		Text(" dolor").
+		String()
+
+	if styledText != expected {
+		errorTest(t, styledText, expected)
+	}
+}
+
+func TestSentenceBuilderMultipleColorsRgb(t *testing.T) {
+	t.Parallel()
+
+	expected := "\033[38;2;255;128;0mLorem \033[38;5;1mipsum\033[38;2;255;128;0m dolor"
+	styledText := coloring.Sentence().
+		ColorRgbSet(255, 128, 0).
+		Text("Lorem ").
+		Color("ipsum", coloring.RED).
+		Text(" dolor").
+		String()
+
+	if styledText != expected {
+		errorTest(t, styledText, expected)
+	}
+}
+
 func TestSentenceBuilderBackground(t *testing.T) {
 	t.Parallel()
 
@@ -58,6 +108,56 @@ func TestSentenceBuilderBackgroundRgb(t *testing.T) {
 
 	if redBackgroundText != expected {
 		errorTest(t, redBackgroundText, expected)
+	}
+}
+
+func TestSentenceBuilderBackgroundDefault(t *testing.T) {
+	t.Parallel()
+
+	expected := "\033[48;5;1mLorem \033[48;5;2mipsum \033[49mdolor"
+	styledText := coloring.Sentence().
+		BackgroundSet(coloring.RED).
+		Text("Lorem ").
+		BackgroundSet(coloring.GREEN).
+		Text("ipsum ").
+		BackgroundDefault().
+		Text("dolor").
+		String()
+
+	if styledText != expected {
+		errorTest(t, styledText, expected)
+	}
+}
+
+func TestSentenceBuilderBackgroundMultipleColors(t *testing.T) {
+	t.Parallel()
+
+	expected := "\033[48;5;2mLorem \033[48;5;1mipsum\033[48;5;2m dolor"
+	styledText := coloring.Sentence().
+		BackgroundSet(coloring.GREEN).
+		Text("Lorem ").
+		Background("ipsum", coloring.RED).
+		Text(" dolor").
+		String()
+
+	if styledText != expected {
+		errorTest(t, styledText, expected)
+	}
+}
+
+func TestSentenceBuilderBackgroundMultipleColorsRgb(t *testing.T) {
+	t.Parallel()
+
+	expected := "\033[48;2;255;128;0mLorem \033[48;5;1mipsum\033[48;2;255;128;0m dolor"
+	styledText := coloring.Sentence().
+		BackgroundRgbSet(255, 128, 0).
+		Text("Lorem ").
+		Background("ipsum", coloring.RED).
+		Text(" dolor").
+		String()
+
+	if styledText != expected {
+		errorTest(t, styledText, expected)
 	}
 }
 
