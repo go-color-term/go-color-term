@@ -140,6 +140,7 @@ The idea is to provide with the simplest way to render styled text for each situ
 | `StyleBuilder`                 | Combining multiple styles; reusing the same style for various strings         |
 | `StyledText`                   | Sealed, self-contained styled string useful for passing around                |
 | `SentenceBuilder`              | Complex styling; full control of placing (start and end) of style attributes  |
+| `coloring.Tagged`              | Custom markup syntax to embed color attributes directly in a string           |
 
 The next sections describes each of these approaches in more detail.
 
@@ -422,6 +423,149 @@ The full list of `SentenceBuilder` functions is:
 * `String`, `Print`, `PrintAndClear`, `Println`, `PrintlnAndClear`, `StyledText`
 
 See [coloring/sentence_builder.go](https://github.com/go-color-term/go-color-term/blob/main/coloring/sentence_builder.go) for full documentation on each function.
+
+### `coloring.Tagged`
+
+The `SentenceBuilder` API, while powerful, is very verbose and can produce hard-to-read code.
+
+The `coloring.Tagged` function aims to provide pretty much the same fine grained control, while keeping your strings more readable and less fragmented accross different function calls.
+
+It allows you to use an HTML-like syntax in your strings to set the starting and ending points of style attributes.
+
+HTML-like tags were chosen because probably most developers have worked with HTML, so the resulting strings will result familiar to them.
+
+For example, to create a styled string you can write:
+
+```go
+coloring.Tagged("The <b>wolf</b> <i>howls</i> at the <b><yellow>moon</yellow></b>")
+```
+
+This will result in the word `wolf` styled as bold text, the word `howls` in italics, and the word `moon` in bold and yellow color. It will show up in the console like:
+
+<img src="docs/tagged_string.png" width="450" />
+
+> The examples on this section omits the `fmt.Println()` (or equivalent) that is neccessary to output the returned string on the console.
+
+The full list of tags that can be used are:
+
+| Attribute            | Tag              | Shorthand |
+|----------------------|------------------|-----------|
+| Bold                 | \<bold>          | \<b>      |
+| Faint                | \<faint>         | \<f>      |
+| Italic               | \<italic>        | \<i>      |
+| Underline            | \<underline>     | \<u>      |
+| Blink                | \<blink>         | \<bl>     |
+| Invert               | \<invert>        | \<in>     |
+| Conceal              | \<conceal>       | \<c>      |
+| Strikethrough        | \<strikethrough> | \<s>      |
+| Black text           | \<black>         | N/A       |
+| Red text             | \<red>           | N/A       |
+| Green text           | \<green>         | N/A       |
+| Yellow text          | \<yellow>        | N/A       |
+| Blue text            | \<blue>          | N/A       |
+| Magenta text         | \<magenta>       | N/A       |
+| Cyan text            | \<cyan>          | N/A       |
+| White text           | \<white>         | N/A       |
+| Black background     | \<bg-black>      | N/A       |
+| Red background       | \<bg-red>        | N/A       |
+| Green background     | \<bg-green>      | N/A       |
+| Yellow background    | \<bg-yellow>     | N/A       |
+| Blue background      | \<bg-blue>       | N/A       |
+| Magenta background   | \<bg-magenta>    | N/A       |
+| Cyan background      | \<bg-cyan>       | N/A       |
+| White background     | \<bg-white>      | N/A       |
+| Reset all attributes | \<reset>         | \<r>      |
+
+Note that, unlike real HTML, these tags are only used to mark the starting and ending points of the style attribute they represent, but they dont't requiere to be correctly nested.
+
+The following code will produce a valid escaped string:
+
+```go
+coloring.Tagged("<b>Lorem ipsum <red>dolor sit </b>amet</red>")
+```
+
+Because it's translated to:
+
+```
+ <b>                 <red>              </b>      </red>
+  |                    |                  |          |
+  v                    v                  v          v
+------            -----------          -------    -------
+ESC[1mLorem ipsum ESC[38;5;1mdolor sit ESC[22mametESC[39mESC[0m
+                                                         ------
+                                                            ^
+                                                            |
+                                              Reset attribute automatically
+                                              added at the end of the string
+```
+
+<img src="docs/tagged_string_unbalanced_tags.png" width="450" />
+
+Also, because a reset attribute (`ESC[0m`) is automatically added at the end of the generated string (so it doesn't leak styles to the next console output), it would be possible to leave open tags that set styles that doesn't change anymore in the current string:
+
+```go
+coloring.Tagged("<b>Starting bold and <green>turning green")
+```
+
+As you may guess, this produces the escaped string:
+
+```
+ESC[1mStarting bold and ESC[38;5;2mturning greenESC[0m
+```
+
+which is a valid escaped sequence that is rendered like:
+
+<img src="docs/tagged_string_unclosed_tags.png" width="450" />
+
+If you feel more comfortable with the "simmetry" of regular HTML, you can also write:
+
+```go
+coloring.Tagged("<b>Starting bold and <green>turning green</green></b>")
+```
+
+Which produces the same visual output, although with a bit more redundant escape sequence:
+
+```
+ESC[1mStarting bold and ESC[38;5;2mturning greenESC[39mESC[22mESC[0m
+```
+
+One could say that the latter form is more maintainable because in case you need to move things around, it's more easy to spot the boundaries of each attribute. Performance impact should be negligible.
+
+But in the end, it's up to you to decide which style might be the "best" for your specific scenario, taste, etc.
+
+#### Bright colors
+
+You can also set bright color mode for any text or background color adding the attribute `bright` inside the tag (similar to how the `disabled` attribute can be specified in the HTML `<select>` element):
+
+```go
+coloring.Tagged("<red bright>Bright color</red> and <bg-green bright>bright background</bg-green> enabled!")
+```
+
+> Remember: `bright` should be interpreted as an "attribute without value", and thus go _after_ the tag name.
+
+#### Resetting al style attributes at once
+
+A special tag named `<reset>` (shorthand `<r>`) allows to insert the "reset" attribute (`ESC[0m`) that turns off all other attributes at once.
+
+This can come in handy if you have multiple style attributes applied and don't want to bother with closing each one individually:
+
+```go
+coloring.Tagged("<bg-cyan bright><red bright><b><u><i>This starts very convoluted,<reset> but ends quietly.")
+```
+
+<img src="docs/tagged_string_reset.png" width="450" />
+
+#### Tag escape
+
+If your string actually contains the `<` character as part of the text, you will need to escape it by prepending a `\` character before it. The `\` must itself be escaped in a string, so the final string will become:
+
+```go
+coloring.Tagged("The \\<bold> or \\<b> tags are used to output <b>bold</b> text.")
+```
+
+<img src="docs/tagged_string_escape.png" width="450" />
+
+In case that you need to output a `\` character, you escape the `\` by adding a `\` before it.
 
 ## Licence
 
