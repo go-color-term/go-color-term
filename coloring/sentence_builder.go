@@ -20,7 +20,7 @@ type SentenceBuilder struct {
 	backgroundColorStack *list.List
 }
 
-// Sentence creates a new `SentenceBuilder`.
+// Sentence creates a new SentenceBuilder.
 func Sentence() *SentenceBuilder {
 	return &SentenceBuilder{strings.Builder{}, &list.List{}, &list.List{}}
 }
@@ -32,31 +32,31 @@ func (builder *SentenceBuilder) write(component string) *SentenceBuilder {
 }
 
 // String returns a string with the currently built sentence. It also allows to use
-// this instance of `SenteceBuilder` in any place that expects a `Stringer` type.
+// this instance of SenteceBuilder in any place that expects a Stringer type.
 func (builder *SentenceBuilder) String() string {
 	return builder.sb.String()
 }
 
-// StyledText returns a `StyledText` instance that you can use in any place
-// that expects a `Stringer` type. Further changes to this builder doesn't
-// affect the returned `StyledText`.
+// StyledText returns a StyledText instance that you can use in any place
+// that expects a Stringer type. Further changes to this builder doesn't
+// affect the returned StyledText.
 //
-// Note that the returned `StyledText` will contain a reset attribute at the end.
+// Note that the returned StyledText will contain a reset attribute at the end.
 // This is to safely concatenate it with other strings without leaving open
 // any style attribute.
 func (builder *SentenceBuilder) StyledText() *StyledText {
 	return &StyledText{builder.sb.String() + resetSeq, unstyle(builder.sb.String())}
 }
 
-// Print reset all the styles and outputs the currently built sentence on `os.Stdout`.
+// Print reset all the styles and outputs the currently built sentence on os.Stdout.
 func (builder *SentenceBuilder) Print() {
 	builder.Reset()
 	//nolint:forbidigo
 	fmt.Print(builder)
 }
 
-// PrintAndClear performs a `SentenceBuilder.Print` and then clears the current sentence
-// buffer and returns this `SentenceBuilder`, allowing to start building a new sentence right away.
+// PrintAndClear performs a SentenceBuilder.Print and then clears the current sentence
+// buffer and returns this SentenceBuilder, allowing to start building a new sentence right away.
 func (builder *SentenceBuilder) PrintAndClear() *SentenceBuilder {
 	builder.Print()
 	builder.sb.Reset()
@@ -64,7 +64,7 @@ func (builder *SentenceBuilder) PrintAndClear() *SentenceBuilder {
 	return builder
 }
 
-// Println reset all the styles and outputs the currently built sentence on `os.Stdout`
+// Println reset all the styles and outputs the currently built sentence on os.Stdout
 // adding a new line at the end.
 func (builder *SentenceBuilder) Println() {
 	builder.Reset()
@@ -72,8 +72,8 @@ func (builder *SentenceBuilder) Println() {
 	fmt.Println(builder)
 }
 
-// PrintlnAndClear performs a `SentenceBuilder.Println` and then clears the current sentence
-// buffer and returns this `SentenceBuilder`, allowing to start building a new sentence right away.
+// PrintlnAndClear performs a SentenceBuilder.Println and then clears the current sentence
+// buffer and returns this SentenceBuilder, allowing to start building a new sentence right away.
 func (builder *SentenceBuilder) PrintlnAndClear() *SentenceBuilder {
 	builder.Println()
 	builder.sb.Reset()
@@ -92,14 +92,14 @@ func (builder *SentenceBuilder) Reset() *SentenceBuilder {
 }
 
 // Color adds a string of text with a specific color. The color
-// must be in the range 0-255. See constants declared in the `coloring`
+// must be in the range 0-255. See constants declared in the coloring
 // package to access the most common ones (0-15).
 func (builder *SentenceBuilder) Color(text string, color int) *SentenceBuilder {
 	return builder.ColorSet(color).write(text).ColorReset()
 }
 
 // ColorSet sets the current text color of the sentence. Further added text will
-// have this color until another color is set or the color is reseted with `ColorReset`.
+// have this color until another color is set or the color is reseted with ColorReset.
 func (builder *SentenceBuilder) ColorSet(color int) *SentenceBuilder {
 	builder.colorStack.PushFront(color)
 
@@ -108,14 +108,14 @@ func (builder *SentenceBuilder) ColorSet(color int) *SentenceBuilder {
 
 // ColorRgb adds a string of text with a specific color using RGB values. Each color
 // component must be in the range 0-255. You can use hexadecimal numeric literals
-// like `ColorRgb("sample", 0xFF, 0xC0, 0x33)`.
+// like ColorRgb("sample", 0xFF, 0xC0, 0x33).
 func (builder *SentenceBuilder) ColorRgb(text string, r, g, b int) *SentenceBuilder {
 	return builder.ColorRgbSet(r, g, b).write(text).ColorReset()
 }
 
 // ColorRgbSet sets the current text color of the sentence using RGB values. Further added text
-// will have this color until another color is set or the color is reseted with `ColorReset`.
-// You can use hexadecimal numeric literals like `ColorRgb("sample", 0xFF, 0xC0, 0x33)`.
+// will have this color until another color is set or the color is reseted with ColorReset.
+// You can use hexadecimal numeric literals like ColorRgb("sample", 0xFF, 0xC0, 0x33).
 func (builder *SentenceBuilder) ColorRgbSet(r, g, b int) *SentenceBuilder {
 	color := composeRgbColor(r, g, b)
 	builder.colorStack.PushFront(color)
@@ -124,7 +124,7 @@ func (builder *SentenceBuilder) ColorRgbSet(r, g, b int) *SentenceBuilder {
 }
 
 // ColorReset reverts the color to the one that was in use before the last call to
-// `ColorSet` or `ColorRgbSet`.
+// ColorSet or ColorRgbSet.
 func (builder *SentenceBuilder) ColorReset() *SentenceBuilder {
 	if currentColor := builder.colorStack.Front(); currentColor != nil {
 		builder.colorStack.Remove(currentColor)
@@ -154,7 +154,7 @@ func (builder *SentenceBuilder) ColorDefault() *SentenceBuilder {
 }
 
 // Background adds a string of text with a specific background color. The color
-// must be in the range 0-255. See constants declared in the `coloring`
+// must be in the range 0-255. See constants declared in the coloring
 // package to access the most common ones (0-15).
 func (builder *SentenceBuilder) Background(text string, color int) *SentenceBuilder {
 	return builder.BackgroundSet(color).write(text).BackgroundReset()
@@ -162,7 +162,7 @@ func (builder *SentenceBuilder) Background(text string, color int) *SentenceBuil
 
 // BackgroundSet sets the current background color of the sentence. Further added text
 // will have this background color until another background color is set or the background
-// color is reseted with `BackgroundReset`.
+// color is reseted with BackgroundReset.
 func (builder *SentenceBuilder) BackgroundSet(color int) *SentenceBuilder {
 	builder.backgroundColorStack.PushFront(color)
 
@@ -171,15 +171,15 @@ func (builder *SentenceBuilder) BackgroundSet(color int) *SentenceBuilder {
 
 // BackgroundRgb adds a string of text with a specific background color using RGB values.
 // Each color component must be in the range 0-255. You can use hexadecimal numeric
-// literals like `BackgroundRgb("sample", 0xFF, 0xC0, 0x33)`.
+// literals like BackgroundRgb("sample", 0xFF, 0xC0, 0x33).
 func (builder *SentenceBuilder) BackgroundRgb(text string, r, g, b int) *SentenceBuilder {
 	return builder.BackgroundRgbSet(r, g, b).write(text).BackgroundReset()
 }
 
 // BackgroundRgbSet sets the current background color of the sentence using RGB values.
 // Further added text will have this background color until another background color is
-// set or the background color is reseted with `BackgroundReset`. You can use hexadecimal
-// numeric literals like `ColorRgb("sample", 0xFF, 0xC0, 0x33)`.
+// set or the background color is reseted with BackgroundReset. You can use hexadecimal
+// numeric literals like ColorRgb("sample", 0xFF, 0xC0, 0x33).
 func (builder *SentenceBuilder) BackgroundRgbSet(r, g, b int) *SentenceBuilder {
 	color := composeRgbColor(r, g, b)
 	builder.backgroundColorStack.PushFront(color)
@@ -188,7 +188,7 @@ func (builder *SentenceBuilder) BackgroundRgbSet(r, g, b int) *SentenceBuilder {
 }
 
 // BackgroundReset reverts the background color to the one that was in use before the
-// last call to `BackgroundSet` or `BackgroundRgbSet`.
+// last call to BackgroundSet or BackgroundRgbSet.
 func (builder *SentenceBuilder) BackgroundReset() *SentenceBuilder {
 	if currentColor := builder.backgroundColorStack.Front(); currentColor != nil {
 		builder.backgroundColorStack.Remove(currentColor)
@@ -222,12 +222,12 @@ func (builder *SentenceBuilder) Bold(text string) *SentenceBuilder {
 	return builder.BoldStart().write(text).BoldEnd()
 }
 
-// BoldStart marks the start of bold text. Use `BoldEnd` to end the bold section.
+// BoldStart marks the start of bold text. Use BoldEnd to end the bold section.
 func (builder *SentenceBuilder) BoldStart() *SentenceBuilder {
 	return builder.write(boldSeq)
 }
 
-// BoldEnd clears the bold attribute previously set with `BoldStart`.
+// BoldEnd clears the bold attribute previously set with BoldStart.
 func (builder *SentenceBuilder) BoldEnd() *SentenceBuilder {
 	return builder.write(boldResetSeq)
 }
@@ -237,12 +237,12 @@ func (builder *SentenceBuilder) Faint(text string) *SentenceBuilder {
 	return builder.FaintStart().write(text).FaintEnd()
 }
 
-// FaintStart marks the start of dimmed text. Use `FaintEnd` to end the dimmed section.
+// FaintStart marks the start of dimmed text. Use FaintEnd to end the dimmed section.
 func (builder *SentenceBuilder) FaintStart() *SentenceBuilder {
 	return builder.write(faintSeq)
 }
 
-// FaintEnd clears the faint attribute previously set with `FaintStart`.
+// FaintEnd clears the faint attribute previously set with FaintStart.
 func (builder *SentenceBuilder) FaintEnd() *SentenceBuilder {
 	return builder.write(faintResetSeq)
 }
@@ -252,12 +252,12 @@ func (builder *SentenceBuilder) Italic(text string) *SentenceBuilder {
 	return builder.ItalicStart().write(text).ItalicEnd()
 }
 
-// ItalicStart marks the start of italics text. Use `ItalicEnd` to end the italics section.
+// ItalicStart marks the start of italics text. Use ItalicEnd to end the italics section.
 func (builder *SentenceBuilder) ItalicStart() *SentenceBuilder {
 	return builder.write(italicSeq)
 }
 
-// ItalicEnd clears the italics attribute previously set with `ItalicStart`.
+// ItalicEnd clears the italics attribute previously set with ItalicStart.
 func (builder *SentenceBuilder) ItalicEnd() *SentenceBuilder {
 	return builder.write(italicResetSeq)
 }
@@ -267,12 +267,12 @@ func (builder *SentenceBuilder) Underline(text string) *SentenceBuilder {
 	return builder.UnderlineStart().write(text).UnderlineEnd()
 }
 
-// UnderlineStart marks the start of underlined text. Use `UnderlineEnd` to end the underlined section.
+// UnderlineStart marks the start of underlined text. Use UnderlineEnd to end the underlined section.
 func (builder *SentenceBuilder) UnderlineStart() *SentenceBuilder {
 	return builder.write(underlineSeq)
 }
 
-// UnderlineEnd clears the underline attribute previously set with `UnderlineStart`.
+// UnderlineEnd clears the underline attribute previously set with UnderlineStart.
 func (builder *SentenceBuilder) UnderlineEnd() *SentenceBuilder {
 	return builder.write(underlineResetSeq)
 }
@@ -282,12 +282,12 @@ func (builder *SentenceBuilder) Blink(text string) *SentenceBuilder {
 	return builder.BlinkStart().write(text).BlinkEnd()
 }
 
-// BlinkStart marks the start of blinking text. Use `BlinkEnd` to end the blinking section.
+// BlinkStart marks the start of blinking text. Use BlinkEnd to end the blinking section.
 func (builder *SentenceBuilder) BlinkStart() *SentenceBuilder {
 	return builder.write(blinkSeq)
 }
 
-// BlinkEnd clears the blink attribute previously set with `BlinkStart`.
+// BlinkEnd clears the blink attribute previously set with BlinkStart.
 func (builder *SentenceBuilder) BlinkEnd() *SentenceBuilder {
 	return builder.write(blinkResetSeq)
 }
@@ -297,12 +297,12 @@ func (builder *SentenceBuilder) Invert(text string) *SentenceBuilder {
 	return builder.InvertStart().write(text).InvertEnd()
 }
 
-// InvertStart marks the start of text with inverted colors. Use `InvertEnd` to end the inverted colors section.
+// InvertStart marks the start of text with inverted colors. Use InvertEnd to end the inverted colors section.
 func (builder *SentenceBuilder) InvertStart() *SentenceBuilder {
 	return builder.write(invertSeq)
 }
 
-// InvertEnd clears the invert attribute previously set with `InvertStart`.
+// InvertEnd clears the invert attribute previously set with InvertStart.
 func (builder *SentenceBuilder) InvertEnd() *SentenceBuilder {
 	return builder.write(invertResetSeq)
 }
@@ -312,12 +312,12 @@ func (builder *SentenceBuilder) Conceal(text string) *SentenceBuilder {
 	return builder.ConcealStart().write(text).ConcealEnd()
 }
 
-// ConcealStart marks the start of concealed text. Use `ConcealEnd` to end the concealed section.
+// ConcealStart marks the start of concealed text. Use ConcealEnd to end the concealed section.
 func (builder *SentenceBuilder) ConcealStart() *SentenceBuilder {
 	return builder.write(concealSeq)
 }
 
-// ConcealEnd clears the conceal attribute previously set with `ConcealStart`.
+// ConcealEnd clears the conceal attribute previously set with ConcealStart.
 func (builder *SentenceBuilder) ConcealEnd() *SentenceBuilder {
 	return builder.write(concealResetSeq)
 }
@@ -327,12 +327,12 @@ func (builder *SentenceBuilder) Strikethrough(text string) *SentenceBuilder {
 	return builder.StrikethroughStart().write(text).StrikethroughEnd()
 }
 
-// StrikethroughStart marks the start of crossed text. Use `StrikethroughEnd` to end the crossed section.
+// StrikethroughStart marks the start of crossed text. Use StrikethroughEnd to end the crossed section.
 func (builder *SentenceBuilder) StrikethroughStart() *SentenceBuilder {
 	return builder.write(strikethroughSeq)
 }
 
-// StrikethroughEnd clears the strikethrough attribute previously set with `StrikethroughStart`.
+// StrikethroughEnd clears the strikethrough attribute previously set with StrikethroughStart.
 func (builder *SentenceBuilder) StrikethroughEnd() *SentenceBuilder {
 	return builder.write(strikethroughResetSeq)
 }
