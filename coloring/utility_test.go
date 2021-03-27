@@ -5,10 +5,10 @@
 package coloring_test
 
 import (
-	"strings"
 	"testing"
 
 	"github.com/go-color-term/go-color-term/coloring"
+	d "github.com/go-color-term/go-color-term/coloring/debugging"
 )
 
 func TestUtility(t *testing.T) {
@@ -76,9 +76,5 @@ func TestUtility(t *testing.T) {
 func errorTest(t *testing.T, actual, expected string) {
 	t.Helper()
 	t.Errorf("Expected %s%s (%s), got %s%s (%s)",
-		expected, coloring.ResetSeq, unescape(expected), actual, coloring.ResetSeq, unescape(actual))
-}
-
-func unescape(s string) string {
-	return strings.ReplaceAll(s, "\033", "ESC")
+		expected, coloring.ResetSeq, d.DebugString(expected), actual, coloring.ResetSeq, d.DebugString(actual))
 }
