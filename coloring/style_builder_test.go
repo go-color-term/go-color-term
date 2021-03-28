@@ -405,3 +405,95 @@ func TestStyleBuilderStyledText(t *testing.T) {
 		errorTest(t, unstyledText, testWord)
 	}
 }
+
+//nolint:govet
+func BenchmarkStyleBuilderRed(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		coloring.For("wolf").Red().String()
+	}
+}
+
+//nolint:govet
+func BenchmarkStyleBuilderColor(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		coloring.For("wolf").Color(coloring.RED).String()
+	}
+}
+
+//nolint:govet
+func BenchmarkStyleBuilderRgb(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		coloring.For("wolf").Rgb(255, 128, 64).String()
+	}
+}
+
+//nolint:govet
+func BenchmarkStyleBuilderBackgroundRed(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		coloring.For("wolf").Background().Red().String()
+	}
+}
+
+//nolint:govet
+func BenchmarkStyleBuilderBackgroundColor(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		coloring.For("wolf").Background().Color(coloring.RED).String()
+	}
+}
+
+//nolint:govet
+func BenchmarkStyleBuilderBackgroundRgb(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		coloring.For("wolf").Background().Rgb(255, 128, 64).String()
+	}
+}
+
+func BenchmarkStyleBuilderFuncCreation(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		coloring.New().Red().Func()
+	}
+}
+
+func BenchmarkStyleBuilderFuncUsage(b *testing.B) {
+	redTextFunc := coloring.New().Red().Func()
+
+	for i := 0; i < b.N; i++ {
+		redTextFunc("wolf")
+	}
+}
+
+func BenchmarkStyleBuilderPrintCreation(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		coloring.New().Red().Print()
+	}
+}
+
+func BenchmarkStyleBuilderPrintUsage(b *testing.B) {
+	stdout := os.Stdout
+	defer func() {
+		os.Stdout = stdout
+	}()
+
+	discard, _ := os.OpenFile("/dev/null", os.O_WRONLY, 0644)
+	os.Stdout = discard
+
+	printRedText := coloring.New().Red().Print()
+
+	for i := 0; i < b.N; i++ {
+		printRedText("wolf")
+	}
+}
+
+func BenchmarkStyleBuilder_Styled(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		coloring.For("wolf").Red().Styled()
+	}
+}
+
+func BenchmarkStyleBuilder_StyleText(b *testing.B) {
+	builder := coloring.New().Red()
+
+	for i := 0; i < b.N; i++ {
+		builder.StyleText("wolf")
+	}
+}
