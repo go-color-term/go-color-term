@@ -14,7 +14,7 @@ import (
 func TestUtility(t *testing.T) {
 	t.Parallel()
 
-	colors := []struct {
+	testCases := []struct {
 		name      string
 		colorFunc func(string) string
 		expected  string
@@ -61,7 +61,7 @@ func TestUtility(t *testing.T) {
 		{"Bright white background", coloring.Extras.BgBrightWhite, "\033[107mwolf\033[49m"},
 	}
 
-	for _, tc := range colors {
+	for _, tc := range testCases {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
 			t.Parallel()
