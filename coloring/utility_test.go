@@ -78,3 +78,9 @@ func errorTest(t *testing.T, actual, expected string) {
 	t.Errorf("Expected %s%s (%s), got %s%s (%s)",
 		expected, coloring.ResetSeq, d.DebugString(expected), actual, coloring.ResetSeq, d.DebugString(actual))
 }
+
+func BenchmarkRed(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		coloring.Red("wolf")
+	}
+}
