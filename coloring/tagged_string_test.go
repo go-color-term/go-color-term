@@ -20,8 +20,8 @@ func TestTaggedString(t *testing.T) {
 		escapedString string
 	}{
 		// style attributes
-		{"wolf", "<bold>wolf</bold>", "\033[1mwolf\033[22m\033[0m"},
-		{"wolf (shorthand)", "<b>wolf</b>", "\033[1mwolf\033[22m\033[0m"},
+		{"Bold", "<bold>wolf</bold>", "\033[1mwolf\033[22m\033[0m"},
+		{"Bold (shorthand)", "<b>wolf</b>", "\033[1mwolf\033[22m\033[0m"},
 		{"Faint", "<faint>wolf</faint>", "\033[2mwolf\033[22m\033[0m"},
 		{"Faint (shorthand)", "<f>wolf</f>", "\033[2mwolf\033[22m\033[0m"},
 		{"Italic", "<italic>wolf</italic>", "\033[3mwolf\033[23m\033[0m"},
