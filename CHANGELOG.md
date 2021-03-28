@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+* Documentation for base `coloring` package.
+* Runnable examples for `coloring.Tagged` function.
+
 ## [0.3.0] 2021-03-27
 
 ### Added
