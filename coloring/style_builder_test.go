@@ -406,45 +406,39 @@ func TestStyleBuilderStyledText(t *testing.T) {
 	}
 }
 
-//nolint:govet
 func BenchmarkStyleBuilderRed(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		coloring.For("wolf").Red().String()
+		_ = coloring.For("wolf").Red().String()
 	}
 }
 
-//nolint:govet
 func BenchmarkStyleBuilderColor(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		coloring.For("wolf").Color(coloring.RED).String()
+		_ = coloring.For("wolf").Color(coloring.RED).String()
 	}
 }
 
-//nolint:govet
 func BenchmarkStyleBuilderRgb(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		coloring.For("wolf").Rgb(255, 128, 64).String()
+		_ = coloring.For("wolf").Rgb(255, 128, 64).String()
 	}
 }
 
-//nolint:govet
 func BenchmarkStyleBuilderBackgroundRed(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		coloring.For("wolf").Background().Red().String()
+		_ = coloring.For("wolf").Background().Red().String()
 	}
 }
 
-//nolint:govet
 func BenchmarkStyleBuilderBackgroundColor(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		coloring.For("wolf").Background().Color(coloring.RED).String()
+		_ = coloring.For("wolf").Background().Color(coloring.RED).String()
 	}
 }
 
-//nolint:govet
 func BenchmarkStyleBuilderBackgroundRgb(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		coloring.For("wolf").Background().Rgb(255, 128, 64).String()
+		_ = coloring.For("wolf").Background().Rgb(255, 128, 64).String()
 	}
 }
 
