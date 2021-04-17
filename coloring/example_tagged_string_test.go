@@ -48,7 +48,7 @@ func ExampleTagged_reset() {
 }
 
 func ExampleTagged_escape() {
-	fmt.Println(coloring.Tagged("Escape is <b>bold</b>."))
+	// using interpreted strings literals
 	fmt.Println(coloring.Tagged("Escape is \\<b>bold\\</b>."))
 	fmt.Println(coloring.Tagged("Escape is \\ <b>bold</b>."))
 	fmt.Println(coloring.Tagged("Escape is <b>\\bold</b>."))
@@ -57,9 +57,20 @@ func ExampleTagged_escape() {
 	fmt.Println(coloring.Tagged("Escape is \\\\\\<b>bold\\</b>."))
 	fmt.Println(coloring.Tagged("Escape is <b>bold</b>.\\"))
 	fmt.Println(coloring.Tagged("Escape is <b>bold</b>.\\\\<b>"))
+	fmt.Println(coloring.Tagged("This is a single \\\\"))
+
+	// using raw literal strings
+	fmt.Println(coloring.Tagged(`Escape is \<b>bold\</b>.`))
+	fmt.Println(coloring.Tagged(`Escape is \ <b>bold</b>.`))
+	fmt.Println(coloring.Tagged(`Escape is <b>\bold</b>.`))
+	fmt.Println(coloring.Tagged(`Escape is <b>\\bold</b>.`))
+	fmt.Println(coloring.Tagged(`Escape is \\<b>bold</b>.`))
+	fmt.Println(coloring.Tagged(`Escape is \\\<b>bold\</b>.`))
+	fmt.Println(coloring.Tagged(`Escape is <b>bold</b>.\`))
+	fmt.Println(coloring.Tagged(`Escape is <b>bold</b>.\\<b>`))
+	fmt.Println(coloring.Tagged(`This is a single \\`))
 
 	// Output:
-	// Escape is [1mbold[22m.[0m
 	// Escape is <b>bold</b>.[0m
 	// Escape is  [1mbold[22m.[0m
 	// Escape is [1mbold[22m.[0m
@@ -68,4 +79,14 @@ func ExampleTagged_escape() {
 	// Escape is \<b>bold</b>.[0m
 	// Escape is [1mbold[22m.[0m
 	// Escape is [1mbold[22m.\[1m[0m
+	// This is a single \[0m
+	// Escape is <b>bold</b>.[0m
+	// Escape is  [1mbold[22m.[0m
+	// Escape is [1mbold[22m.[0m
+	// Escape is [1m\bold[22m.[0m
+	// Escape is \[1mbold[22m.[0m
+	// Escape is \<b>bold</b>.[0m
+	// Escape is [1mbold[22m.[0m
+	// Escape is [1mbold[22m.\[1m[0m
+	// This is a single \[0m
 }
