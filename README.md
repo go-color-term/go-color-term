@@ -571,7 +571,33 @@ coloring.Tagged("The \\<bold> or \\<b> tags are used to output <b>bold</b> text.
 
 <img src="docs/tagged_string_escape.png" width="450" />
 
+To improve readability, you can use [raw string literals](https://golang.org/ref/spec#String_literals), which are enclosed in back quotes (<code>`</code>) and ignore escape sequences that starts with a backslash. The applicability will depend on your needs to also include other control characters within the string (new lines, tabulations, etc.).
+
+The same example as before using raw string literals would become:
+
+```go
+coloring.Tagged(`The \<bold> or \<b> tags are used to output <b>bold</b> text.`)
+```
+
 In case that you need to output a `\` character, you escape the `\` by adding a `\` before it.
+
+With normal (interpreted) string literals, this takes the form of:
+
+```go
+coloring.Tagged("This is a single \\\\")
+```
+
+And with raw string literals:
+
+```go
+coloring.Tagged(`This is a single \\`)
+```
+
+Both examples generate the same output:
+
+```
+This is a single \
+```
 
 ## Licence
 

@@ -415,7 +415,29 @@ you will need to escape it by prepending a "\" character before it. The
 
   coloring.Tagged("The \\<bold> or \\<b> tags are used to output <b>bold</b> text.")
 
+To improve readability, you can use raw string literals, which are
+enclosed in back quotes ("`") and ignore escape sequences that starts
+with a backslash. The applicability will depend on your needs to also
+include other control characters within the string (new lines,
+tabulations, etc.).
+
+The same example as before using raw string literals would become:
+
+  coloring.Tagged(`The \<bold> or \<b> tags are used to output <b>bold</b> text.`)
+
 In case that you need to output a "\" character, you escape the "\" by
 adding a "\" before it.
+
+With normal (interpreted) string literals, this takes the form of:
+
+  coloring.Tagged("This is a single \\\\")
+
+And with raw string literals:
+
+  coloring.Tagged(`This is a single \\`)
+
+Both examples generate the same output:
+
+  This is a single \
 */
 package coloring
