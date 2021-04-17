@@ -6,9 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] 2021-04-17
+
 ### Added
 * Documentation for base `coloring` package.
-* Runnable examples for `coloring.Tagged` function.
+* Runnable examples for utility, `StyleBuilder` and `coloring.Tagged` functions.
+* Benchmarks for `coloring.Red`, `StyleBuilder` and `coloring.Tagged` functions.
+
+### Changed
+* Renamed and exported internal `extras` type to `ExtraUtility` in order to have its documentation displayed on documentation tools.
+* `StyleBuilder`: renamed `InvertColors` function to `Invert` to better align its name with the attribute it applies.
 
 ## [0.3.0] 2021-03-27
 
