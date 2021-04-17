@@ -312,8 +312,8 @@ And now you also know why the firemen were coming in the first place!
 `StyleBuilder` provides functions for the following:
 * Set basic colors: `Black()`, `Red()`, `Green()`, `Yellow()`, `Blue()`, `Magenta()`, `Cyan()`, `White()`.
 * Set custom colors:
-  * 8-bit colors: `Color(int)` passing a number in the range 0-255 (use constants on `coloring` package for the first 0-15 values).
-  * 24-bit colors: `ColorRgb(int, int, int)` passing numbers in the 0-255 range for each RGB component.
+  * 8-bit colors: `Color(uint8)` passing a number in the range 0-255 (use constants on `coloring` package for the first 0-15 values).
+  * 24-bit colors: `ColorRgb(uint8, uint8, uint8)` passing numbers in the 0-255 range for each RGB component.
 * Set background color: `Background()` + equivalent methods.
 * Set other style attributes: `Bold()`, `Faint()`, `Italic()`, `Underline()`, `Blink()`, `Invert()`, `Strikethrough()`.
 

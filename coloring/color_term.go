@@ -124,6 +124,6 @@ func applyTo(seq, s string) string {
 	return sb.String()
 }
 
-func composeRgbColor(r, g, b int) string {
+func composeRgbColor(r, g, b uint8) string {
 	return fmt.Sprintf("%d;%d;%d", r, g, b)
 }

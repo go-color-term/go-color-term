@@ -110,17 +110,6 @@ func TestStyleBuilderColorInt(t *testing.T) {
 	}
 }
 
-func TestStyleBuilderColorIntOverLimit(t *testing.T) {
-	t.Parallel()
-
-	expected := "\033[38;5;7mwolf\033[0m"
-	whiteString := coloring.For("wolf").Color(256).String()
-
-	if whiteString != expected {
-		errorTest(t, whiteString, expected)
-	}
-}
-
 func TestStyleBuilderColorRgb(t *testing.T) {
 	t.Parallel()
 
@@ -316,17 +305,6 @@ func TestStyleBuilderBackgroundColorInt(t *testing.T) {
 
 	if redBackgroundString != expected {
 		errorTest(t, redBackgroundString, expected)
-	}
-}
-
-func TestStyleBuilderBackgroundColorIntOverLimit(t *testing.T) {
-	t.Parallel()
-
-	expected := "\033[48;5;7mwolf\033[0m"
-	whiteBackgroundString := coloring.For("wolf").Background().Color(256).String()
-
-	if whiteBackgroundString != expected {
-		errorTest(t, whiteBackgroundString, expected)
 	}
 }
 

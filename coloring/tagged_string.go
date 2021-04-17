@@ -4,7 +4,10 @@
 
 package coloring
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+)
 
 const (
 	runeTagOpen        = rune('<')
@@ -175,13 +178,12 @@ func applyClosingAttribute(tag string, builder *SentenceBuilder) {
 
 const (
 	brightColorDelta = BRIGHTBLACK
-	invalidColor     = -1
 )
 
 func applyColorAttribute(tag string, builder *SentenceBuilder, isBrightColor bool) {
-	color := getColorFromTag(tag)
+	color, err := getColorFromTag(tag)
 
-	if color == invalidColor {
+	if err != nil {
 		return
 	}
 
@@ -213,28 +215,28 @@ func applyColorAttribute(tag string, builder *SentenceBuilder, isBrightColor boo
 	}
 }
 
-func getColorFromTag(tag string) int {
+func getColorFromTag(tag string) (uint8, error) {
 	colorName := strings.TrimPrefix(tag, "bg-")
 
 	switch colorName {
 	case tagColorBlack:
-		return BLACK
+		return BLACK, nil
 	case tagColorRed:
-		return RED
+		return RED, nil
 	case tagColorGreen:
-		return GREEN
+		return GREEN, nil
 	case tagColorYellow:
-		return YELLOW
+		return YELLOW, nil
 	case tagColorBlue:
-		return BLUE
+		return BLUE, nil
 	case tagColorMagenta:
-		return MAGENTA
+		return MAGENTA, nil
 	case tagColorCyan:
-		return CYAN
+		return CYAN, nil
 	case tagColorWhite:
-		return WHITE
+		return WHITE, nil
 	default:
-		return invalidColor
+		return 0, fmt.Errorf("invalid color name")
 	}
 }
 

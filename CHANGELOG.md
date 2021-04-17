@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+* Changed integer types used in functions expecting a color number o RGB components from `int` to `uint8` to get the inherent range checks of the data type.
+
 ## [0.4.0] 2021-04-17
 
 ### Added

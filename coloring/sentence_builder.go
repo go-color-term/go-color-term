@@ -98,13 +98,13 @@ func (builder *SentenceBuilder) Reset() *SentenceBuilder {
 // Color adds a string of text with a specific color. The color
 // must be in the range 0-255. See constants declared in the coloring
 // package to access the most common ones (0-15).
-func (builder *SentenceBuilder) Color(text string, color int) *SentenceBuilder {
+func (builder *SentenceBuilder) Color(text string, color uint8) *SentenceBuilder {
 	return builder.ColorSet(color).write(text).ColorReset()
 }
 
 // ColorSet sets the current text color of the sentence. Further added text will
 // have this color until another color is set or the color is reseted with ColorReset.
-func (builder *SentenceBuilder) ColorSet(color int) *SentenceBuilder {
+func (builder *SentenceBuilder) ColorSet(color uint8) *SentenceBuilder {
 	builder.colorStack.PushFront(color)
 
 	return builder.writeColor(color)
@@ -113,14 +113,14 @@ func (builder *SentenceBuilder) ColorSet(color int) *SentenceBuilder {
 // ColorRgb adds a string of text with a specific color using RGB values. Each color
 // component must be in the range 0-255. You can use hexadecimal numeric literals
 // like ColorRgb("sample", 0xFF, 0xC0, 0x33).
-func (builder *SentenceBuilder) ColorRgb(text string, r, g, b int) *SentenceBuilder {
+func (builder *SentenceBuilder) ColorRgb(text string, r, g, b uint8) *SentenceBuilder {
 	return builder.ColorRgbSet(r, g, b).write(text).ColorReset()
 }
 
 // ColorRgbSet sets the current text color of the sentence using RGB values. Further added text
 // will have this color until another color is set or the color is reseted with ColorReset.
 // You can use hexadecimal numeric literals like ColorRgb("sample", 0xFF, 0xC0, 0x33).
-func (builder *SentenceBuilder) ColorRgbSet(r, g, b int) *SentenceBuilder {
+func (builder *SentenceBuilder) ColorRgbSet(r, g, b uint8) *SentenceBuilder {
 	color := composeRgbColor(r, g, b)
 	builder.colorStack.PushFront(color)
 
@@ -135,7 +135,7 @@ func (builder *SentenceBuilder) ColorReset() *SentenceBuilder {
 	}
 
 	if color := builder.colorStack.Front(); color != nil {
-		if colorInt, ok := color.Value.(int); ok {
+		if colorInt, ok := color.Value.(uint8); ok {
 			builder.writeColor(colorInt)
 		}
 
@@ -160,14 +160,14 @@ func (builder *SentenceBuilder) ColorDefault() *SentenceBuilder {
 // Background adds a string of text with a specific background color. The color
 // must be in the range 0-255. See constants declared in the coloring
 // package to access the most common ones (0-15).
-func (builder *SentenceBuilder) Background(text string, color int) *SentenceBuilder {
+func (builder *SentenceBuilder) Background(text string, color uint8) *SentenceBuilder {
 	return builder.BackgroundSet(color).write(text).BackgroundReset()
 }
 
 // BackgroundSet sets the current background color of the sentence. Further added text
 // will have this background color until another background color is set or the background
 // color is reseted with BackgroundReset.
-func (builder *SentenceBuilder) BackgroundSet(color int) *SentenceBuilder {
+func (builder *SentenceBuilder) BackgroundSet(color uint8) *SentenceBuilder {
 	builder.backgroundColorStack.PushFront(color)
 
 	return builder.writeBackgroundColor(color)
@@ -176,7 +176,7 @@ func (builder *SentenceBuilder) BackgroundSet(color int) *SentenceBuilder {
 // BackgroundRgb adds a string of text with a specific background color using RGB values.
 // Each color component must be in the range 0-255. You can use hexadecimal numeric
 // literals like BackgroundRgb("sample", 0xFF, 0xC0, 0x33).
-func (builder *SentenceBuilder) BackgroundRgb(text string, r, g, b int) *SentenceBuilder {
+func (builder *SentenceBuilder) BackgroundRgb(text string, r, g, b uint8) *SentenceBuilder {
 	return builder.BackgroundRgbSet(r, g, b).write(text).BackgroundReset()
 }
 
@@ -184,7 +184,7 @@ func (builder *SentenceBuilder) BackgroundRgb(text string, r, g, b int) *Sentenc
 // Further added text will have this background color until another background color is
 // set or the background color is reseted with BackgroundReset. You can use hexadecimal
 // numeric literals like ColorRgb("sample", 0xFF, 0xC0, 0x33).
-func (builder *SentenceBuilder) BackgroundRgbSet(r, g, b int) *SentenceBuilder {
+func (builder *SentenceBuilder) BackgroundRgbSet(r, g, b uint8) *SentenceBuilder {
 	color := composeRgbColor(r, g, b)
 	builder.backgroundColorStack.PushFront(color)
 
@@ -199,7 +199,7 @@ func (builder *SentenceBuilder) BackgroundReset() *SentenceBuilder {
 	}
 
 	if color := builder.backgroundColorStack.Front(); color != nil {
-		if colorInt, ok := color.Value.(int); ok {
+		if colorInt, ok := color.Value.(uint8); ok {
 			builder.writeBackgroundColor(colorInt)
 		}
 
@@ -341,16 +341,16 @@ func (builder *SentenceBuilder) StrikethroughEnd() *SentenceBuilder {
 	return builder.write(strikethroughResetSeq)
 }
 
-func (builder *SentenceBuilder) writeColor(color int) *SentenceBuilder {
-	return builder.writeColorAttribute(fgColorSetSeqOpen, strconv.Itoa(color))
+func (builder *SentenceBuilder) writeColor(color uint8) *SentenceBuilder {
+	return builder.writeColorAttribute(fgColorSetSeqOpen, strconv.Itoa(int(color)))
 }
 
 func (builder *SentenceBuilder) writeColorRgb(color string) *SentenceBuilder {
 	return builder.writeColorAttribute(fgColorRgbSetSeqOpen, color)
 }
 
-func (builder *SentenceBuilder) writeBackgroundColor(color int) *SentenceBuilder {
-	return builder.writeColorAttribute(bgColorSetSeqOpen, strconv.Itoa(color))
+func (builder *SentenceBuilder) writeBackgroundColor(color uint8) *SentenceBuilder {
+	return builder.writeColorAttribute(bgColorSetSeqOpen, strconv.Itoa(int(color)))
 }
 
 func (builder *SentenceBuilder) writeBackgroundColorRgb(color string) *SentenceBuilder {

@@ -10,8 +10,6 @@ import (
 	"strings"
 )
 
-const maxColorNumber = 255
-
 // StyleBuilder allows to compose multiple color/formatting
 // attributes in a single escape sequence.
 // It can start with a predefined text to decorate (see For(string))
@@ -156,17 +154,13 @@ func (builder *StyleBuilder) White() *StyleBuilder {
 // in the 0-255 8-bit range.
 // See constants declared in the coloring package to access the most
 // common ones (0-15).
-func (builder *StyleBuilder) Color(code int) *StyleBuilder {
-	if code > maxColorNumber {
-		code = 7
-	}
-
-	return builder.addAttribute(fgColor + attrDelimiter + strconv.Itoa(code))
+func (builder *StyleBuilder) Color(code uint8) *StyleBuilder {
+	return builder.addAttribute(fgColor + attrDelimiter + strconv.Itoa(int(code)))
 }
 
 // Rgb adds an attribute to the current sequence to render text with an RGB color.
 // The terminal should support 24-bit colors.
-func (builder *StyleBuilder) Rgb(r, g, b int) *StyleBuilder {
+func (builder *StyleBuilder) Rgb(r, g, b uint8) *StyleBuilder {
 	return builder.addAttribute(fgColorRgb + attrDelimiter + composeRgbColor(r, g, b))
 }
 
@@ -286,18 +280,14 @@ func (bg *BackgroundColorBuilder) White() *StyleBuilder {
 // common ones (0-15).
 // The original StyleBuilder is returned as there's no more attributes
 // that can be specified to alter the background style.
-func (bg *BackgroundColorBuilder) Color(code int) *StyleBuilder {
-	if code > maxColorNumber {
-		code = 7
-	}
-
-	return bg.c.addAttribute(bgColor + attrDelimiter + strconv.Itoa(code))
+func (bg *BackgroundColorBuilder) Color(code uint8) *StyleBuilder {
+	return bg.c.addAttribute(bgColor + attrDelimiter + strconv.Itoa(int(code)))
 }
 
 // Rgb adds an attribute to set the background color to an RGB color.
 // The terminal should support 24-bit colors.
 // The original StyleBuilder is returned as there's no more attributes
 // that can be specified to alter the background style.
-func (bg *BackgroundColorBuilder) Rgb(r, g, b int) *StyleBuilder {
+func (bg *BackgroundColorBuilder) Rgb(r, g, b uint8) *StyleBuilder {
 	return bg.c.addAttribute(bgColorRgb + attrDelimiter + composeRgbColor(r, g, b))
 }
