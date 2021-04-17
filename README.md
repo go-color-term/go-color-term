@@ -307,7 +307,7 @@ And now you also know why the firemen were coming in the first place!
   * 8-bit colors: `Color(int)` passing a number in the range 0-255 (use constants on `coloring` package for the first 0-15 values).
   * 24-bit colors: `ColorRgb(int, int, int)` passing numbers in the 0-255 range for each RGB component.
 * Set background color: `Background()` + equivalent methods.
-* Set other style attributes: `Bold()`, `Faint()`, `Italic()`, `Underline()`, `Blink()`, `InvertColors()`, `Strikethrough()`.
+* Set other style attributes: `Bold()`, `Faint()`, `Italic()`, `Underline()`, `Blink()`, `Invert()`, `Strikethrough()`.
 
 ### `StyledText`
 

@@ -195,9 +195,9 @@ func (builder *StyleBuilder) Blink() *StyleBuilder {
 	return builder.addAttribute(blink)
 }
 
-// InvertColors adds an attribute to the current sequence to invert the current
+// Invert adds an attribute to the current sequence to invert the current
 // color and background color.
-func (builder *StyleBuilder) InvertColors() *StyleBuilder {
+func (builder *StyleBuilder) Invert() *StyleBuilder {
 	return builder.addAttribute(invert)
 }
 

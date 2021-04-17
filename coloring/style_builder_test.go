@@ -187,14 +187,14 @@ func TestStyleBuilderBlink(t *testing.T) {
 	}
 }
 
-func TestStyleBuilderInvertColors(t *testing.T) {
+func TestStyleBuilderInvert(t *testing.T) {
 	t.Parallel()
 
 	expected := "\033[7mwolf\033[0m"
-	invertColorsString := coloring.For("wolf").InvertColors().String()
+	invertString := coloring.For("wolf").Invert().String()
 
-	if invertColorsString != expected {
-		errorTest(t, invertColorsString, expected)
+	if invertString != expected {
+		errorTest(t, invertString, expected)
 	}
 }
 
