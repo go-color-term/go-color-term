@@ -6,6 +6,12 @@ This library allows to apply [_ANSI Escape Sequences_](https://en.wikipedia.org/
 
 <img src="docs/color_matrix.png" />
 
+## Project Status
+
+The project follows Semantic Versioning, so [the rule for 0.x releases applies](https://semver.org/#spec-item-4). This means that the public API shouldn't be considered stable.
+
+That said, all the current forms of using the library (described in the sections below) are in a working state.
+
 ## Supported Operating Systems and Terminals
 
 Linux, macOS and Windows are supported. See the sections belows for specific details of each platform.
