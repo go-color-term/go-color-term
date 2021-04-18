@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+* New `colorizer` package with functions to create and configure a `ColorizerFunc`.
+
 ### Changed
 * Changed integer types used in functions expecting a color number o RGB components from `int` to `uint8` to get the inherent range checks of the data type.
 
