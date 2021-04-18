@@ -56,6 +56,8 @@ const (
 	attributeBright = "bright"
 )
 
+var errInvalidColorName = fmt.Errorf("invalid color name")
+
 // Tagged allows to apply style attributes to a string using an HTML-like
 // tag syntax to mark the start and end of each attribute (bold, italics,
 // text and background colors and more).
@@ -182,7 +184,6 @@ const (
 
 func applyColorAttribute(tag string, builder *SentenceBuilder, isBrightColor bool) {
 	color, err := getColorFromTag(tag)
-
 	if err != nil {
 		return
 	}
@@ -236,7 +237,7 @@ func getColorFromTag(tag string) (uint8, error) {
 	case tagColorWhite:
 		return WHITE, nil
 	default:
-		return 0, fmt.Errorf("invalid color name")
+		return 0, errInvalidColorName
 	}
 }
 
