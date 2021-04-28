@@ -148,6 +148,7 @@ The idea is to provide with the simplest way to render styled text for each situ
 |--------------------------------|-------------------------------------------------------------------------------|
 | `coloring.*` utility functions | Simple, ad-hoc styling                                                        |
 | `StyleBuilder`                 | Combining multiple styles; reusing the same style for various strings         |
+| `colorizer.NewColorizer`       | A constructor function to build a `ColorizerFunc` using functional options    |
 | `StyledText`                   | Sealed, self-contained styled string useful for passing around                |
 | `SentenceBuilder`              | Complex styling; full control of placing (start and end) of style attributes  |
 | `coloring.Tagged`              | Custom markup syntax to embed color attributes directly in a string           |
@@ -318,6 +319,39 @@ And now you also know why the firemen were coming in the first place!
   * 24-bit colors: `ColorRgb(uint8, uint8, uint8)` passing numbers in the 0-255 range for each RGB component.
 * Set background color: `Background()` + equivalent methods.
 * Set other style attributes: `Bold()`, `Faint()`, `Italic()`, `Underline()`, `Blink()`, `Invert()`, `Strikethrough()`.
+
+### `colorizer.NewColorizer`
+
+A popular pattern in Go is the so-called Functional Options Pattern, first discussed in an [article](https://commandcenter.blogspot.com/2014/01/self-referential-functions-and-design.html) by Rob Pike, and later explored in a [presentation](https://dave.cheney.net/2014/10/17/functional-options-for-friendly-apis) by Dave Cheney.
+
+It allows to create instances of types with a variable list of options.
+
+The `coloring/colorizer` package offers a `NewColorizer` function to create instances of `ColorizerFunc` in this way:
+
+```go
+boldRed := colorizer.NewColorizer(colorizer.WithBold(), colorizer.WithRed())
+```
+
+Only normal colors have an explicit configuration option, but bright colors can be set without much fuss:
+
+```go
+yellowOnRed := colorizer.NewColorizer(
+  colorizer.WithColor(coloring.BRIGHTYELLOW),
+  colorizer.WithBackgroundColor(coloring.BRIGHTRED),
+)
+
+fmt.Println(yellowOnRed("A sunny and hot day!"))
+```
+
+RGB colors are also configurable. Here's an example for text color:
+
+```go
+purple := colorizer.NewColorizer(colorizer.WithRgb(155, 100, 225))
+
+fmt.Println(purple("Violets are blue?"))
+```
+
+See [coloring/colorizer/colorizer.go](https://github.com/go-color-term/go-color-term/blob/main/coloring/colorizer/colorizer.go) for full list of available `With*` options.
 
 ### `StyledText`
 
