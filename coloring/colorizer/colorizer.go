@@ -2,6 +2,28 @@
 // Use of this source code is governed by a MIT license that
 // can be found in the LICENSE file.
 
+/*
+Package colorizer provides a NewColorizer function to create ColorizerFunc
+instances passing zero or more configuration options.
+
+  boldRed := colorizer.NewColorizer(colorizer.WithBold(), colorizer.WithRed())
+
+Only normal colors have an explicit configuration option, but bright colors
+can be set without much fuss:
+
+  yellowOnRed := colorizer.NewColorizer(
+    colorizer.WithColor(coloring.BRIGHTYELLOW),
+    colorizer.WithBackgroundColor(coloring.BRIGHTRED),
+  )
+
+  fmt.Println(yellowOnRed("A sunny and hot day!"))
+
+RGB colors are also configurable:
+
+  purple := colorizer.NewColorizer(colorizer.WithRgb(155, 100, 225))
+
+  fmt.Println(purple("Violets are blue?"))
+*/
 //nolint:exhaustivestruct
 package colorizer
 
